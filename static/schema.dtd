@@ -1,0 +1,256 @@
+<!-- System model contains the following loosely connected items -->
+<!ELEMENT mbse (
+    orig|
+    usecase|
+    behavior|
+    constraint|
+    performance|
+    verification|
+    architecture
+)*>
+
+<!-- Define the copyright owner, e.g. John Doe -->
+<!ATTLIST mbse
+    copyright CDATA ""
+>
+
+<!-- #############################################################-->
+<!-- Orignating requirement -->
+<!ELEMENT orig (
+    description,
+    reference,
+    trace*
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST orig
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- verbose description of an item, written in Markdown language. -->
+<!ELEMENT description (#PCDATA|aside)*>
+
+<!-- side note -->
+<!ELEMENT aside (#PCDATA)>
+<!ATTLIST aside
+    class (note|issue) #REQUIRED
+>
+
+<!-- Catchy words of the description -->
+<!ATTLIST description
+    brief CDATA #REQUIRED
+>
+
+<!-- Provide citation/reference of the requirement in hyperlink -->
+<!ELEMENT reference (#PCDATA)>
+
+<!-- Full name of the stakeholder -->
+<!ATTLIST reference
+    stakeholder CDATA #REQUIRED
+>
+
+<!-- Trace the originating requirement to the internal model. -->
+<!ELEMENT trace EMPTY>
+<!ATTLIST trace
+    ref IDREF #REQUIRED
+>
+
+<!-- #############################################################-->
+<!-- Use cases -->
+<!ELEMENT usecase (uml,
+    description,
+    trace+,
+    pre-condition+,
+    main-event+,
+    post-condition+,
+    alternate-event+
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST usecase
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- Generic diagram, witten in PlantUML language. -->
+<!ELEMENT uml (#PCDATA|this)*>
+
+<!-- Use the tag <this/> to refer to the id of the requirement. -->
+<!ELEMENT this EMPTY>
+
+<!-- Optionally, specify the id of the child requirement. -->
+<!ATTLIST this
+    ref IDREF #IMPLIED
+>
+
+<!-- Sections of the use case description, borrowed from Alistair Cockburn -->
+<!ELEMENT pre-condition (#PCDATA)>
+<!ELEMENT main-event (#PCDATA)>
+<!ELEMENT post-condition (#PCDATA)>
+<!ELEMENT alternate-event (#PCDATA)>
+
+<!-- #############################################################-->
+<!-- Behavior -->
+<!ELEMENT behavior (
+    uml,
+    description,
+    function+
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST behavior
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- Describe a step / function in the behavior diagram. -->
+<!ELEMENT function (
+    description,
+    trace+
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST function
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- #############################################################-->
+<!-- System constraints -->
+<!ELEMENT constraint (
+    categories,
+    description,
+    rationale,
+    trace*,
+    test*
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST constraint
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- System performace specification. Require a linked verification plan. -->
+<!ELEMENT performance (
+    categories,
+    description,
+    rationale,
+    trace*,
+    test+
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST performance
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- Describe the rationale of the system constraint in Markdown language. -->
+<!ELEMENT rationale (#PCDATA)>
+
+<!-- Group the system specifications by user-defined tags -->
+<!ELEMENT categories EMPTY>
+
+<!--
+    allocation: who are responsible
+    discipline: mech or ee or sw
+    group:
+        logistics, regulatory, environment, general, maintenance, reliability, labelling,
+        and information
+-->
+<!ATTLIST categories
+    allocation NMTOKEN #REQUIRED
+    discipline NMTOKENS #REQUIRED
+    group NMTOKEN #REQUIRED
+    method NMTOKEN #IMPLIED
+>
+
+<!-- Link to the verification plan -->
+<!ELEMENT test EMPTY>
+<!ATTLIST test
+    ref IDREF #REQUIRED
+>
+
+<!-- #############################################################-->
+<!-- Verification plan -->
+<!ELEMENT verification (
+    categories,
+    description
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST verification
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- #############################################################-->
+<!-- Physical architecture diagrams -->
+<!ELEMENT architecture (
+    uml,
+    description,
+    interface+
+)>
+
+<!--
+    id: identifier
+    status: initial or firm
+-->
+<!ATTLIST architecture
+    id ID #REQUIRED
+    status NMTOKEN "initial"
+>
+
+<!-- Interface between two components of a system -->
+<!ELEMENT interface (
+    description,
+    mechanical*,
+    optical*,
+    electrical*,
+    software*,
+    trace*
+)>
+
+<!--
+    id: identifier
+    external: boolean, whether it is controlled by stakeholders
+-->
+<!ATTLIST interface
+    id ID #REQUIRED
+    external (true|false) 'false'
+>
+
+<!-- Mechanical properties of the interface -->
+<!ELEMENT mechanical (#PCDATA)>
+
+<!-- Electrical properties of the interface -->
+<!ELEMENT electrical (#PCDATA)>
+
+<!-- Optical properties of the interface -->
+<!ELEMENT optical (#PCDATA)>
+
+<!-- Software or firmware properties of the interface -->
+<!ELEMENT software (#PCDATA)>

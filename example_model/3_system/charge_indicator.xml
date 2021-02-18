@@ -1,0 +1,17 @@
+<performance id="sys-1" status="proposed">
+<categories allocation="ee" discipline="ee" group="Charging"/>
+<rationale/>
+<description brief="Charge duration">A battery with &lt;5% capacity shall charge to >95% capacity in &lt;5 hours.</description>
+
+<trace ref="fnc-1"/>
+<test ref="ver-1"/>
+</performance>
+
+<constraint id="sys-2" status="firm">
+<categories allocation="user_interface" discipline="mech ee" group="Charging"/>
+<rationale/>
+<description brief="Charge indicator location">The charge indicator shall be located 1.0 +/- 0.2 cm from the charging port.</description>
+
+<trace ref="fnc-1"/>
+<test ref="ver-1"/>
+</constraint>

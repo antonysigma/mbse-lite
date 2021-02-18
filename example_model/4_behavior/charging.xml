@@ -1,0 +1,29 @@
+<behavior id="fnc-1" status="initial">
+<uml>
+start
+:Connect device to charger;
+fork
+    repeat
+    repeat while (Device disconnected from charger?) is (no)
+    -> yes;
+fork again
+    repeat
+    split
+        <this ref="fnc-1.1" />
+    split again
+        :Blink charge indicator yellow;
+    end split
+    repeat while (Charge complete?) is (no)
+    -> yes;
+    :Charge indicator green;
+end fork
+end
+</uml>
+<description brief="Charge device">Charge device</description>
+
+<function id="fnc-1.1" status="initial">
+<description brief="Charge device">The device battery shall charge.</description>
+
+<trace ref="sys-1"/>
+</function>
+</behavior>

@@ -1,0 +1,22 @@
+<usecase id="ucd-1" status="initial">
+<uml>
+:User: -- <this/>
+:Power Supply: -- <this/>
+</uml>
+<description brief="Charging">The device battery is re-charged.</description>
+
+<trace ref="sys-1"/>
+<trace ref="fnc-1"/>
+<trace ref="int-1"/>
+<trace ref="int-2"/>
+
+<pre-condition>Device has a partially depleted battery</pre-condition>
+
+<main-event>User connects device</main-event>
+<main-event>The device charge indicator blinks to indicate charging</main-event>
+<main-event>The device charges</main-event>
+
+<post-condition>Device has a charged battery</post-condition>
+
+<alternate-event>The user disconnects the device from the charger before charging is complete</alternate-event>
+</usecase>

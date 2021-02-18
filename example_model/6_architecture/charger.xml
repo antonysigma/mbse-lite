@@ -1,0 +1,49 @@
+<architecture id="pad-1" status="initial">
+<description brief="Power">A power port accessible by the user and used to charge the device.</description>
+<uml>
+node "Charging subsystem" {
+[Data port] -- <this ref="int-2"/>
+[Data port] -- (int-3)
+
+[Power port] -- <this ref="int-1"/>
+[Power port] -- <this ref="int-2"/>
+
+[LEDs] -- <this ref="int-2"/>
+
+[Device housing] -- <this ref="int-2"/>
+
+[PCB] -- [LEDs]
+[PCB] -- [Data port]
+[PCB] -- [Power port]
+}
+
+node Computer
+node User
+node "Power supply" as PS
+
+Computer ..> (int-3): use
+User ..> <this ref="int-2" />: use
+PS ..> <this ref="int-1"/>: use
+
+</uml>
+
+<interface id="int-1" external="true">
+<description brief="Power interface">The device connects to a power supply via a connector for charging.</description>
+<mechanical>The power interface shall be a micro-USB power connector.</mechanical>
+<mechanical>The power supply shall contain the plug, the device shall contain the jack.</mechanical>
+<electrical>The device shall receive 1A max, 5V +/- 25mV via the power interface.</electrical>
+
+<trace ref="sys-1"/>
+</interface>
+
+<interface id="int-2">
+<description brief="Front panel">The device has a physical port on the front panel for charging.</description>
+<mechanical>LED shall fit a 3.1 mm diameter hole on the housing.</mechanical>
+<mechanical>LED shall be yellow in color.</mechanical>
+<electrical>The LED shall receive forward current 20mA.</electrical>
+<software>The LED shall be blinking at 2 second interval.</software>
+
+<trace ref="sys-2"/>
+</interface>
+
+</architecture>
