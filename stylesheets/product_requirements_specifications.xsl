@@ -9,7 +9,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
   <html>
   <head>
-  <title>Product requirements specifications</title>
+  <title>Product requirements specification</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
@@ -37,7 +37,7 @@ $("body").css('background','white');
   <ol>
   <li><a href="originating_requirements.html">Originating requirements</a></li>
   <li><a href="use_cases.html">Use cases</a></li>
-  <li>Product requirements and specifications (this document)</li>
+  <li>Product requirements specification (this document)</li>
   <li><a href="physical_architecture.html">Physical architecture and interfaces</a></li>
   </ol>
 

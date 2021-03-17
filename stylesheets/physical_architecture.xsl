@@ -37,7 +37,7 @@ $("body").css('background','white');
   <ol>
   <li><a href="originating_requirements.html">Originating requirements</a></li>
   <li><a href="use_cases.html">Use cases</a></li>
-  <li><a href="product_requirements_specifications.html">Product requirements and specifications</a></li>
+  <li><a href="product_requirements_specifications.html">Product requirements specification</a></li>
   <li>Physical architecture and interfaces (this document)</li>
   </ol>
 
