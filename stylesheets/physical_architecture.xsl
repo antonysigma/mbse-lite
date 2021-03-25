@@ -96,7 +96,7 @@ internal components of the system.</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
     <p><xsl:value-of select="description"/></p>
 
-    <figure id="{ @id-uml }">
+    <figure id="{ @id }-uml">
 
     <pre class="uml">
     <xsl:apply-templates select="uml"/>
@@ -114,7 +114,7 @@ internal components of the system.</figcaption>
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
 
-    <section>
+    <section class="markdown">
     <h2 id="{ $id }"><xsl:value-of select="$title"/></h2>
     <p><xsl:value-of select="description"/></p>
 
@@ -124,8 +124,8 @@ internal components of the system.</figcaption>
     </ul>
 
     <xsl:if test="mechanical">
-    <section>
-    <h2 id="{ @id }-mechanical-descriptions">Mechanical description</h2>
+    <section class="markdown">
+    <h3 id="{ @id }-mechanical-descriptions">Mechanical description</h3>
     <ul>
     <xsl:apply-templates select="mechanical"/>
     </ul>
@@ -133,8 +133,8 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="optical">
-    <section>
-    <h2 id="{ @id }-optical-descriptions">Optical description</h2>
+    <section class="markdown">
+    <h3 id="{ @id }-optical-descriptions">Optical description</h3>
     <ul>
     <xsl:apply-templates select="optical"/>
     </ul>
@@ -142,8 +142,8 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="electrical">
-    <section>
-    <h2 id="{ @id }-electrical-descriptions">Electrical descriptions</h2>
+    <section class="markdown">
+    <h3 id="{ @id }-electrical-descriptions">Electrical descriptions</h3>
     <ul>
     <xsl:apply-templates select="electrical"/>
     </ul>
@@ -151,8 +151,8 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="software">
-    <section>
-    <h2 id="{ @id }-software-descriptions">Software / firmware descriptions</h2>
+    <section class="markdown">
+    <h3 id="{ @id }-software-descriptions">Software / firmware descriptions</h3>
     <ul>
     <xsl:apply-templates select="software"/>
     </ul>

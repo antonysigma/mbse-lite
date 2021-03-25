@@ -168,7 +168,7 @@ which in turn is verified by the Verification plans</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
     <p><xsl:value-of select="description"/></p>
 
-    <figure id="{ @id-uml }">
+    <figure id="{ @id }-uml">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <xsl:apply-templates select="uml"/>
     </figure>
