@@ -14,7 +14,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
   <script class="remove">
- var respecConfig = {
+ const respecConfig = {
       specStatus: "unofficial",
       github: "Mango-Inc/mbse-lite",
       additionalCopyrightHolders: "<xsl:value-of select="mbse/@copyright"/>",
@@ -22,8 +22,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 $(function() {
 $(".uml").each(function() {
-  var src = "https://www.plantuml.com/plantuml/img/" + window.plantumlEncoder.encode( $(this).text() )
-  $(this).replaceWith($('&lt;img>').attr('src', src));
+    const alt = $(this).text();
+    const src = "http://localhost:8000/plantuml/svg/" + window.plantumlEncoder.encode( alt );
+    $(this).replaceWith($('&lt;img>').attr('src', src).attr('alt', alt));
 });
 $(".copyright").text("Copyright © <xsl:value-of select="mbse/@copyright"/>.");
 $("body").css('background','white');
