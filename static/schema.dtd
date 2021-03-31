@@ -181,8 +181,9 @@
 <!ATTLIST categories
     allocation NMTOKEN #REQUIRED
     discipline NMTOKENS #REQUIRED
-    group NMTOKEN #REQUIRED
+    group NMTOKEN #IMPLIED
     method NMTOKEN #IMPLIED
+    owner NMTOKEN #IMPLIED
 >
 
 <!-- Link to the verification plan -->

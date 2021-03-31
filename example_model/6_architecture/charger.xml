@@ -1,5 +1,4 @@
 <architecture id="pad-1" status="initial">
-<description brief="Power">A power port accessible by the user and used to charge the device.</description>
 <uml>
 node "Charging subsystem" {
 [Data port] -- <this ref="int-2"/>
@@ -26,6 +25,7 @@ User ..> <this ref="int-2" />: use
 PS ..> <this ref="int-1"/>: use
 
 </uml>
+<description brief="Power">A power port accessible by the user and used to charge the device.</description>
 
 <interface id="int-1" external="true">
 <description brief="Power interface">The device connects to a power supply via a connector for charging.</description>
