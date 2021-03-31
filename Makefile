@@ -10,7 +10,7 @@ all:$(reports)
 
 validate:$(main) static/schema.dtd
 	xmllint --dtdvalid static/schema.dtd --noout $< &&\
-		echo 'Model validates' || echo 'Model does not validate'
+		echo 'Model validates'
 
 vis:out/network.html
 
