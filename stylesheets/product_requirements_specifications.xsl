@@ -228,7 +228,7 @@ which in turn is verified by the Verification plans</figcaption>
 
 <xsl:template match="this">
   <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
-:[<xsl:value-of select="$idref"/>] <xsl:value-of select="../../function[@id=$idref]/description/@brief"/>;</xsl:template>
+:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:template>
 
 <xsl:template match="trace|test">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
