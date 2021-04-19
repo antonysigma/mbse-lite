@@ -24,7 +24,7 @@
 
 <!--
     id: identifier
-    status: initial or firm
+    status: initial, tentative, firm, or obsolete
 -->
 <!ATTLIST orig
     id ID #REQUIRED
