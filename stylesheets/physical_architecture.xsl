@@ -196,6 +196,7 @@ internal components of the system.</figcaption>
 
 <xsl:template match="uml"><xsl:apply-templates/></xsl:template>
 
-<xsl:template match="this">(<xsl:value-of select="@ref"/>)</xsl:template>
+<xsl:template match="this">
+<xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>() "[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/>"</xsl:template>
 
 </xsl:stylesheet>
