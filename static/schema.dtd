@@ -37,7 +37,7 @@
 <!-- side note -->
 <!ELEMENT aside (#PCDATA)>
 <!ATTLIST aside
-    class (note|issue) #REQUIRED
+    class (note|issue|example) #REQUIRED
 >
 
 <!-- Catchy words of the description -->
@@ -101,7 +101,8 @@
 <!ELEMENT behavior (
     uml,
     description,
-    function+
+    function+,
+    test*
 )>
 
 <!--
