@@ -14,6 +14,15 @@ validate:$(main) static/schema.dtd
 
 vis:out/network.html
 
+debug: | static/plantuml.jar
+	java -jar static/plantuml.jar -picoweb:8000 & \
+	while true; do \
+		inotifywait -e modify,create,delete -r model/ && \
+			sleep 1 && \
+			$(MAKE); \
+	done
+
+
 ################################################################################
 $(reports):out/%.html:stylesheets/%.xsl $(main)
 	xsltproc -o $@ $^
