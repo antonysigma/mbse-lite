@@ -80,7 +80,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
 
     <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:value-of select="description"/></p>
+    <p><xsl:apply-templates select="description"/></p>
 
     <figure id="{ @id-uml }">
 
@@ -150,6 +150,12 @@ Use cases helps capture missing high-level requirements.</figcaption>
 
 <xsl:template match="pre-condition|main-event|post-condition|alternate-event">
 <li><xsl:value-of select="text()"/></li>
+</xsl:template>
+
+<xsl:template match="description"><xsl:apply-templates/></xsl:template>
+
+<xsl:template match="aside">
+  <aside class="{ @class }"><xsl:value-of select="."/></aside>
 </xsl:template>
 
 <xsl:template match="uml"><xsl:apply-templates/></xsl:template>

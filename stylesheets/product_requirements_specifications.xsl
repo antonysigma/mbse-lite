@@ -50,7 +50,7 @@ $("body").css('background','white');
 
   <section class="introductory">
   <h2>How to use this document</h2>
-<p>The document refines and analyzes the system-level requirements
+<p>The document refines and analyzes the system-level requirements.
 Since good system-level requirements aren’t complete unless they are testable,
 verification is also planned. The goal of this phase is to provide the engineering team with the
 inputs they need to architect the product.</p>
@@ -62,8 +62,8 @@ System Requirements refine and internalize the stakeholder needs in the engineer
 and in turn can be verified by Verification Plans.</figcaption>
 </figure>
 
-<p>This is communicated via a Product Requirements.
-Specification (PRS). For ease of review, the PRS has been divided into three separate parts – the
+<p>This is communicated via a Product Requirements Specification (PRS).
+For ease of review, the PRS has been divided into three separate parts – the
 Constraint Specification, the Functional Specification, and the Verification Plan.
 A note on nomenclature – ‘system-level requirements’ are captured in the constraints specification items
 and in the Behavior Diagrams/functions of the Functional Specifications.</p>
@@ -114,7 +114,10 @@ which in turn is verified by the Verification plans</figcaption>
 
 <section>
 <h2 id="functional">Functional specifications</h2>
-<xsl:apply-templates select="//behavior"/>
+  <xsl:for-each select="//behavior">
+      <xsl:sort select="@id"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
 </section>
 
 <section>
@@ -130,8 +133,11 @@ which in turn is verified by the Verification plans</figcaption>
   <xsl:param name = "group"/>
   <section>
   <h2><xsl:value-of select="$group"/></h2>
-  <xsl:apply-templates select="//constraint[categories/@group=$group]"/>
-  <xsl:apply-templates select="//performance[categories/@group=$group]"/>
+  <xsl:for-each select="//*[(name() = 'constraint' or name() = 'performance') and categories/@group=$group]">
+      <xsl:sort select="substring-after(@id,'-')" data-type="number"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
+  <xsl:apply-templates/>
   </section>
 </xsl:template>
 
@@ -142,10 +148,9 @@ which in turn is verified by the Verification plans</figcaption>
     <ul>
     <li><b>Allocation:</b> <xsl:value-of select="categories/@allocation"/></li>
     <li><b>Discipline:</b> <xsl:value-of select="categories/@discipline"/></li>
-    <li><b>Group:</b> <xsl:value-of select="categories/@group"/></li>
     </ul>
 
-    <div><xsl:value-of select="description"/></div>
+    <div><xsl:apply-templates select="description"/></div>
 
     <xsl:if test="rationale/text() != ''">
     <p><b>Rationale:</b> <xsl:value-of select="rationale"/></p>
@@ -167,7 +172,7 @@ which in turn is verified by the Verification plans</figcaption>
   <section>
     <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:value-of select="description"/></p>
+    <div><xsl:apply-templates select="description"/></div>
 
     <figure id="{ @id }-uml">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
@@ -183,7 +188,7 @@ which in turn is verified by the Verification plans</figcaption>
 
     <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:value-of select="description"/></p>
+    <div><xsl:apply-templates select="description"/></div>
 
     <p>Linked requirements:</p>
     <ul>
