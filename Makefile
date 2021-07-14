@@ -5,6 +5,7 @@ reports=out/originating_requirements.html \
 	out/network.html
 main=out/main.xml
 copyright=Mango Inc
+plantuml_host=http://www.plantuml.com
 
 all:$(reports)
 
@@ -32,6 +33,6 @@ out/graphml.xml:stylesheets/graphml.xsl $(main)
 
 $(main): $(sort $(wildcard example_model/*/*.xml))
 	mkdir -p $(dir $(main))
-	echo '<mbse copyright="$(copyright)">' > $@ &&\
+	echo '<mbse copyright="$(copyright)" plantuml_host="$(plantuml_host)">' > $@ &&\
 	cat $^ >> $@ &&\
 	echo '</mbse>' >> $@

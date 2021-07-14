@@ -12,16 +12,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script class="remove">
- var respecConfig = {
-      specStatus: "unofficial",
-      github: "Mango-Inc/mbse-lite",
-      additionalCopyrightHolders: "<xsl:value-of select="mbse/@copyright"/>",
-    };
+function changeCopyright(config, document) {
+    $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
+}
 
-    $(function () {
-$(".copyright").text("Copyright © <xsl:value-of select="mbse/@copyright"/>.");
-$("body").css('background','white');
-    });
+function removeW3CWatermark(config, document) {
+    $('body').css('background', 'white');
+}
+
+const respecConfig = {
+    specStatus: 'unofficial',
+    github: 'Mango-Inc/mbse-lite',
+    additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
+    postProcess: [changeCopyright, removeW3CWatermark],
+};
     </script>
   </head>
   <body>

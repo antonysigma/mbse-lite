@@ -12,6 +12,7 @@
 <!-- Define the copyright owner, e.g. John Doe -->
 <!ATTLIST mbse
     copyright CDATA ""
+    plantuml_host CDATA "www.plantuml.com"
 >
 
 <!-- #############################################################-->
