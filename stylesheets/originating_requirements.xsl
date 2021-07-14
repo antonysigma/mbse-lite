@@ -56,7 +56,7 @@ Originating requirements captures the high-level requirements from all stakehold
 Those will be internalized in the System-level requirements.</figcaption>
 </figure>
 
-<p>The first step is to import all of the input content into the MBSE database. Many MBSE tools have
+<p>The first step is to import all of the input content into the requirement tracking database. Many word processing tools have
 a utility that can help with this step. Once the originating requirements have been captured within
 the database, the requirements trace begins. Originating requirements can trace to use cases, system
 requirements, and interfaces. These
