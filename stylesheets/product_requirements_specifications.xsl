@@ -37,6 +37,9 @@ const respecConfig = {
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],
+    alternateFormats: [
+        {label: 'XML', uri: './main.xml'},
+    ],
 };
     </script>
   </head>

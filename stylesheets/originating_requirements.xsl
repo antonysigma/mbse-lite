@@ -25,6 +25,9 @@ const respecConfig = {
     github: 'Mango-Inc/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     postProcess: [changeCopyright, removeW3CWatermark],
+    alternateFormats: [
+        {label: 'XML', uri: './main.xml'},
+    ],
 };
     </script>
   </head>
