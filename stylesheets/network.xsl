@@ -35,11 +35,11 @@ var nodes = [
 <xsl:apply-templates select="//*[@id]"/>
 ];
 
-level = {'org': 0, 'ucd': 1, 'sys': 3, 'fnc': 4, 'int': 5, 'pad': 6, 'ver': 7};
+const level = {'org': 0, 'ucd': 1, 'sys': 3, 'fnc': 4, 'int': 5, 'pad': 6, 'ver': 7, 'doc': 8};
 
 <![CDATA[
 for (var i= 0; i < nodes.length; ++i) {
-  var this_level = level[nodes[i].group]
+  const this_level = level[nodes[i].group];
   nodes[i]['level'] = this_level;
 
   if(this_level == 1 || this_level >= 6) {
@@ -48,7 +48,7 @@ for (var i= 0; i < nodes.length; ++i) {
 }
 ]]>
 
-var edges = [
+const edges = [
 <xsl:apply-templates select="//trace"/>
 <xsl:apply-templates select="//test"/>
 <xsl:apply-templates select="//interface" mode="link"/>
@@ -56,7 +56,7 @@ var edges = [
 ];
 
 function draw(data) {
-    var options = {
+    const options = {
         nodes: {
           shape: "dot",
           font: {
@@ -70,6 +70,7 @@ function draw(data) {
         //layout: {
         //    hierarchical: {
         //      direction: 'UD',
+        //      sortMethod: 'directed',
         //    },
         //  },
       };

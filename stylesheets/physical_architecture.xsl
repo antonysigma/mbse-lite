@@ -32,7 +32,7 @@ function renderPlantUML(config, document) {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'Mango-Inc/mbse-lite',
+    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],
@@ -53,11 +53,11 @@ const respecConfig = {
   <li>Physical architecture and interfaces (this document)</li>
   </ol>
 
-  <p>The document refines the high-level requirements into system-level specifications.
+  <p>The document maps all specifications to hardware or software interfaces.
   To contribute more contents, identify all external interfaces and describe all properties
   that meets the system-level specifications:
    mechanical / optical / electrical / softrware.
-  Remove all internal interfaces.</p>
+  Omit all internal interfaces; those should reside in code comments or in the technical reports.</p>
   </section>
 
   <section class="introductory">

@@ -6,7 +6,8 @@
     constraint|
     performance|
     verification|
-    architecture
+    architecture|
+    document
 )*>
 
 <!-- Define the copyright owner, e.g. John Doe -->
@@ -33,7 +34,7 @@
 >
 
 <!-- verbose description of an item, written in Markdown language. -->
-<!ELEMENT description (#PCDATA|aside)*>
+<!ELEMENT description (#PCDATA|aside|figure)*>
 
 <!-- side note -->
 <!ELEMENT aside (#PCDATA)>
@@ -46,12 +47,23 @@
     brief CDATA #REQUIRED
 >
 
+<!ELEMENT figure (#PCDATA)>
+
+<!ATTLIST figure
+    src CDATA #REQUIRED
+>
+
+<!ELEMENT figcaption (#PCDATA)>
+
 <!-- Provide citation/reference of the requirement in hyperlink -->
-<!ELEMENT reference (#PCDATA)>
+<!ELEMENT reference EMPTY>
 
 <!-- Full name of the stakeholder -->
 <!ATTLIST reference
-    stakeholder CDATA #REQUIRED
+    href CDATA #IMPLIED
+    title CDATA #IMPLIED
+    stakeholder CDATA #IMPLIED
+    publisher CDATA #IMPLIED
 >
 
 <!-- Trace the originating requirement to the internal model. -->
@@ -118,7 +130,7 @@
 <!-- Describe a step / function in the behavior diagram. -->
 <!ELEMENT function (
     description,
-    trace+
+    trace*
 )>
 
 <!--
@@ -198,7 +210,8 @@
 <!-- Verification plan -->
 <!ELEMENT verification (
     categories,
-    description
+    description,
+    trace*
 )>
 
 <!--
@@ -257,3 +270,9 @@
 
 <!-- Software or firmware properties of the interface -->
 <!ELEMENT software (#PCDATA)>
+
+<!ELEMENT document (description,reference)>
+
+<!ATTLIST document
+    id ID #REQUIRED
+>

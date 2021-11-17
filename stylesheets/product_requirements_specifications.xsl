@@ -31,15 +31,20 @@ function renderPlantUML(config, document) {
     });
 }
 
+const localBiblio = {
+<xsl:apply-templates select="//document/reference"/>
+};
+
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'Mango-Inc/mbse-lite',
+    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],
     alternateFormats: [
         {label: 'XML', uri: './main.xml'},
     ],
+    localBiblio: localBiblio,
 };
     </script>
   </head>
@@ -134,7 +139,10 @@ which in turn is verified by the Verification plans</figcaption>
 
 <section>
 <h2 id="verification">Verification plan</h2>
-<xsl:apply-templates select="//verification"/>
+  <xsl:for-each select="//verification">
+      <xsl:sort select="@id"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
 </section>
 
   </body>
@@ -158,8 +166,8 @@ which in turn is verified by the Verification plans</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></h2>
 
     <ul>
-    <li><b>Allocation:</b> <xsl:value-of select="categories/@allocation"/></li>
-    <li><b>Discipline:</b> <xsl:value-of select="categories/@discipline"/></li>
+    <li><b>Allocation: </b> <xsl:value-of select="categories/@allocation"/></li>
+    <li><b>Discipline: </b> <xsl:value-of select="categories/@discipline"/></li>
     </ul>
 
     <div><xsl:apply-templates select="description"/></div>
@@ -221,6 +229,11 @@ which in turn is verified by the Verification plans</figcaption>
     <section data-format="markdown">
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
 
+    <ul>
+    <li><b>Allocation: </b> <xsl:value-of select="categories/@allocation"/></li>
+    <li><b>Discipline: </b> <xsl:value-of select="categories/@discipline"/></li>
+    </ul>
+
     <div><xsl:apply-templates select="description"/></div>
 
     <p>Linked requirements:</p>
@@ -232,6 +245,13 @@ which in turn is verified by the Verification plans</figcaption>
 
 <xsl:template match="aside">
   <aside class="{ @class }"><xsl:value-of select="."/></aside>
+</xsl:template>
+
+<xsl:template match="figure">
+  <figure>
+    <img src="{ @src }"/>
+    <figcaption><xsl:value-of select="."/></figcaption>
+  </figure>
 </xsl:template>
 
 <xsl:template match="uml">
@@ -252,18 +272,36 @@ which in turn is verified by the Verification plans</figcaption>
     <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
 </xsl:template>
 
+<xsl:template match="reference">
+  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/></xsl:variable>
+<xsl:value-of select="$idref"/>: {
+  title: "<xsl:value-of select="../description/@brief"/>",
+  href: "<xsl:value-of select="@href"/>",
+  publisher: "<xsl:value-of select="@publisher"/>",
+},
+</xsl:template>
+
 <xsl:template match="description" mode="link">
-    <li>
-<b>[<a>
-<xsl:attribute name="href">
-  <xsl:choose>
-    <xsl:when test="name(..) = 'interface'">./physical_architecture.html#</xsl:when>
-    <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
-    <xsl:otherwise>#</xsl:otherwise>
-  </xsl:choose>
-  <xsl:value-of select="../@id"/>
-</xsl:attribute>
-<xsl:value-of select="../@id"/></a>] <xsl:value-of select="@brief"/>:</b>
+  <xsl:variable name="hash">
+    <xsl:choose>
+      <xsl:when test="name(..) = 'interface'">./physical_architecture.html#</xsl:when>
+      <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
+      <xsl:otherwise>#</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+    <li><b>
+<xsl:choose>
+  <xsl:when test="../reference">
+    <!-- External document reference -->
+    [[<xsl:value-of select="translate(../@id, '-', '')"/>]]
+  </xsl:when>
+  <xsl:otherwise>
+    <!-- Cross-reference -->
+    [<a href="{ concat($hash, ../@id) }"><xsl:value-of select="../@id"/></a>]
+  </xsl:otherwise>
+</xsl:choose>
+<xsl:value-of select="@brief"/>:</b>
 <xsl:value-of select="text()"/>
     </li>
 </xsl:template>

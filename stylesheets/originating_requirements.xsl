@@ -5,6 +5,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="html" indent="yes" />
 
+<xsl:key name="group_id" match="reference" use="@stakeholder" />
+
 <xsl:template match="/">
   <html>
   <head>
@@ -22,7 +24,7 @@ function removeW3CWatermark(config, document) {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'Mango-Inc/mbse-lite',
+    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     postProcess: [changeCopyright, removeW3CWatermark],
     alternateFormats: [
@@ -93,12 +95,25 @@ updated to ensure that they are coherent and traceable.</p>
 
   <section id="tof"/>
 
-  <xsl:for-each select="//orig">
-    <xsl:sort select="@id"/>
-    <xsl:apply-templates select="."/>
+  <xsl:for-each select="//reference[generate-id() = generate-id(key('group_id', @stakeholder)[1])]">
+    <xsl:call-template name="group_requirement_by_stakeholder">
+          <xsl:with-param name="group" select = "@stakeholder"/>
+    </xsl:call-template>
   </xsl:for-each>
+
   </body>
   </html>
+</xsl:template>
+
+<xsl:template name = "group_requirement_by_stakeholder">
+  <xsl:param name = "group"/>
+  <section>
+  <h2><xsl:value-of select="$group"/></h2>
+  <xsl:for-each select="//orig[reference/@stakeholder=$group]">
+      <xsl:sort select="substring-after(@id,'-')" data-type="number"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
+  </section>
 </xsl:template>
 
 <xsl:template match="orig">
@@ -107,8 +122,11 @@ updated to ensure that they are coherent and traceable.</p>
     <xsl:value-of select="description"/>
 
     <xsl:if test="reference/@stakeholder != ''">
-    <p>Requested by <xsl:value-of select="reference/@stakeholder"/> at
-        <a href="{ reference }"><xsl:value-of select="reference"/></a></p>
+    <p>Requested by <xsl:value-of select="reference/@stakeholder"/>;
+      <xsl:if test="reference/@href">
+        at <a href="{ @href }"><xsl:value-of select="@href"/></a>.
+      </xsl:if>
+    </p>
     </xsl:if>
 
     <xsl:if test="trace">
@@ -138,6 +156,15 @@ updated to ensure that they are coherent and traceable.</p>
 <xsl:value-of select="../@id"/></a>] <xsl:value-of select="@brief"/>:</b>
 <xsl:value-of select="text()"/>
     </li>
+</xsl:template>
+
+<xsl:template match="reference">
+  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/>_external</xsl:variable>
+<xsl:value-of select="$idref"/>: {
+  title: "<xsl:value-of select="../description/@brief"/>",
+  href: "<xsl:value-of select="@href"/>",
+  publisher: "<xsl:value-of select="@stakeholder"/>",
+},
 </xsl:template>
 
 </xsl:stylesheet>

@@ -4,7 +4,7 @@ reports=out/originating_requirements.html \
 	out/physical_architecture.html \
 	out/network.html
 main=out/main.xml
-copyright=Mango Inc
+copyright=
 plantuml_host=http://www.plantuml.com
 
 all:$(reports)
