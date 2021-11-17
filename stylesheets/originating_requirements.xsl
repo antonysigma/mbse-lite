@@ -24,7 +24,6 @@ function removeW3CWatermark(config, document) {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     postProcess: [changeCopyright, removeW3CWatermark],
     alternateFormats: [

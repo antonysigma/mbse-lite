@@ -32,7 +32,6 @@ function renderPlantUML(config, document) {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],
@@ -92,7 +91,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
 
     <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:apply-templates select="description"/></p>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <figure id="{ @id-uml }">
 

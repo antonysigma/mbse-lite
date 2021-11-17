@@ -32,7 +32,6 @@ function renderPlantUML(config, document) {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],

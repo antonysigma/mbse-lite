@@ -10,9 +10,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <html>
   <head>
   <title>Product requirements specification</title>
+  <link rel="stylesheet" href="https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.css"/>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.js"></script>
   <script class="remove">
 function changeCopyright(config, document) {
     $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
@@ -37,7 +41,6 @@ const localBiblio = {
 
 const respecConfig = {
     specStatus: 'unofficial',
-    github: 'antonysigma/mbse-lite',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
     preProcess: [renderPlantUML],
     postProcess: [changeCopyright, removeW3CWatermark],
@@ -265,7 +268,7 @@ which in turn is verified by the Verification plans</figcaption>
 
 <xsl:template match="this">
   <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
-:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:template>
+<xsl:value-of select="@color"/>:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:template>
 
 <xsl:template match="trace|test">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
@@ -304,6 +307,12 @@ which in turn is verified by the Verification plans</figcaption>
 <xsl:value-of select="@brief"/>:</b>
 <xsl:value-of select="text()"/>
     </li>
+</xsl:template>
+
+<xsl:template match="railroad">
+  <script>
+    <xsl:value-of select="."/>
+  </script>
 </xsl:template>
 
 </xsl:stylesheet>
