@@ -135,7 +135,7 @@ which in turn is verified by the Verification plans</figcaption>
 <section>
 <h2 id="functional">Functional specifications</h2>
   <xsl:for-each select="//behavior">
-      <xsl:sort select="@id"/>
+      <xsl:sort select="substring-after(@id, '-')" data-type="number"/>
       <xsl:apply-templates select="."/>
   </xsl:for-each>
 </section>
@@ -143,7 +143,7 @@ which in turn is verified by the Verification plans</figcaption>
 <section>
 <h2 id="verification">Verification plan</h2>
   <xsl:for-each select="//verification">
-      <xsl:sort select="@id"/>
+      <xsl:sort select="substring-after(@id, '-')" data-type="number"/>
       <xsl:apply-templates select="."/>
   </xsl:for-each>
 </section>
