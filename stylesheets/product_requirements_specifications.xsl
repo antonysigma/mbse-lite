@@ -20,6 +20,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <script src="../static/main.js"></script>
   <script class="remove">
 const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
+const idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
 
 const localBiblio = {
 <xsl:apply-templates select="//document/reference"/>
@@ -176,7 +177,7 @@ which in turn is verified by the Verification plans</figcaption>
 
     <figure id="{ @id }-uml">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-    <xsl:apply-templates select="uml"/>
+    <xsl:apply-templates select="uml|idef0"/>
     </figure>
 
     <xsl:apply-templates select="function"/>
@@ -243,9 +244,25 @@ which in turn is verified by the Verification plans</figcaption>
     <figcaption>Activity diagram "<xsl:value-of select="$title"/>"</figcaption>
 </xsl:template>
 
+<xsl:template match="idef0">
+    <xsl:variable name="title"><xsl:value-of select="../@id"/>: <xsl:value-of select="../description/@brief"/></xsl:variable>
+    <pre class="idef0">
+    <xsl:apply-templates/>
+    </pre>
+
+    <figcaption>Flow diagram "<xsl:value-of select="$title"/>"</figcaption>
+</xsl:template>
+
 <xsl:template match="this">
   <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
-<xsl:value-of select="@color"/>:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:template>
+<xsl:choose>
+<xsl:when test="name(..) = 'uml'">
+<xsl:value-of select="@color"/>:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:when>
+<!-- otherwise, idef0 diagram. -->
+<xsl:otherwise>
+[<xsl:value-of select="$idref"/>: <xsl:value-of select="//description[../@id=$idref]/@brief"/>]</xsl:otherwise>
+</xsl:choose>
+</xsl:template>
 
 <xsl:template match="trace|test">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
