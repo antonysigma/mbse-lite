@@ -14,6 +14,7 @@
 <!ATTLIST mbse
     copyright CDATA ""
     plantuml_host CDATA "www.plantuml.com"
+    idef0svg_host CDATA ""
 >
 
 <!-- #############################################################-->
@@ -74,7 +75,8 @@
 
 <!-- #############################################################-->
 <!-- Use cases -->
-<!ELEMENT usecase (uml,
+<!ELEMENT usecase (uml?,
+    idef0?,
     description,
     trace+,
     pre-condition+,

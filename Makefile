@@ -35,6 +35,6 @@ out/graphml.xml:stylesheets/graphml.xsl $(main)
 
 $(main): $(sort $(wildcard $(model_path)/*/*.xml))
 	mkdir -p $(dir $(main))
-	echo '<mbse copyright="$(copyright)" plantuml_host="$(plantuml_host)">' > $@ &&\
+	echo '<mbse copyright="$(copyright)" plantuml_host="$(plantuml_host)" idef0svg_host="$(idef0svg_host)">' > $@ &&\
 	cat $^ >> $@ &&\
 	echo '</mbse>' >> $@
