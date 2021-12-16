@@ -21,6 +21,14 @@ function renderPlantUML(config, document) {
     });
 }
 
+function renderIDEF0(config, document) {
+    $('.idef0').each(function() {
+        const alt = $(this).text();
+        const src = idef0svg_host + window.plantumlEncoder.encode(alt);
+        $(this).replaceWith($('<img>').attr('src', src).attr('alt', alt));
+    });
+}
+
 function getRespecConfig(copyright_holder, local_biblio=null) {
     let config = {
             specStatus: 'unofficial',
@@ -32,7 +40,7 @@ function getRespecConfig(copyright_holder, local_biblio=null) {
         };
 
     if (local_biblio) {
-        config.preProcess = [renderPlantUML];
+        config.preProcess = [renderPlantUML, renderIDEF0];
         config.localBiblio = local_biblio;
     }
 
