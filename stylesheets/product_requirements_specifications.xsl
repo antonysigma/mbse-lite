@@ -195,7 +195,7 @@ which in turn is verified by the Verification plans</figcaption>
   <section>
     <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <div><xsl:apply-templates select="description"/></div>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <figure id="{ @id }-uml">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
@@ -211,7 +211,7 @@ which in turn is verified by the Verification plans</figcaption>
 
     <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <div><xsl:apply-templates select="description"/></div>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <p>Linked requirements:</p>
     <ul>

@@ -116,7 +116,7 @@ updated to ensure that they are coherent and traceable.</p>
 </xsl:template>
 
 <xsl:template match="orig">
-    <section>
+    <section data-format="markdown">
     <h2 id="{ @id }"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></h2>
     <xsl:value-of select="description"/>
 
