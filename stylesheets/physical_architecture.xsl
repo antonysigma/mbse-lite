@@ -30,6 +30,10 @@ function renderPlantUML(config, document) {
     });
 }
 
+const localBiblio = {
+<xsl:apply-templates select="//document/reference"/>
+};
+
 const respecConfig = {
     specStatus: 'unofficial',
     additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
@@ -38,6 +42,7 @@ const respecConfig = {
     alternateFormats: [
         {label: 'XML', uri: './main.xml'},
     ],
+    localBiblio: localBiblio,
 };
     </script>
   </head>
@@ -209,5 +214,14 @@ internal components of the system.</figcaption>
 
 <xsl:template match="this">
 <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>() "[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/>"</xsl:template>
+
+<xsl:template match="reference">
+  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/></xsl:variable>
+<xsl:value-of select="$idref"/>: {
+  title: "<xsl:value-of select="../description/@brief"/>",
+  href: "<xsl:value-of select="@href"/>",
+  publisher: "<xsl:value-of select="@publisher"/>",
+},
+</xsl:template>
 
 </xsl:stylesheet>
