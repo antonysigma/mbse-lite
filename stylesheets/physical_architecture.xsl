@@ -100,7 +100,10 @@ internal components of the system.</figcaption>
 
 <section id="tof"/>
 
-<xsl:apply-templates select="//architecture"/>
+  <xsl:for-each select="//architecture">
+      <xsl:sort select="substring-after(@id, '-')" data-type="number"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
   </body>
   </html>
 </xsl:template>
