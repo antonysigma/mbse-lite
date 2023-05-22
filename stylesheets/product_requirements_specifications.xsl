@@ -10,45 +10,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <html>
   <head>
   <title>Product requirements specification</title>
-  <link rel="stylesheet" href="https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.css"/>
+  <link rel="stylesheet" href="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.css"/>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <script src="https://tabatkins.github.io/railroad-diagrams/railroad-diagrams.js"></script>
+  <script src="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.js"></script>
+  <script src="../static/main.js"></script>
   <script class="remove">
-function changeCopyright(config, document) {
-    $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
-}
-
-function removeW3CWatermark(config, document) {
-    $('body').css('background', 'white');
-}
-
-function renderPlantUML(config, document) {
-    $('.uml').each(function() {
-        const alt = $(this).text();
-        const src = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/' +
-            window.plantumlEncoder.encode(alt);
-        $(this).replaceWith($('&lt;img>').attr('src', src).attr('alt', alt));
-    });
-}
+const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 
 const localBiblio = {
 <xsl:apply-templates select="//document/reference"/>
 };
 
-const respecConfig = {
-    specStatus: 'unofficial',
-    additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
-    preProcess: [renderPlantUML],
-    postProcess: [changeCopyright, removeW3CWatermark],
-    alternateFormats: [
-        {label: 'XML', uri: './main.xml'},
-    ],
-    localBiblio: localBiblio,
-};
+const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', localBiblio);
     </script>
   </head>
   <body>

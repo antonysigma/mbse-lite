@@ -12,33 +12,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
+<script src="../static/main.js"></script>
   <script class="remove">
-function changeCopyright(config, document) {
-    $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
-}
+const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 
-function removeW3CWatermark(config, document) {
-    $('body').css('background', 'white');
-}
-
-function renderPlantUML(config, document) {
-    $('.uml').each(function() {
-        const alt = $(this).text();
-        const src = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/' +
-            window.plantumlEncoder.encode(alt);
-        $(this).replaceWith($('&lt;img>').attr('src', src).attr('alt', alt));
-    });
-}
-
-const respecConfig = {
-    specStatus: 'unofficial',
-    additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
-    preProcess: [renderPlantUML],
-    postProcess: [changeCopyright, removeW3CWatermark],
-    alternateFormats: [
-        {label: 'XML', uri: './main.xml'},
-    ],
-};
+const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>');
     </script>
   </head>
   <body>

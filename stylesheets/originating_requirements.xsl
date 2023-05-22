@@ -13,23 +13,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <title>Originating requirements</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="../static/main.js"></script>
   <script class="remove">
-function changeCopyright(config, document) {
-    $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
-}
-
-function removeW3CWatermark(config, document) {
-    $('body').css('background', 'white');
-}
-
-const respecConfig = {
-    specStatus: 'unofficial',
-    additionalCopyrightHolders: '<xsl:value-of select="mbse/@copyright"/>',
-    postProcess: [changeCopyright, removeW3CWatermark],
-    alternateFormats: [
-        {label: 'XML', uri: './main.xml'},
-    ],
-};
+const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>');
     </script>
   </head>
   <body>
