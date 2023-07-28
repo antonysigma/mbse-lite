@@ -1,3 +1,5 @@
+SHELL:=/bin/bash
+
 prefix=out
 model_path=example_model
 reports=$(prefix)/originating_requirements.html \
@@ -9,15 +11,19 @@ main=$(prefix)/main.xml
 copyright=
 plantuml_host=http://www.plantuml.com
 
+## Generate all system requirement reports in the `out/` folder.
 all:$(reports)
 
+## Validate the system model for broken links.
 validate:$(main) static/schema.dtd
 	xmllint --dtdvalid static/schema.dtd --noout $< &&\
 		echo 'Model validates'
 
+## Visualize the requirement traceability with the network plot.
 vis:$(prefix)/network.html
 
-debug: | static/plantuml.jar
+## Watch the `example_model/` folder for new changes; regenerate reports.
+watch: | static/plantuml.jar
 	java -jar static/plantuml.jar -picoweb:8000 & \
 	while true; do \
 		inotifywait -e modify,create,delete -r model/ && \
@@ -25,12 +31,14 @@ debug: | static/plantuml.jar
 			$(MAKE); \
 	done
 
+## Export the requirement traceability data as GraphML.
+graph: $(prefix)/graphml.xml
 
 ################################################################################
 $(reports):$(prefix)/%.html:stylesheets/%.xsl $(main)
 	xsltproc -o $@ $^
 
-out/graphml.xml:stylesheets/graphml.xsl $(main)
+$(prefix)/graphml.xml:stylesheets/graphml.xsl $(main)
 	xsltproc -o $@ $^
 
 $(main): $(sort $(wildcard $(model_path)/*/*.xml))
@@ -38,3 +46,12 @@ $(main): $(sort $(wildcard $(model_path)/*/*.xml))
 	echo '<mbse copyright="$(copyright)" plantuml_host="$(plantuml_host)">' > $@ &&\
 	cat $^ >> $@ &&\
 	echo '</mbse>' >> $@
+
+################################################################################
+# Implementation of self-documenting help
+# See <https://gist.github.com/klmr/575726c7e05d8780505a> for explanation.
+
+.DEFAULT_GOAL := help
+.PHONY: help
+help:
+	@echo "$$(tput bold)Available rules:$$(tput sgr0)";echo;sed -ne"/^## /{h;s/.*//;:d" -e"H;n;s/^## //;td" -e"s/:.*//;G;s/\\n## /---/;s/\\n/ /g;p;}" ${MAKEFILE_LIST}|LC_ALL='C' sort -f|awk -F --- -v n=$$(tput cols) -v i=19 -v a="$$(tput setaf 6)" -v z="$$(tput sgr0)" '{printf"%s%*s%s ",a,-i,$$1,z;m=split($$2,w," ");l=n-i;for(j=1;j<=m;j++){l-=length(w[j])+1;if(l<= 0){l=n-i-length(w[j])-1;printf"\n%*s ",-i," ";}printf"%s ",w[j];}printf"\n";}'|more $(shell test $(shell uname) == Darwin && echo '-Xr')
