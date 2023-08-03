@@ -15,8 +15,9 @@ plantuml_host=http://www.plantuml.com
 all:$(reports)
 
 ## Validate the system model for broken links.
-validate:$(main) static/schema.dtd
-	xmllint --dtdvalid static/schema.dtd --noout $< &&\
+validate:$(main) static/schema.rng
+#	java -jar static/jing.jar -c static/schema.rnc $<
+	xmllint --noout --relaxng static/schema.rng $< &&\
 		echo 'Model validates'
 
 ## Visualize the requirement traceability with the network plot.

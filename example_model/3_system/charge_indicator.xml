@@ -1,4 +1,4 @@
-<performance id="sys-1" status="proposed">
+<performance id="sys-1" status="initial">
 <categories allocation="ee" discipline="ee" group="Charging"/>
 <description brief="Charge duration">A battery with &lt;5% capacity shall charge to >95% capacity in &lt;5 hours.</description>
 <rationale/>

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- System model contains itemized requirements, functions, and architectures -->
+  <define name="mbse">
+    <element name="mbse">
+      <ref name="attlist.mbse"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="orig"/>
+          <ref name="usecase"/>
+          <ref name="behavior"/>
+          <ref name="constraint"/>
+          <ref name="performance"/>
+          <ref name="verification"/>
+          <ref name="architecture"/>
+          <ref name="document"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    copyright: Name of the copyright holder, e.g. John Doe
+    plantuml_host: URL to convert PlantUML texts to figures
+  -->
+  <define name="attlist.mbse" combine="interleave">
+    <optional>
+      <attribute name="copyright" a:defaultValue=""/>
+    </optional>
+    <optional>
+      <attribute name="plantuml_host" a:defaultValue="www.plantuml.com"/>
+    </optional>
+    <optional>
+      <attribute name="idef0svg_host"/>
+    </optional>
+  </define>
+  <define name="ID">
+    <data type="ID">
+      <param name="pattern">\w{3}-\d+.?\d*</param>
+    </data>
+  </define>
+  <define name="STATUS">
+    <choice>
+      <value>initial</value>
+      <value>tentative</value>
+      <value>firm</value>
+      <value>obsolete</value>
+    </choice>
+  </define>
+  <define name="URL">
+    <data type="string">
+      <param name="pattern">https?://(www\.)?[\-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}([\-a-zA-Z0-9()@:%_\+.~#?&amp;//=]*)</param>
+    </data>
+  </define>
+  <define name="id_attr">
+    <attribute name="id">
+      <ref name="ID"/>
+    </attribute>
+  </define>
+  <define name="status_attr">
+    <optional>
+      <attribute name="status" a:defaultValue="initial">
+        <ref name="STATUS"/>
+      </attribute>
+    </optional>
+  </define>
+  <!--
+     #############################################################
+    Shared elements
+  -->
+  <!-- verbose description of an item, written in Markdown language. -->
+  <define name="description">
+    <element name="description">
+      <ref name="attlist.description"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="aside"/>
+          <ref name="figure"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- side note -->
+  <define name="aside">
+    <element name="aside">
+      <ref name="attlist.aside"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.aside" combine="interleave">
+    <attribute name="class">
+      <choice>
+        <value>note</value>
+        <value>issue</value>
+        <value>example</value>
+      </choice>
+    </attribute>
+  </define>
+  <!-- Catchy words of the description -->
+  <define name="attlist.description" combine="interleave">
+    <attribute name="brief"/>
+  </define>
+  <define name="figure">
+    <element name="figure">
+      <ref name="attlist.figure"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.figure" combine="interleave">
+    <attribute name="src"/>
+  </define>
+  <define name="figcaption">
+    <element name="figcaption">
+      <text/>
+    </element>
+  </define>
+  <!-- Provide citation/reference of the requirement in hyperlink -->
+  <define name="reference">
+    <element name="reference">
+      <ref name="attlist.reference"/>
+      <empty/>
+    </element>
+  </define>
+  <!-- Full name of the stakeholder -->
+  <define name="attlist.reference" combine="interleave">
+    <optional>
+      <attribute name="href">
+        <ref name="URL"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title"/>
+    </optional>
+    <optional>
+      <attribute name="stakeholder"/>
+    </optional>
+    <optional>
+      <attribute name="publisher"/>
+    </optional>
+  </define>
+  <!-- Trace the originating requirement to the internal model. -->
+  <define name="trace">
+    <element name="trace">
+      <ref name="attlist.trace"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.trace" combine="interleave">
+    <attribute name="ref">
+      <data type="IDREF"/>
+    </attribute>
+  </define>
+  <!--
+     #############################################################
+    Orignating requirement
+  -->
+  <define name="orig">
+    <element name="orig">
+      <ref name="attlist.orig"/>
+      <ref name="description"/>
+      <ref name="reference"/>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial, tentative, firm, or obsolete
+  -->
+  <define name="attlist.orig" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!--
+     #############################################################
+    Use cases
+  -->
+  <define name="usecase">
+    <element name="usecase">
+      <ref name="attlist.usecase"/>
+      <ref name="uml"/>
+      <ref name="description"/>
+      <oneOrMore>
+        <ref name="trace"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="pre-condition"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="main-event"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="post-condition"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="alternate-event"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.usecase" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!-- Generic diagram, witten in PlantUML language. -->
+  <define name="uml">
+    <element name="uml">
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="this"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="idef0">
+    <element name="idef0">
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="this"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- Use the tag <this/> to refer to the id of the requirement. -->
+  <define name="this">
+    <element name="this">
+      <ref name="attlist.this"/>
+      <empty/>
+    </element>
+  </define>
+  <!-- Optionally, specify the id of the child requirement. -->
+  <define name="attlist.this" combine="interleave">
+    <optional>
+      <attribute name="ref">
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- Sections of the use case description, borrowed from Alistair Cockburn -->
+  <define name="pre-condition">
+    <element name="pre-condition">
+      <text/>
+    </element>
+  </define>
+  <define name="main-event">
+    <element name="main-event">
+      <text/>
+    </element>
+  </define>
+  <define name="post-condition">
+    <element name="post-condition">
+      <text/>
+    </element>
+  </define>
+  <define name="alternate-event">
+    <element name="alternate-event">
+      <text/>
+    </element>
+  </define>
+  <!--
+     #############################################################
+    Behavior
+  -->
+  <define name="behavior">
+    <element name="behavior">
+      <ref name="attlist.behavior"/>
+      <choice>
+        <ref name="uml"/>
+        <ref name="idef0"/>
+      </choice>
+      <ref name="description"/>
+      <oneOrMore>
+        <ref name="function"/>
+      </oneOrMore>
+      <zeroOrMore>
+        <ref name="test"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.behavior" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!-- Describe a step / function in the behavior diagram. -->
+  <define name="function">
+    <element name="function">
+      <ref name="attlist.function"/>
+      <ref name="description"/>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.function" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!--
+     #############################################################
+    System constraints
+  -->
+  <define name="constraint">
+    <element name="constraint">
+      <ref name="attlist.constraint"/>
+      <ref name="categories"/>
+      <ref name="description"/>
+      <ref name="rationale"/>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="test"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.constraint" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!-- System performace specification. Require a linked verification plan. -->
+  <define name="performance">
+    <element name="performance">
+      <ref name="attlist.performance"/>
+      <ref name="categories"/>
+      <ref name="description"/>
+      <ref name="rationale"/>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+      <oneOrMore>
+        <ref name="test"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.performance" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!-- Describe the rationale of the system constraint in Markdown language. -->
+  <define name="rationale">
+    <element name="rationale">
+      <text/>
+    </element>
+  </define>
+  <!-- Group the system specifications by user-defined tags -->
+  <define name="categories">
+    <element name="categories">
+      <ref name="attlist.categories"/>
+      <empty/>
+    </element>
+  </define>
+  <!--
+    allocation: who are responsible
+    discipline: mech or ee or sw
+    group:
+        logistics, regulatory, environment, general, maintenance, reliability, labelling,
+        and information
+  -->
+  <define name="attlist.categories" combine="interleave">
+    <attribute name="allocation">
+      <data type="NMTOKEN"/>
+    </attribute>
+    <attribute name="discipline">
+      <data type="NMTOKENS"/>
+    </attribute>
+    <optional>
+      <attribute name="group">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="method">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="owner">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- Link to the verification plan -->
+  <define name="test">
+    <element name="test">
+      <ref name="attlist.test"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.test" combine="interleave">
+    <attribute name="ref">
+      <data type="IDREF"/>
+    </attribute>
+  </define>
+  <!--  ############################################################# -->
+  <!-- Verification plan -->
+  <define name="verification">
+    <element name="verification">
+      <ref name="attlist.verification"/>
+      <ref name="categories"/>
+      <ref name="description"/>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.verification" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!--  ############################################################# -->
+  <!-- Physical architecture diagrams -->
+  <define name="architecture">
+    <element name="architecture">
+      <ref name="attlist.architecture"/>
+      <ref name="uml"/>
+      <ref name="description"/>
+      <oneOrMore>
+        <ref name="interface"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    status: initial or firm
+  -->
+  <define name="attlist.architecture" combine="interleave">
+    <ref name="id_attr"/>
+    <ref name="status_attr"/>
+  </define>
+  <!-- Interface between two components of a system -->
+  <define name="interface">
+    <element name="interface">
+      <ref name="attlist.interface"/>
+      <ref name="description"/>
+      <zeroOrMore>
+        <ref name="mechanical"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="optical"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="electrical"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="software"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="trace"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!--
+    id: identifier
+    external: boolean, whether it is controlled by stakeholders
+  -->
+  <define name="attlist.interface" combine="interleave">
+    <ref name="id_attr"/>
+    <optional>
+      <attribute name="external" a:defaultValue="false">
+        <choice>
+          <value>true</value>
+          <value>false</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+  <!-- Mechanical properties of the interface -->
+  <define name="mechanical">
+    <element name="mechanical">
+      <text/>
+    </element>
+  </define>
+  <!-- Electrical properties of the interface -->
+  <define name="electrical">
+    <element name="electrical">
+      <text/>
+    </element>
+  </define>
+  <!-- Optical properties of the interface -->
+  <define name="optical">
+    <element name="optical">
+      <text/>
+    </element>
+  </define>
+  <!-- Software or firmware properties of the interface -->
+  <define name="software">
+    <element name="software">
+      <text/>
+    </element>
+  </define>
+  <define name="document">
+    <element name="document">
+      <ref name="attlist.document"/>
+      <ref name="description"/>
+      <ref name="reference"/>
+    </element>
+  </define>
+  <define name="attlist.document" combine="interleave">
+    <attribute name="id">
+      <ref name="ID"/>
+    </attribute>
+  </define>
+  <!-- Entry point -->
+  <start>
+    <a:documentation/>
+    <ref name="mbse"/>
+  </start>
+</grammar>

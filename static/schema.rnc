@@ -1,0 +1,234 @@
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+# System model contains itemized requirements, functions, and architectures
+mbse =
+  element mbse {
+    attlist.mbse,
+    (orig
+     | usecase
+     | behavior
+     | constraint
+     | performance
+     | verification
+     | architecture
+     | document)*
+  }
+
+# copyright: Name of the copyright holder, e.g. John Doe
+# plantuml_host: URL to convert PlantUML texts to figures
+attlist.mbse &=
+  [ a:defaultValue = "" ] attribute copyright { text }?,
+  [ a:defaultValue = "www.plantuml.com" ]
+  attribute plantuml_host { text }?,
+  attribute idef0svg_host { text }?
+
+ID = xsd:ID { pattern = "\w{3}-\d+.?\d*" }
+STATUS = "initial" | "tentative" | "firm" | "obsolete"
+URL = xsd:string { pattern = "https?://(www\.)?[\-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}([\-a-zA-Z0-9()@:%_\+.~#?&//=]*)" }
+
+id_attr = attribute id { ID }
+status_attr = [ a:defaultValue = "initial" ] attribute status { STATUS }?
+
+#  #############################################################
+# Shared elements
+
+# verbose description of an item, written in Markdown language.
+description =
+  element description { attlist.description, (text | aside | figure)* }
+
+# side note
+aside = element aside { attlist.aside, text }
+attlist.aside &= attribute class { "note" | "issue" | "example" }
+
+# Catchy words of the description
+attlist.description &= attribute brief { text }
+figure = element figure { attlist.figure, text }
+attlist.figure &= attribute src { text }
+figcaption = element figcaption { text }
+
+# Provide citation/reference of the requirement in hyperlink
+reference = element reference { attlist.reference, empty }
+# Full name of the stakeholder
+attlist.reference &=
+  attribute href { URL }?,
+  attribute title { text }?,
+  attribute stakeholder { text }?,
+  attribute publisher { text }?
+
+# Trace the originating requirement to the internal model.
+trace = element trace { attlist.trace, empty }
+attlist.trace &= attribute ref { xsd:IDREF }
+
+#  #############################################################
+# Orignating requirement
+orig = element orig { attlist.orig, description, reference, trace* }
+
+# id: identifier
+# status: initial, tentative, firm, or obsolete
+attlist.orig &=
+  id_attr,
+  status_attr
+
+#  #############################################################
+# Use cases
+usecase =
+  element usecase {
+    attlist.usecase,
+    uml,
+    description,
+    trace+,
+    pre-condition+,
+    main-event+,
+    post-condition+,
+    alternate-event+
+  }
+# id: identifier
+# status: initial or firm
+attlist.usecase &=
+  id_attr,
+  status_attr
+
+# Generic diagram, witten in PlantUML language.
+uml = element uml { (text | this)* }
+idef0 = element idef0 { (text | this)* }
+
+# Use the tag <this/> to refer to the id of the requirement.
+this = element this { attlist.this, empty }
+
+# Optionally, specify the id of the child requirement.
+attlist.this &= attribute ref { xsd:IDREF }?
+
+# Sections of the use case description, borrowed from Alistair Cockburn
+pre-condition = element pre-condition { text }
+main-event = element main-event { text }
+post-condition = element post-condition { text }
+alternate-event =
+  element alternate-event { text }
+
+#  #############################################################
+# Behavior
+
+behavior =
+  element behavior {
+    attlist.behavior, (uml | idef0), description, function+, test*
+  }
+
+# id: identifier
+# status: initial or firm
+attlist.behavior &=
+  id_attr,
+  status_attr
+
+# Describe a step / function in the behavior diagram.
+function = element function { attlist.function, description, trace* }
+
+# id: identifier
+# status: initial or firm
+attlist.function &=
+  id_attr,
+  status_attr
+
+#  #############################################################
+# System constraints
+constraint =
+  element constraint {
+    attlist.constraint,
+    categories,
+    description,
+    rationale,
+    trace*,
+    test*
+  }
+# id: identifier
+# status: initial or firm
+attlist.constraint &=
+  id_attr,
+  status_attr
+# System performace specification. Require a linked verification plan.
+performance =
+  element performance {
+    attlist.performance,
+    categories,
+    description,
+    rationale,
+    trace*,
+    test+
+  }
+# id: identifier
+# status: initial or firm
+attlist.performance &=
+  id_attr,
+  status_attr
+# Describe the rationale of the system constraint in Markdown language.
+rationale = element rationale { text }
+# Group the system specifications by user-defined tags
+categories = element categories { attlist.categories, empty }
+# allocation: who are responsible
+# discipline: mech or ee or sw
+# group:
+#     logistics, regulatory, environment, general, maintenance, reliability, labelling,
+#     and information
+attlist.categories &=
+  attribute allocation { xsd:NMTOKEN },
+  attribute discipline { xsd:NMTOKENS },
+  attribute group { xsd:NMTOKEN }?,
+  attribute method { xsd:NMTOKEN }?,
+  attribute owner { xsd:NMTOKEN }?
+# Link to the verification plan
+test = element test { attlist.test, empty }
+attlist.test &= attribute ref { xsd:IDREF }
+#  #############################################################
+
+# Verification plan
+verification =
+  element verification {
+    attlist.verification, categories, description, trace*
+  }
+# id: identifier
+# status: initial or firm
+attlist.verification &=
+  id_attr,
+  status_attr
+#  #############################################################
+
+# Physical architecture diagrams
+architecture =
+  element architecture {
+    attlist.architecture, uml, description, interface+
+  }
+# id: identifier
+# status: initial or firm
+attlist.architecture &=
+  id_attr,
+  status_attr
+# Interface between two components of a system
+interface =
+  element interface {
+    attlist.interface,
+    description,
+    mechanical*,
+    optical*,
+    electrical*,
+    software*,
+    trace*
+  }
+# id: identifier
+# external: boolean, whether it is controlled by stakeholders
+attlist.interface &=
+  id_attr,
+  [ a:defaultValue = "false" ] attribute external { "true" | "false" }?
+# Mechanical properties of the interface
+mechanical = element mechanical { text }
+# Electrical properties of the interface
+electrical = element electrical { text }
+# Optical properties of the interface
+optical = element optical { text }
+# Software or firmware properties of the interface
+software = element software { text }
+document = element document { attlist.document, description, reference }
+attlist.document &= attribute id { ID }
+
+########################################
+# Entry point
+
+start = mbse
