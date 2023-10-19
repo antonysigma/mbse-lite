@@ -37,7 +37,7 @@ const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>',
   <li><a href="originating_requirements.html">Originating requirements</a></li>
   <li><a href="use_cases.html">Use cases</a></li>
   <li>Product requirements specification (this document)</li>
-  <li><a href="physical_architecture.html">Physical architecture and interfaces</a></li>
+  <li><a href="logical_and_physical_architecture.html">Logical and physical architecture</a></li>
   </ol>
 
   <p>The document refines the high-level requirements into system-level specifications.
@@ -281,7 +281,7 @@ which in turn is verified by the Verification plans</figcaption>
 <xsl:template match="description" mode="link">
   <xsl:variable name="hash">
     <xsl:choose>
-      <xsl:when test="name(..) = 'interface'">./physical_architecture.html#</xsl:when>
+      <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
       <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
       <xsl:otherwise>#</xsl:otherwise>
     </xsl:choose>

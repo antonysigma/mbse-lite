@@ -96,7 +96,9 @@ idef0 = element idef0 { (text | this)* }
 this = element this { attlist.this, empty }
 
 # Optionally, specify the id of the child requirement.
-attlist.this &= attribute ref { xsd:IDREF }?
+attlist.this &=
+  attribute ref { xsd:IDREF }?,
+  [ a:defaultValue = "interface" ] attribute type { "interface" | "component" | "node" | "file" }?
 
 # Sections of the use case description, borrowed from Alistair Cockburn
 pre-condition = element pre-condition { text }
@@ -200,7 +202,8 @@ architecture =
 # status: initial or firm
 attlist.architecture &=
   id_attr,
-  status_attr
+  status_attr,
+  [ a:defaultValue = "false" ] attribute is_logical { "true" | "false" }?
 # Interface between two components of a system
 interface =
   element interface {

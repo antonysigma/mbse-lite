@@ -8,7 +8,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
   <html>
   <head>
-  <title>Physical architecture and interfaces</title>
+  <title>Logical and physical architecture</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
@@ -19,15 +19,6 @@ const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg
 const local_biblio = {
 <xsl:apply-templates select="//document/reference"/>
 };
-
-function renderPlantUML(config, document) {
-    $('.uml').each(function() {
-        const alt = $(this).text();
-        const src = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/' +
-            window.plantumlEncoder.encode(alt);
-        $(this).replaceWith($('&lt;img>').attr('src', src).attr('alt', alt));
-    });
-}
 
 const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', local_biblio);
     </script>
@@ -74,6 +65,15 @@ document (such as a mechanical interface drawing, electrical pinout, firmware/so
 communication protocol, etc.).
 </p>
 
+<p>
+The Logical Architecture Diagram (LAD) groups the functions into sub-systems. Flows among
+functions are mapped to Interfaces, featuring interactions among sub-systems.
+
+The LAD is in turn implemented by physical components in the Physical Architecture Diagram (PAD).
+The PAD links all external interfaces with the corresponding
+internal components of the system.
+</p>
+
 <figure>
 <img src="../static/trace-requirements.png"/>
 <figcaption>Interface specifications are traced back to the Originating Requirements,
@@ -86,10 +86,28 @@ internal components of the system.</figcaption>
 
 <section id="tof"/>
 
-  <xsl:for-each select="//architecture">
+<section>
+  <h2>Logical architecture</h2>
+  <xsl:choose>
+  <xsl:when test="//architecture[@is_logical = 'true']">
+    <xsl:for-each select="//architecture[@is_logical = 'true']">
+        <xsl:sort select="substring-after(@id, '-')" data-type="number"/>
+        <xsl:apply-templates select="."/>
+    </xsl:for-each>
+  </xsl:when>
+  <xsl:otherwise>
+  <p>This section is intentionally left blank.</p>
+  </xsl:otherwise>
+  </xsl:choose>
+</section>
+
+<section>
+  <h2>Physical architecture</h2>
+  <xsl:for-each select="//architecture[not(@is_logical = 'true')]">
       <xsl:sort select="substring-after(@id, '-')" data-type="number"/>
       <xsl:apply-templates select="."/>
   </xsl:for-each>
+</section>
   </body>
   </html>
 </xsl:template>
@@ -202,7 +220,13 @@ internal components of the system.</figcaption>
 <xsl:template match="uml"><xsl:apply-templates/></xsl:template>
 
 <xsl:template match="this">
-<xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>() "[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/>"</xsl:template>
+<xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
+<xsl:variable name="label">"[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/>"</xsl:variable>
+<xsl:choose>
+  <xsl:when test="not(@type)">() <xsl:value-of select="$label"/></xsl:when>
+  <xsl:otherwise><xsl:value-of select="@type"/><xsl:text> </xsl:text><xsl:value-of select="$label"/></xsl:otherwise>
+</xsl:choose>
+</xsl:template>
 
 <xsl:template match="reference">
   <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/></xsl:variable>
