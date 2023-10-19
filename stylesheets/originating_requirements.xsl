@@ -26,7 +26,7 @@ const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>')
   <li>Originating requirements (this document)</li>
   <li><a href="use_cases.html">Use cases</a></li>
   <li><a href="product_requirements_specifications.html">Product requirements specification</a></li>
-  <li><a href="physical_architecture.html">Physical architecture and interfaces</a></li>
+  <li><a href="logical_and_physical_architecture.html">Physical architecture and interfaces</a></li>
   </ol>
 
   <p>The document catches all of the wish lists from all stackholders.
@@ -132,7 +132,7 @@ updated to ensure that they are coherent and traceable.</p>
 <b>[<a>
 <xsl:attribute name="href">
   <xsl:choose>
-    <xsl:when test="name(..) = 'interface'">./physical_architecture.html#</xsl:when>
+    <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
     <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
     <xsl:otherwise>./product_requirements_specifications.html#</xsl:otherwise>
   </xsl:choose>

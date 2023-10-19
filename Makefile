@@ -5,7 +5,7 @@ model_path=example_model
 reports=$(prefix)/originating_requirements.html \
 	$(prefix)/use_cases.html \
 	$(prefix)/product_requirements_specifications.html \
-	$(prefix)/physical_architecture.html \
+	$(prefix)/logical_and_physical_architecture.html \
 	$(prefix)/network.html
 main=$(prefix)/main.xml
 copyright=

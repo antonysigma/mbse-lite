@@ -91,7 +91,7 @@ const style = [
     },
   },
   {
-    selector : 'node[group="arc"]',
+    selector : 'node[group="pad" || group="iad" || group="arc"]',
     style : {
       'background-color' : 'violet',
     },

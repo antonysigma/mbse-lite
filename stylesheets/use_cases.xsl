@@ -27,7 +27,7 @@ const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>')
   <li><a href="originating_requirements.html">Originating requirements</a></li>
   <li>Use cases (this document)</li>
   <li><a href="product_requirements_specifications.html">Product requirements specification</a></li>
-  <li><a href="physical_architecture.html">Physical architecture and interfaces</a></li>
+  <li><a href="logical_and_physical_architecture.html">Logical and physical architecture</a></li>
   </ol>
 
   <p>The document captures the high-level use cases requested by the stakeholders.
@@ -127,7 +127,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
 <b>[<a>
 <xsl:attribute name="href">
   <xsl:choose>
-    <xsl:when test="name(..) = 'interface'">./physical_architecture.html#</xsl:when>
+    <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
     <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
     <xsl:otherwise>./product_requirements_specifications.html#</xsl:otherwise>
   </xsl:choose>

@@ -241,6 +241,16 @@
         <data type="IDREF"/>
       </attribute>
     </optional>
+    <optional>
+      <attribute name="type" a:defaultValue="interface">
+        <choice>
+          <value>interface</value>
+          <value>component</value>
+          <value>node</value>
+          <value>file</value>
+        </choice>
+      </attribute>
+    </optional>
   </define>
   <!-- Sections of the use case description, borrowed from Alistair Cockburn -->
   <define name="pre-condition">
@@ -452,6 +462,14 @@
   <define name="attlist.architecture" combine="interleave">
     <ref name="id_attr"/>
     <ref name="status_attr"/>
+    <optional>
+      <attribute name="is_logical" a:defaultValue="false">
+        <choice>
+          <value>true</value>
+          <value>false</value>
+        </choice>
+      </attribute>
+    </optional>
   </define>
   <!-- Interface between two components of a system -->
   <define name="interface">
