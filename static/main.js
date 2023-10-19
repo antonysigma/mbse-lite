@@ -15,7 +15,7 @@ function removeW3CWatermark(config, document) {
 
 function renderPlantUML(config, document) {
     $('.uml').each(function() {
-        const alt = $(this).text();
+        const alt = 'skin rose\n' + $(this).text();
         const src = plantuml_host + window.plantumlEncoder.encode(alt);
         $(this).replaceWith($('<img>').attr('src', src).attr('alt', alt));
     });
