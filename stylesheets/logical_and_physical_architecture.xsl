@@ -137,9 +137,9 @@ internal components of the system.</figcaption>
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
 
-    <section class="markdown">
+    <section>
     <h2 id="{ $id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:value-of select="description"/></p>
+    <div data-format="markdown"><xsl:value-of select="description"/></div>
 
     <p>Implements:</p>
     <ul>
@@ -147,7 +147,7 @@ internal components of the system.</figcaption>
     </ul>
 
     <xsl:if test="mechanical">
-    <section class="markdown">
+    <section>
     <h3 id="{ @id }-mechanical-descriptions">Mechanical description</h3>
     <ul>
     <xsl:apply-templates select="mechanical"/>
@@ -156,7 +156,7 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="optical">
-    <section class="markdown">
+    <section>
     <h3 id="{ @id }-optical-descriptions">Optical description</h3>
     <ul>
     <xsl:apply-templates select="optical"/>
@@ -165,7 +165,7 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="electrical">
-    <section class="markdown">
+    <section>
     <h3 id="{ @id }-electrical-descriptions">Electrical descriptions</h3>
     <ul>
     <xsl:apply-templates select="electrical"/>
@@ -174,7 +174,7 @@ internal components of the system.</figcaption>
     </xsl:if>
 
     <xsl:if test="software">
-    <section class="markdown">
+    <section>
     <h3 id="{ @id }-software-descriptions">Software / firmware descriptions</h3>
     <ul>
     <xsl:apply-templates select="software"/>
