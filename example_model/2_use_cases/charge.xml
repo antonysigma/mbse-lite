@@ -7,8 +7,6 @@
 
 <trace ref="sys-1"/>
 <trace ref="fnc-1"/>
-<trace ref="int-1"/>
-<trace ref="int-2"/>
 
 <pre-condition>Device has a partially depleted battery</pre-condition>
 
