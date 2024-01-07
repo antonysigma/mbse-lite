@@ -22,11 +22,11 @@ body {
       border: 1px solid lightgray;
     }
   </style>
-<script type="module">
-import 'https://unpkg.com/jquery@3.6.0/dist/jquery.min.js';
-import cytoscape from 'https://unpkg.com/cytoscape@3.21.1/dist/cytoscape.esm.min.js';
-import { Network } from 'https://unpkg.com/vis-network@9.1.2/standalone/esm/vis-network.min.js';
-
+<script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.7.0/lib/elk.bundled.js"></script>
+<script src="https://unpkg.com/cytoscape-elk@2.2.0/dist/cytoscape-elk.js"></script>
+<script>
 const data = [
 <!-- nodes -->
 <xsl:apply-templates select="//*[@id]"/>
@@ -60,7 +60,7 @@ const style = [
     style : {
       'label' : 'data(label)',
       'font-size' : '8pt',
-      'text-valign' : 'center',
+      'text-valign' : 'bottom',
       'text-halign' : 'right',
       'text-margin-x' : '4pt',
       'color' : '#d3d3d3',
@@ -87,11 +87,11 @@ const style = [
   {
     selector : 'node[group="ver"]',
     style : {
-      'background-color' : 'olivegreen',
+      'background-color' : 'green',
     },
   },
   {
-    selector : 'node[group="pad" || group="iad" || group="arc"]',
+    selector : 'node[group="pad"],[group="iad"],[group="arc"]',
     style : {
       'background-color' : 'violet',
     },
@@ -105,9 +105,11 @@ const style = [
   {
     selector : 'edge',
     style : {
-      'curve-style' : 'straight',
-      'width' : '2px',
+      'curve-style' : 'taxi',
+      'taxi-direction' : 'rightward',
+      'width' : '1px',
       'target-arrow-shape' : 'triangle-backcurve',
+      'arrow-scale' : 0.5,
     },
   },
 ];
@@ -123,31 +125,12 @@ const level = {
   'doc' : 8
 };
 
-function draw(data) {
-  const visjs_options = {
-    nodes : {
-      shape : "dot",
-      font : {
-        color : "#ffffff",
-      },
-      borderWidth : 2,
-    },
-    edges : {
-      width : 2,
-    },
-  };
-
-  return new Network(document.getElementById('viewer'), data, visjs_options);
-}
-
 $(function() {
   // Step 1: Compile the network graph from node and edge data.
   const cy = cytoscape({
+    container : document.getElementById('viewer'),
     elements : data,
     style : style,
-    layout : {
-      name : 'cose',
-    },
   });
 
   /* Step 2: If user wants to see a subset graph relevant to an specific
@@ -160,43 +143,17 @@ $(function() {
   if (selected_nodeid) {
     filterNodes(cy, '#' + selected_nodeid);
   }
+  cy.edges('[duplicate]').remove();
 
-  /* Step 3: Convert the graph the the Visjs compatible format. The Visjs
-  encodes edge metadata in the form of `from`, `to`, not `source`, `target`.
-  Also, Visjs encodes bi-directional parallel edges as one edge item, not two.
-  */
-
-  // Export nodes
-  const filtered_nodes = cy.nodes().map((ele) => {
-    var data = ele.data();
-
-    // Adjust gravity
-    const this_level = level[data.group];
-    data['level'] = this_level;
-
-    if (this_level == 1 || this_level >= 6) {
-      data['mass'] = 5;
-    }
-
-    return data;
-  });
-
-  // Export edges, omit bi-directional edges.
-  const filtered_edges = cy.edges('[^duplicate]').map((ele) => {
-    const data = ele.data();
-    var output_data = {from : data.source, to : data.target};
-    if ('arrows' in data) {
-      output_data['arrows'] = data.arrows;
-    }
-
-    return output_data;
-  });
-
-  /* Step 4: Visualize the selected graph; arrange the graph with COSE-like (aka
-  mass-spring interaction) layout. */
-  draw({nodes : filtered_nodes, edges : filtered_edges});
+  /* Step 3: Arrange the items with ELK layout algorithm. */
+  cy.layout({
+      name : 'elk',
+      elk : {
+        'algorithm': 'layered',
+        'elk.layered.spacing.edgeNodeBetweenLayers' : '60',
+      },
+    }).run();
 });
-
 </script>
 </head>
 <body>
