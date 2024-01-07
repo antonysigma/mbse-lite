@@ -21,11 +21,14 @@ body {
       height: 100%;
       border: 1px solid lightgray;
     }
+a {
+        color: #d3d3d3;
+}
   </style>
 <script type="module">
 import 'https://unpkg.com/jquery@3.6.0/dist/jquery.min.js';
 import cytoscape from 'https://unpkg.com/cytoscape@3.21.1/dist/cytoscape.esm.min.js';
-import { Network } from 'https://unpkg.com/vis-network@9.1.2/standalone/esm/vis-network.min.js';
+import { Network, DataSet } from 'https://unpkg.com/vis-network@9.1.2/standalone/esm/vis-network.min.js';
 
 const data = [
 <!-- nodes -->
@@ -152,6 +155,25 @@ function draw(data) {
   return new Network(document.getElementById('viewer'), data, visjs_options);
 }
 
+function findReferenceDoc(node_id) {
+  const tag = node_id.split('-')[0];
+  switch(tag) {
+    case 'org':
+    return 'originating_requirements.html';
+    case 'ucd':
+    return 'use_cases.html';
+    case 'sys':
+    case 'fnc':
+    case 'ver':
+    return 'product_requirements_specifications.html';
+    case 'int':
+    case 'pad':
+    return 'logical_and_physical_architecture.html';
+    default:
+    return 'product_requirements_specifications.html';
+  }
+}
+
 $(function() {
   // Step 1: Compile the network graph from node and edge data.
   const cy = cytoscape({
@@ -179,7 +201,7 @@ $(function() {
   */
 
   // Export nodes
-  const filtered_nodes = cy.nodes().map((ele) => {
+  const filtered_nodes = new DataSet(cy.nodes().map((ele) => {
     var data = ele.data();
 
     // Adjust gravity
@@ -192,10 +214,10 @@ $(function() {
     }
 
     return data;
-  });
+  }));
 
   // Export edges, omit bi-directional edges.
-  const filtered_edges = cy.edges('[^duplicate]').map((ele) => {
+  const filtered_edges = new DataSet(cy.edges('[^duplicate]').map((ele) => {
     const data = ele.data();
     var output_data = {from : data.source, to : data.target};
     if ('arrows' in data) {
@@ -203,16 +225,30 @@ $(function() {
     }
 
     return output_data;
-  });
+  }));
 
   /* Step 4: Visualize the selected graph; arrange the graph with COSE-like (aka
   mass-spring interaction) layout. */
-  draw({nodes : filtered_nodes, edges : filtered_edges});
+  const network = draw({nodes : filtered_nodes, edges : filtered_edges});
+
+  /* Step 5: When user clicks a node, show the hyperlink to the specification document
+   * for detailed description.
+   */
+  network.on('selectNode', (params) => {
+    if (params.nodes.length === 1) {
+      const node_id = filtered_nodes.get(params.nodes[0]).id;
+      const url = `${findReferenceDoc(node_id)}#${node_id}`;
+      $('#source_doc').attr('href', './' + url).text(url);
+    }
+  });
 });
 
 </script>
 </head>
 <body>
+<div id="topbar">
+Reference: <a id="source_doc" href="./product_requirements_specifications.html" target="source_doc_tab">product_requirements_specifications.html</a>
+</div>
 <div id="viewer"></div>
 </body>
 </html>
