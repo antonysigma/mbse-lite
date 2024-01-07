@@ -123,6 +123,18 @@ const level = {
   'doc' : 8
 };
 
+const color = {
+  'org' : '#9bb8ff',
+  'ucd' : '#f2ff00',
+  'sys' : '#ffac00',
+  'fnc' : '#ff6b7e',
+  'int' : 'gray',
+  'pad' : '#dbb0f2',
+  'iad' : '#dbb0f2',
+  'arc' : '#dbb0f2',
+  'ver' : '#3df62c',
+};
+
 function draw(data) {
   const visjs_options = {
     nodes : {
@@ -173,6 +185,7 @@ $(function() {
     // Adjust gravity
     const this_level = level[data.group];
     data['level'] = this_level;
+    data['color'] = color[data.group];
 
     if (this_level == 1 || this_level >= 6) {
       data['mass'] = 5;
