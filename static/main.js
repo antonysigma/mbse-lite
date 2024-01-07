@@ -33,6 +33,7 @@ function getRespecConfig(copyright_holder, local_biblio=null) {
     let config = {
             specStatus: 'unofficial',
             additionalCopyrightHolders: copyright_holder,
+            preProcess: [renderPlantUML, renderIDEF0],
             postProcess: [changeCopyright, removeW3CWatermark],
             alternateFormats: [
                 {label: 'XML', uri: './main.xml'},
@@ -40,7 +41,6 @@ function getRespecConfig(copyright_holder, local_biblio=null) {
         };
 
     if (local_biblio) {
-        config.preProcess = [renderPlantUML, renderIDEF0];
         config.localBiblio = local_biblio;
     }
 
