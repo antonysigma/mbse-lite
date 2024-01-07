@@ -219,7 +219,13 @@ $(function() {
   {source: "<xsl:value-of select="../@id"/>", target: "<xsl:value-of select="@ref"/>", arrows: 'to',}},
 </xsl:template>
 
-<xsl:template match="interface|function" mode="link">{group: 'edges', data:
+<xsl:template match="function" mode="link">{group: 'edges', data:
+  {target: "<xsl:value-of select="@id"/>", source: "<xsl:value-of select="../@id"/>", arrows: 'from,to',}},
+{group: 'edges', data:
+  {source: "<xsl:value-of select="@id"/>", target: "<xsl:value-of select="../@id"/>", arrows: 'from,to', duplicate: true}},
+</xsl:template>
+
+<xsl:template match="interface" mode="link">{group: 'edges', data:
   {source: "<xsl:value-of select="@id"/>", target: "<xsl:value-of select="../@id"/>", arrows: 'from,to',}},
 {group: 'edges', data:
   {target: "<xsl:value-of select="@id"/>", source: "<xsl:value-of select="../@id"/>", arrows: 'from,to', duplicate: true}},
