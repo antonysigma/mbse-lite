@@ -28,6 +28,9 @@ a {
     grid-template-rows: 1fr 10px 1fr;
     grid-template-columns: 1fr 10px 1fr;
 }
+.grid > div {
+  overflow: scroll;
+}
 
 .gutter-col {
     grid-row: 1/-1;
@@ -50,7 +53,9 @@ pre, .hidden {
   display: none;
 }
 img {
-  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
   </style>
 <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
@@ -58,7 +63,7 @@ img {
 import 'https://unpkg.com/jquery@3.6.0/dist/jquery.min.js';
 import cytoscape from 'https://unpkg.com/cytoscape@3.21.1/dist/cytoscape.esm.min.js';
 import { Network, DataSet } from 'https://unpkg.com/vis-network@9.1.2/standalone/esm/vis-network.min.js';
-//import Split from 'https://www.unpkg.com/split-grid@1.0.11/dist/split-grid.mjs';
+import Split from 'https://www.unpkg.com/split-grid@1.0.11/dist/split-grid.mjs';
 
 const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 
@@ -207,18 +212,18 @@ function findReferenceDoc(node_id) {
   }
 }
 
-//$(() => {
-//Split({
-//    columnGutters: [{
-//        track: 1,
-//        element: document.querySelector('.gutter-col-1'),
-//    }],
-//    rowGutters: [{
-//        track: 1,
-//        element: document.querySelector('.gutter-row-1'),
-//    }]
-//})
-//});
+$(() => {
+Split({
+    columnGutters: [{
+        track: 1,
+        element: document.querySelector('.gutter-col-1'),
+    }],
+    rowGutters: [{
+        track: 1,
+        element: document.querySelector('.gutter-row-1'),
+    }]
+})
+});
 
 $(function() {
   // Step 1: Compile the network graph from node and edge data.
@@ -292,6 +297,7 @@ $(function() {
           panel_id = '#behavior';
           break;
         case 'sys':
+        case 'org':
           panel_id = '#requirement';
           break;
         default:
@@ -301,6 +307,7 @@ $(function() {
       if(panel_id === '#requirement') {
         $('#requirement div').addClass('hidden');
         $('#' + node_id).removeClass('hidden');
+        return;
       }
 
       const plantuml_node = $('#' + node_id);
@@ -322,7 +329,8 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
     <div class="gutter-col gutter-col-1"></div>
     <div id="requirement">
   <xsl:apply-templates select="//performance/description"/>
-  <xsl:apply-templates select="//requirement/description"/>
+  <xsl:apply-templates select="//constraint/description"/>
+  <xsl:apply-templates select="//orig/description"/>
     </div>
     <div><img id="architecture" /></div>
     <div class="gutter-row gutter-row-1"></div>
