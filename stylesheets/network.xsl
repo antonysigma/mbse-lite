@@ -49,6 +49,9 @@ a {
 pre {
   display: none;
 }
+img {
+  width: 100%;
+}
   </style>
 <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
 <script type="module">
@@ -304,8 +307,10 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
     <div class="gutter-row gutter-row-1"></div>
     <div id="viewer"></div>
 </div>
-<div>
+<div id="uml">
   <xsl:apply-templates select="//uml"/>
+</div>
+<div id="idef0">
   <xsl:apply-templates select="//idef0"/>
 </div>
 </body>
@@ -323,8 +328,21 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 </xsl:template>
 
 <xsl:template match="uml|idef0">
-<pre id="{../@id}"><xsl:value-of select="."/></pre>
+<pre id="{../@id}"><xsl:apply-templates /></pre>
 </xsl:template>
+
+<!-- Generate use-case bubble, or activity block, or component depending on the context. -->
+<xsl:template match="this">
+  <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
+<xsl:choose>
+<xsl:when test="name(..) = 'uml'">
+<xsl:value-of select="@color"/>:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:when>
+<!-- otherwise, idef0 diagram. -->
+<xsl:otherwise>
+[<xsl:value-of select="$idref"/>: <xsl:value-of select="//description[../@id=$idref]/@brief"/>]</xsl:otherwise>
+</xsl:choose>
+</xsl:template>
+
 
 <xsl:template match="trace|test">{group: 'edges', data:
   {source: "<xsl:value-of select="../@id"/>", target: "<xsl:value-of select="@ref"/>", arrows: 'to',}},
