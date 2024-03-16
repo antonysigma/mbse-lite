@@ -100,6 +100,14 @@ which in turn is verified by the Verification plans</figcaption>
 <section id="tof"/>
 
 <section>
+  <h2 id="usecases">Use cases</h2>
+  <xsl:for-each select="//usecase">
+      <xsl:sort select="@id"/>
+      <xsl:apply-templates select="."/>
+  </xsl:for-each>
+</section>
+
+<section>
 <h2 id="constraints">Constraint specifications</h2>
 
 <xsl:for-each select="//categories[generate-id() = generate-id(key('group_id', @group)[1])]">
@@ -128,6 +136,58 @@ which in turn is verified by the Verification plans</figcaption>
 
   </body>
   </html>
+</xsl:template>
+
+<xsl:template match="usecase">
+    <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
+
+    <section>
+    <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
+
+    <figure id="{ @id-uml }">
+
+    <pre class="uml">
+    <xsl:apply-templates select="uml"/>
+    </pre>
+
+    <figcaption>Use case "<xsl:value-of select="$title"/>"</figcaption>
+    </figure>
+
+    <section>
+    <h2 id="{ @id }-pre-conditions">Pre-conditions</h2>
+    <ul>
+    <xsl:apply-templates select="pre-condition"/>
+    </ul>
+    </section>
+
+    <section>
+    <h2 id="{ @id }-main-event-flow">Main event flow</h2>
+    <ol>
+    <xsl:apply-templates select="main-event"/>
+    </ol>
+    </section>
+
+    <section>
+    <h2 id="{ @id }-post-conditions">Post-conditions</h2>
+    <ul>
+    <xsl:apply-templates select="post-condition"/>
+    </ul>
+    </section>
+
+    <section>
+    <h2 id="{ @id }-alternate-flow">Alternate flow</h2>
+    <ul>
+    <xsl:apply-templates select="alternate-event"/>
+    </ul>
+    </section>
+
+    <section>
+    <h2 id="{ @id }-trace">Linked requirements</h2>
+    <xsl:apply-templates select="trace"/>
+    </section>
+
+    </section>
 </xsl:template>
 
 <xsl:template name = "constraints_by_group">
