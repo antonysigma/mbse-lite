@@ -334,9 +334,16 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 <!-- Generate use-case bubble, or activity block, or component depending on the context. -->
 <xsl:template match="this">
   <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
+  <xsl:variable name="label">[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/></xsl:variable>
 <xsl:choose>
-<xsl:when test="name(..) = 'uml'">
-<xsl:value-of select="@color"/>:[<xsl:value-of select="$idref"/>] <xsl:value-of select="//description[../@id=$idref]/@brief"/>;</xsl:when>
+<xsl:when test="name(..) = 'uml' and name(../..) = 'behavior'">
+<xsl:value-of select="@color"/>:<xsl:value-of select="$label"/>;</xsl:when>
+<xsl:when test="name(..) = 'uml' and name(../..) = 'architecture'">
+  <xsl:choose>
+    <xsl:when test="not(@type)">() "<xsl:value-of select="$label"/>"</xsl:when>
+    <xsl:otherwise><xsl:value-of select="@type"/><xsl:text> </xsl:text><xsl:value-of select="$label"/></xsl:otherwise>
+  </xsl:choose>
+</xsl:when>
 <!-- otherwise, idef0 diagram. -->
 <xsl:otherwise>
 [<xsl:value-of select="$idref"/>: <xsl:value-of select="//description[../@id=$idref]/@brief"/>]</xsl:otherwise>
