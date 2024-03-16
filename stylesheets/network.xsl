@@ -46,7 +46,7 @@ a {
 .gutter-row-1 {
     grid-row: 2;
 }
-pre {
+pre, .hidden {
   display: none;
 }
 img {
@@ -299,7 +299,8 @@ $(function() {
       }
 
       if(panel_id === '#requirement') {
-        $('#requirement').text(`Some requirements from ${node_id}`);
+        $('#requirement div').addClass('hidden');
+        $('#' + node_id).removeClass('hidden');
       }
 
       const plantuml_node = $('#' + node_id);
@@ -319,7 +320,10 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 <div class="grid">
     <div><img id="behavior" /></div>
     <div class="gutter-col gutter-col-1"></div>
-    <div id="requirement"></div>
+    <div id="requirement">
+  <xsl:apply-templates select="//performance/description"/>
+  <xsl:apply-templates select="//requirement/description"/>
+    </div>
     <div><img id="architecture" /></div>
     <div class="gutter-row gutter-row-1"></div>
     <div id="viewer"></div>
@@ -342,6 +346,14 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 	  physics: false,
   </xsl:if>
   }},
+</xsl:template>
+
+<xsl:template match="description">
+<div id="{ ../@id }" class="hidden">
+<h2><xsl:value-of select="../@id"/>: <xsl:value-of select="@brief"/></h2>
+<p><xsl:value-of select="."/></p>
+<p>Rationale: "<xsl:value-of select="../rationale"/>"</p>
+</div>
 </xsl:template>
 
 <xsl:template match="uml|idef0">
