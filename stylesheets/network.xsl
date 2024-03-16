@@ -17,18 +17,47 @@ body {
         background-color: #222222;
       }
 #viewer {
-      width: 100%;
-      height: 100%;
       border: 1px solid lightgray;
     }
 a {
         color: #d3d3d3;
 }
+.grid {
+    height: 80%;
+    display: grid;
+    grid-template-rows: 1fr 10px 1fr;
+    grid-template-columns: 1fr 10px 1fr;
+}
+
+.gutter-col {
+    grid-row: 1/-1;
+    cursor: col-resize;
+}
+
+.gutter-col-1 {
+    grid-column: 2;
+}
+
+.gutter-row {
+    grid-column: 1/-1;
+    cursor: row-resize;
+}
+
+.gutter-row-1 {
+    grid-row: 2;
+}
+pre {
+  display: none;
+}
   </style>
+<script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
 <script type="module">
 import 'https://unpkg.com/jquery@3.6.0/dist/jquery.min.js';
 import cytoscape from 'https://unpkg.com/cytoscape@3.21.1/dist/cytoscape.esm.min.js';
 import { Network, DataSet } from 'https://unpkg.com/vis-network@9.1.2/standalone/esm/vis-network.min.js';
+//import Split from 'https://www.unpkg.com/split-grid@1.0.11/dist/split-grid.mjs';
+
+const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 
 const data = [
 <!-- nodes -->
@@ -174,6 +203,19 @@ function findReferenceDoc(node_id) {
   }
 }
 
+//$(() => {
+//Split({
+//    columnGutters: [{
+//        track: 1,
+//        element: document.querySelector('.gutter-col-1'),
+//    }],
+//    rowGutters: [{
+//        track: 1,
+//        element: document.querySelector('.gutter-row-1'),
+//    }]
+//})
+//});
+
 $(function() {
   // Step 1: Compile the network graph from node and edge data.
   const cy = cytoscape({
@@ -239,6 +281,11 @@ $(function() {
       const node_id = filtered_nodes.get(params.nodes[0]).id;
       const url = `${findReferenceDoc(node_id)}#${node_id}`;
       $('#source_doc').attr('href', './' + url).text(url);
+
+      const plantuml_node = $('#' + node_id);
+      if (plantuml_node.length == 0) { return; }
+      const plantuml_url = plantuml_host + window.plantumlEncoder.encode('skin rose\n' + plantuml_node.text());
+      $('#behavior').attr('src', plantuml_url);
     }
   });
 });
@@ -249,12 +296,23 @@ $(function() {
 <div id="topbar">
 Reference: <a id="source_doc" href="./product_requirements_specifications.html" target="source_doc_tab">product_requirements_specifications.html</a>
 </div>
-<div id="viewer"></div>
+<div class="grid">
+    <div><img id="behavior" /></div>
+    <div class="gutter-col gutter-col-1"></div>
+    <div id="requirement"></div>
+    <div id="architecture"></div>
+    <div class="gutter-row gutter-row-1"></div>
+    <div id="viewer"></div>
+</div>
+<div>
+  <xsl:apply-templates select="//uml"/>
+  <xsl:apply-templates select="//idef0"/>
+</div>
 </body>
 </html>
 </xsl:template>
 
-<xsl:template match="*">{group: 'nodes', data:
+<xsl:template match="*[@id]">{group: 'nodes', data:
   {id: "<xsl:value-of select="@id"/>",
   label: "<xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/>",
   group: "<xsl:value-of select="substring(@id,1,3)"/>",
@@ -262,6 +320,10 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 	  physics: false,
   </xsl:if>
   }},
+</xsl:template>
+
+<xsl:template match="uml|idef0">
+<pre id="{../@id}"><xsl:value-of select="."/></pre>
 </xsl:template>
 
 <xsl:template match="trace|test">{group: 'edges', data:

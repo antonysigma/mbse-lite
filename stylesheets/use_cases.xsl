@@ -116,7 +116,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
     </section>
 </xsl:template>
 
-<xsl:template match="trace">
+<xsl:template match="trace[.. = 'function']">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
     <li>
     <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
