@@ -49,7 +49,7 @@ a {
 .gutter-row-1 {
     grid-row: 2;
 }
-pre, .hidden {
+#uml pre, #idef0 pre, .hidden {
   display: none;
 }
 img {
@@ -298,6 +298,7 @@ $(function() {
           break;
         case 'sys':
         case 'org':
+        case 'ver':
           panel_id = '#requirement';
           break;
         default:
@@ -331,6 +332,7 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
   <xsl:apply-templates select="//performance/description"/>
   <xsl:apply-templates select="//constraint/description"/>
   <xsl:apply-templates select="//orig/description"/>
+  <xsl:apply-templates select="//verification/description"/>
     </div>
     <div><img id="architecture" /></div>
     <div class="gutter-row gutter-row-1"></div>
@@ -359,7 +361,7 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 <xsl:template match="description">
 <div id="{ ../@id }" class="hidden">
 <h2><xsl:value-of select="../@id"/>: <xsl:value-of select="@brief"/></h2>
-<p><xsl:value-of select="."/></p>
+<pre><xsl:value-of select="."/></pre>
 <p>Rationale: "<xsl:value-of select="../rationale"/>"</p>
 </div>
 </xsl:template>
