@@ -12,15 +12,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <style type="text/css">
 body {
-        color: #d3d3d3;
+        /* color: #d3d3d3; */
         font: 12pt arial;
-        background-color: #222222;
+        /* background-color: #222222; */
       }
 #viewer {
       border: 1px solid lightgray;
     }
 a {
-        color: #d3d3d3;
+        /* color: #d3d3d3; */
 }
 .grid {
     height: 80%;
@@ -98,7 +98,8 @@ const style = [
       'text-valign' : 'center',
       'text-halign' : 'right',
       'text-margin-x' : '4pt',
-      'color' : '#d3d3d3',
+      // 'color' : '#d3d3d3',
+      'color' : 'black',
     },
   },
   {
