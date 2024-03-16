@@ -176,7 +176,7 @@ function draw(data) {
     nodes : {
       shape : "dot",
       font : {
-        color : "#ffffff",
+        color : 'black',
       },
       borderWidth : 2,
     },
