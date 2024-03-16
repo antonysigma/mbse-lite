@@ -286,10 +286,26 @@ $(function() {
       const url = `${findReferenceDoc(node_id)}#${node_id}`;
       $('#source_doc').attr('href', './' + url).text(url);
 
+      var panel_id = '';
+      switch(node_id.slice(0, 3)) {
+        case 'fnc':
+          panel_id = '#behavior';
+          break;
+        case 'sys':
+          panel_id = '#requirement';
+          break;
+        default:
+          panel_id = '#architecture';
+      }
+
+      if(panel_id === '#requirement') {
+        $('#requirement').text(`Some requirements from ${node_id}`);
+      }
+
       const plantuml_node = $('#' + node_id);
       if (plantuml_node.length == 0) { return; }
       const plantuml_url = plantuml_host + window.plantumlEncoder.encode('skin rose\n' + plantuml_node.text());
-      $('#behavior').attr('src', plantuml_url);
+      $(panel_id).attr('src', plantuml_url);
     }
   });
 });
@@ -304,7 +320,7 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
     <div><img id="behavior" /></div>
     <div class="gutter-col gutter-col-1"></div>
     <div id="requirement"></div>
-    <div id="architecture"></div>
+    <div><img id="architecture" /></div>
     <div class="gutter-row gutter-row-1"></div>
     <div id="viewer"></div>
 </div>
@@ -332,19 +348,26 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 <pre id="{../@id}"><xsl:apply-templates /></pre>
 </xsl:template>
 
-<!-- Generate use-case bubble, or activity block, or component depending on the context. -->
+<!-- Generate use-case bubble, or activity block, or interface depending on the context. -->
 <xsl:template match="this">
   <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
   <xsl:variable name="label">[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/></xsl:variable>
 <xsl:choose>
+
+<!-- Activity block -->
 <xsl:when test="name(..) = 'uml' and name(../..) = 'behavior'">
 <xsl:value-of select="@color"/>:<xsl:value-of select="$label"/>;</xsl:when>
+
+<!-- Interface block -->
 <xsl:when test="name(..) = 'uml' and name(../..) = 'architecture'">
   <xsl:choose>
     <xsl:when test="not(@type)">() "<xsl:value-of select="$label"/>"</xsl:when>
     <xsl:otherwise><xsl:value-of select="@type"/><xsl:text> </xsl:text><xsl:value-of select="$label"/></xsl:otherwise>
   </xsl:choose>
 </xsl:when>
+
+<!-- Use case bubble -->
+<xsl:when test="name(..) = 'uml' and name(../..) = 'usecase'">(<xsl:value-of select="../../@id"/>: <xsl:value-of select="../../description/@brief"/>)</xsl:when>
 <!-- otherwise, idef0 diagram. -->
 <xsl:otherwise>
 [<xsl:value-of select="$idref"/>: <xsl:value-of select="//description[../@id=$idref]/@brief"/>]</xsl:otherwise>
