@@ -66,6 +66,7 @@ import { Network, DataSet } from 'https://unpkg.com/vis-network@9.1.2/standalone
 import Split from 'https://www.unpkg.com/split-grid@1.0.11/dist/split-grid.mjs';
 
 const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
+const plantuml_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
 
 const data = [
 <!-- nodes -->
@@ -206,6 +207,7 @@ function findReferenceDoc(node_id) {
     return 'product_requirements_specifications.html';
     case 'int':
     case 'pad':
+    case 'iad':
     return 'logical_and_physical_architecture.html';
     default:
     return 'product_requirements_specifications.html';
@@ -313,8 +315,17 @@ $(function() {
 
       const plantuml_node = $('#' + node_id);
       if (plantuml_node.length == 0) { return; }
-      const plantuml_url = plantuml_host + window.plantumlEncoder.encode('skin rose\n' + plantuml_node.text());
-      $(panel_id).attr('src', plantuml_url);
+      const is_plantuml = plantuml_node.parent('#uml').length;
+
+      if(is_plantuml) {
+        const plantuml_url = plantuml_host + window.plantumlEncoder.encode('skin rose\n' + plantuml_node.text());
+        $(panel_id).attr('src', plantuml_url);
+        return;
+      }
+
+      // else idef0
+      const idef02svg_url = idef0svg_host +window.plantumlEncoder.encode('skin rose\n' + plantuml_node.text());
+      $(panel_id).attr('src', idef02svg_url);
     }
   });
 });
