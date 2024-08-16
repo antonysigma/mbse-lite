@@ -1,1 +1,5 @@
 out/
+node_modules/
+meta.json
+static/*-main.js*
+static/*-main.css*

@@ -1,0 +1,56 @@
+body {
+        /* color: #d3d3d3; */
+        font: 12pt arial;
+        /* background-color: #222222; */
+      }
+#viewer {
+      border: 1px solid lightgray;
+    }
+a {
+        /* color: #d3d3d3; */
+}
+.grid {
+    height: 95vh;
+    display: grid;
+    grid-template-rows: 1fr 10px 1fr;
+    grid-template-columns: 1fr 10px 1fr;
+}
+
+/* hightlight typewriter texts in lightgray. */
+pre {
+  white-space: pre-wrap;
+  background-color: #eee;
+}
+
+code {
+  background-color: #eee;
+}
+.grid > div {
+  overflow: scroll;
+}
+
+.gutter-col {
+    grid-row: 1/-1;
+    cursor: col-resize;
+}
+
+.gutter-col-1 {
+    grid-column: 2;
+}
+
+.gutter-row {
+    grid-column: 1/-1;
+    cursor: row-resize;
+}
+
+.gutter-row-1 {
+    grid-row: 2;
+}
+#uml pre, #idef0 pre, .hidden {
+  display: none;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

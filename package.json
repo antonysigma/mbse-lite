@@ -1,0 +1,27 @@
+{
+  "name": "mbse-lite",
+  "description": "Requirement traceability visualizer",
+  "author": "Antony Chan",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "esbuild src/mnetwork-ain.ts --bundle --bundle --watch --outdir=static"
+  },
+  "dependencies": {
+    "cytoscape": "^3.30.2",
+    "jquery": "^3.7.1",
+    "marked": "^14.0.0",
+    "plantuml-encoder": "^1.4.0",
+    "split-grid": "^1.0.11",
+    "vis-network": "^9.1.9"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.20",
+    "nodejs": "^0.0.0"
+  }
+}
