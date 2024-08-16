@@ -100,14 +100,6 @@ which in turn is verified by the Verification plans</figcaption>
 <section id="tof"/>
 
 <section>
-  <h2 id="usecases">Use cases</h2>
-  <xsl:for-each select="//usecase">
-      <xsl:sort select="@id"/>
-      <xsl:apply-templates select="."/>
-  </xsl:for-each>
-</section>
-
-<section>
 <h2 id="constraints">Constraint specifications</h2>
 
 <xsl:for-each select="//categories[generate-id() = generate-id(key('group_id', @group)[1])]">

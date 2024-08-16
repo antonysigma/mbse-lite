@@ -117,7 +117,7 @@ internal components of the system.</figcaption>
 
     <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <p><xsl:value-of select="description"/></p>
+    <div data-format="markdown"><xsl:value-of select="description"/></div>
 
     <figure id="{ @id }-uml">
 
