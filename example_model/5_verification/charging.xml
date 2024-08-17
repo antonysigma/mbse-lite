@@ -1,10 +1,11 @@
 <verification id="ver-1" status="firm">
 <categories method="test" owner="SQA" allocation="power" discipline="ee mech"/>
 <description brief="Re-charging">
-Connect a device with a low battery to the charger.
-Confirm charge completes within the specified time limit.
-Confirm the displays per the diagram.
-Connect a device with a low battery to the charger.
-Disconnect the battery prior to the battery completely charging.
-Confirm the displays per the diagram.</description>
+1. Connect a device with a low battery to the charger.
+1. Confirm charge completes within the specified time limit.
+1. Confirm the displays per the diagram.
+1. Connect a device with a low battery to the charger.
+1. Disconnect the battery prior to the battery completely charging.
+1. Confirm the displays per the diagram.
+</description>
 </verification>

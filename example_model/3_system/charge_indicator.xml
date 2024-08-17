@@ -3,7 +3,6 @@
 <description brief="Charge duration">A battery with &lt;5% capacity shall charge to >95% capacity in &lt;5 hours.</description>
 <rationale/>
 
-<trace ref="fnc-1"/>
 <test ref="ver-1"/>
 </performance>
 
@@ -12,6 +11,6 @@
 <description brief="Charge indicator location">The charge indicator shall be located 1.0 +/- 0.2 cm from the charging port.</description>
 <rationale/>
 
-<trace ref="fnc-1"/>
+<satisfies ref="ucd-1"/>
 <test ref="ver-1"/>
 </constraint>

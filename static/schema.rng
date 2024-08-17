@@ -139,13 +139,13 @@
     </optional>
   </define>
   <!-- Trace the originating requirement to the internal model. -->
-  <define name="trace">
-    <element name="trace">
-      <ref name="attlist.trace"/>
+  <define name="satisfies">
+    <element name="satisfies">
+      <ref name="attlist.satisfies"/>
       <empty/>
     </element>
   </define>
-  <define name="attlist.trace" combine="interleave">
+  <define name="attlist.satisfies" combine="interleave">
     <attribute name="ref">
       <data type="IDREF"/>
     </attribute>
@@ -159,9 +159,6 @@
       <ref name="attlist.orig"/>
       <ref name="description"/>
       <ref name="reference"/>
-      <zeroOrMore>
-        <ref name="trace"/>
-      </zeroOrMore>
     </element>
   </define>
   <!--
@@ -182,7 +179,7 @@
       <ref name="uml"/>
       <ref name="description"/>
       <oneOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </oneOrMore>
       <oneOrMore>
         <ref name="pre-condition"/>
@@ -307,7 +304,7 @@
       <ref name="attlist.function"/>
       <ref name="description"/>
       <zeroOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </zeroOrMore>
     </element>
   </define>
@@ -330,7 +327,7 @@
       <ref name="description"/>
       <ref name="rationale"/>
       <zeroOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </zeroOrMore>
       <zeroOrMore>
         <ref name="test"/>
@@ -353,7 +350,7 @@
       <ref name="description"/>
       <ref name="rationale"/>
       <zeroOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </zeroOrMore>
       <oneOrMore>
         <ref name="test"/>
@@ -431,7 +428,7 @@
       <ref name="categories"/>
       <ref name="description"/>
       <zeroOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </zeroOrMore>
     </element>
   </define>
@@ -489,7 +486,7 @@
         <ref name="software"/>
       </zeroOrMore>
       <zeroOrMore>
-        <ref name="trace"/>
+        <ref name="satisfies"/>
       </zeroOrMore>
     </element>
   </define>

@@ -5,8 +5,7 @@
 </uml>
 <description brief="Charging">The device battery is re-charged.</description>
 
-<trace ref="sys-1"/>
-<trace ref="fnc-1"/>
+<satisfies ref="org-1"/>
 
 <pre-condition>Device has a partially depleted battery</pre-condition>
 

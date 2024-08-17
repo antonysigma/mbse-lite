@@ -24,6 +24,7 @@ end
 <function id="fnc-1.1" status="initial">
 <description brief="Charge device">The device battery shall charge.</description>
 
-<trace ref="sys-1"/>
+<satisfies ref="sys-1"/>
+<satisfies ref="sys-2"/>
 </function>
 </behavior>

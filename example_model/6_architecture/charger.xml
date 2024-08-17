@@ -33,7 +33,7 @@ PS ..> <this ref="int-1"/>: use
 <mechanical>The power supply shall contain the plug, the device shall contain the jack.</mechanical>
 <electrical>The device shall receive 1A max, 5V +/- 25mV via the power interface.</electrical>
 
-<trace ref="sys-1"/>
+<satisfies ref="sys-1"/>
 </interface>
 
 <interface id="int-2">
@@ -43,7 +43,7 @@ PS ..> <this ref="int-1"/>: use
 <electrical>The LED shall receive forward current 20mA.</electrical>
 <software>The LED shall be blinking at 2 second interval.</software>
 
-<trace ref="sys-2"/>
+<satisfies ref="sys-2"/>
 </interface>
 
 </architecture>

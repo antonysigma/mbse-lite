@@ -56,12 +56,12 @@ attlist.reference &=
   attribute publisher { text }?
 
 # Trace the originating requirement to the internal model.
-trace = element trace { attlist.trace, empty }
-attlist.trace &= attribute ref { xsd:IDREF }
+satisfies = element satisfies { attlist.satisfies, empty }
+attlist.satisfies &= attribute ref { xsd:IDREF }
 
 #  #############################################################
 # Orignating requirement
-orig = element orig { attlist.orig, description, reference, trace* }
+orig = element orig { attlist.orig, description, reference }
 
 # id: identifier
 # status: initial, tentative, firm, or obsolete
@@ -76,7 +76,7 @@ usecase =
     attlist.usecase,
     uml,
     description,
-    trace+,
+    satisfies+,
     pre-condition+,
     main-event+,
     post-condition+,
@@ -122,7 +122,7 @@ attlist.behavior &=
   status_attr
 
 # Describe a step / function in the behavior diagram.
-function = element function { attlist.function, description, trace* }
+function = element function { attlist.function, description, satisfies* }
 
 # id: identifier
 # status: initial or firm
@@ -138,7 +138,7 @@ constraint =
     categories,
     description,
     rationale,
-    trace*,
+    satisfies*,
     test*
   }
 # id: identifier
@@ -153,7 +153,7 @@ performance =
     categories,
     description,
     rationale,
-    trace*,
+    satisfies*,
     test+
   }
 # id: identifier
@@ -184,7 +184,7 @@ attlist.test &= attribute ref { xsd:IDREF }
 # Verification plan
 verification =
   element verification {
-    attlist.verification, categories, description, trace*
+    attlist.verification, categories, description, satisfies*
   }
 # id: identifier
 # status: initial or firm
@@ -213,7 +213,7 @@ interface =
     optical*,
     electrical*,
     software*,
-    trace*
+    satisfies*
   }
 # id: identifier
 # external: boolean, whether it is controlled by stakeholders
