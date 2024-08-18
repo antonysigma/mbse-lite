@@ -59,6 +59,9 @@ attlist.reference &=
 satisfies = element satisfies { attlist.satisfies, empty }
 attlist.satisfies &= attribute ref { xsd:IDREF }
 
+implements = element implements { attlist.implements, empty }
+attlist.implements &= attribute ref { xsd:IDREF }
+
 #  #############################################################
 # Orignating requirement
 orig = element orig { attlist.orig, description, reference }
@@ -213,7 +216,7 @@ interface =
     optical*,
     electrical*,
     software*,
-    satisfies*
+    (satisfies|implements)*
   }
 # id: identifier
 # external: boolean, whether it is controlled by stakeholders

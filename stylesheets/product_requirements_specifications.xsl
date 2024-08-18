@@ -130,58 +130,6 @@ which in turn is verified by the Verification plans</figcaption>
   </html>
 </xsl:template>
 
-<xsl:template match="usecase">
-    <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
-
-    <section>
-    <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
-    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
-
-    <figure id="{ @id-uml }">
-
-    <pre class="uml">
-    <xsl:apply-templates select="uml"/>
-    </pre>
-
-    <figcaption>Use case "<xsl:value-of select="$title"/>"</figcaption>
-    </figure>
-
-    <section>
-    <h2 id="{ @id }-pre-conditions">Pre-conditions</h2>
-    <ul>
-    <xsl:apply-templates select="pre-condition"/>
-    </ul>
-    </section>
-
-    <section>
-    <h2 id="{ @id }-main-event-flow">Main event flow</h2>
-    <ol>
-    <xsl:apply-templates select="main-event"/>
-    </ol>
-    </section>
-
-    <section>
-    <h2 id="{ @id }-post-conditions">Post-conditions</h2>
-    <ul>
-    <xsl:apply-templates select="post-condition"/>
-    </ul>
-    </section>
-
-    <section>
-    <h2 id="{ @id }-alternate-flow">Alternate flow</h2>
-    <ul>
-    <xsl:apply-templates select="alternate-event"/>
-    </ul>
-    </section>
-
-    <section>
-    <h2 id="{ @id }-trace">Linked requirements</h2>
-    <xsl:apply-templates select="trace"/>
-    </section>
-
-    </section>
-</xsl:template>
-
 <xsl:template name = "constraints_by_group">
   <xsl:param name = "group"/>
   <section>
@@ -195,8 +143,9 @@ which in turn is verified by the Verification plans</figcaption>
 </xsl:template>
 
 <xsl:template match="constraint|performance">
+    <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <section data-format="markdown">
-    <h2 id="{ @id }"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></h2>
+    <h2 id="{ $id }"><xsl:value-of select="$id"/>: <xsl:value-of select="description/@brief"/></h2>
 
     <ul>
     <li><b>Allocation: </b> <xsl:value-of select="categories/@allocation"/></li>
@@ -209,9 +158,14 @@ which in turn is verified by the Verification plans</figcaption>
     <p><b>Rationale:</b> <xsl:value-of select="rationale"/></p>
     </xsl:if>
 
-    <p>Known to affect specifications:</p>
+    <p>Satisfies:</p>
     <ul>
-    <xsl:apply-templates select="trace"/>
+    <xsl:apply-templates select="satisfies"/>
+    </ul>
+
+    <p>Designs directly impacted by this:</p>
+    <ul>
+      <xsl:apply-templates select="//*[satisfies/@ref=$id]/description" mode="link"/>
     </ul>
 
     <p>Verification plans:</p>
@@ -245,11 +199,11 @@ which in turn is verified by the Verification plans</figcaption>
 
     <p>Linked requirements:</p>
     <ul>
-    <xsl:for-each select="trace">
+    <xsl:for-each select="satisfies">
       <xsl:apply-templates select="."/>
 
       <xsl:variable name="id_descendent"><xsl:value-of select="@ref"/></xsl:variable>
-      <xsl:apply-templates select="//behavior[@id=$id_descendent]/function/trace"/>
+      <xsl:apply-templates select="//behavior[@id=$id_descendent]/function/satisfies"/>
     </xsl:for-each>
     </ul>
     </section>
@@ -316,7 +270,7 @@ which in turn is verified by the Verification plans</figcaption>
 </xsl:choose>
 </xsl:template>
 
-<xsl:template match="trace|test">
+<xsl:template match="satisfies|test">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
     <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
 </xsl:template>

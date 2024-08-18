@@ -110,18 +110,20 @@ Use cases helps capture missing high-level requirements.</figcaption>
 
     <section>
     <h2 id="{ @id }-trace">Linked requirements</h2>
-    <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-    <xsl:apply-templates select="//trace[@ref=$id]"/>
+    <ul>
+      <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
+      <xsl:apply-templates select="satisfies"/>
+      <xsl:apply-templates select="//*[satisfies/@ref=$id]/description" mode="link"/>
+    </ul>
+
     </section>
 
     </section>
 </xsl:template>
 
-<xsl:template match="trace">
+<xsl:template match="satisfies">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
-    <li>
-    <xsl:apply-templates select="../description" mode="link"/>
-    </li>
+    <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
 </xsl:template>
 
 <xsl:template match="description" mode="link">

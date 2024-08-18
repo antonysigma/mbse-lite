@@ -141,9 +141,9 @@ internal components of the system.</figcaption>
     <h2 id="{ $id }"><xsl:value-of select="$title"/></h2>
     <div data-format="markdown"><xsl:value-of select="description"/></div>
 
-    <p>Implements:</p>
+    <p>Satisfies:</p>
     <ul>
-      <xsl:apply-templates select="//description[../trace/@ref=$id]" mode="link"/>
+      <xsl:apply-templates select="satisfies|implements"/>
     </ul>
 
     <xsl:if test="mechanical">
@@ -184,16 +184,9 @@ internal components of the system.</figcaption>
     </section>
 </xsl:template>
 
-<xsl:template match="orig">
-<xsl:apply-templates select="description" mode="link"/>
-<ul>
-<xsl:apply-templates select="trace" mode="link"/>
-</ul>
-</xsl:template>
-
-<xsl:template match="trace">
-<xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
-<xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
+<xsl:template match="satisfies|implements">
+    <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
+    <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
 </xsl:template>
 
 <xsl:template match="description" mode="link">

@@ -19,7 +19,7 @@ window.network_data = [
 <!-- nodes -->
 <xsl:apply-templates select="//*[@id]"/>
 <!-- edges -->
-<xsl:apply-templates select="//trace"/>
+<xsl:apply-templates select="//satisfies"/>
 <xsl:apply-templates select="//test"/>
 <xsl:apply-templates select="//interface" mode="link"/>
 <xsl:apply-templates select="//function" mode="link"/>
@@ -104,8 +104,13 @@ Reference: <a id="source_doc" href="./product_requirements_specifications.html" 
 </xsl:choose>
 </xsl:template>
 
+<!-- Backward dependencies -->
+<xsl:template match="satisfies|implements">{group: 'edges', data:
+  {source: "<xsl:value-of select="@ref"/>", target: "<xsl:value-of select="../@id"/>", arrows: 'to',}},
+</xsl:template>
 
-<xsl:template match="trace|test">{group: 'edges', data:
+<!-- Forward dependencies -->
+<xsl:template match="test">{group: 'edges', data:
   {source: "<xsl:value-of select="../@id"/>", target: "<xsl:value-of select="@ref"/>", arrows: 'to',}},
 </xsl:template>
 

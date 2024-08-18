@@ -150,6 +150,17 @@
       <data type="IDREF"/>
     </attribute>
   </define>
+  <define name="implements">
+    <element name="implements">
+      <ref name="attlist.implements"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.implements" combine="interleave">
+    <attribute name="ref">
+      <data type="IDREF"/>
+    </attribute>
+  </define>
   <!--
      #############################################################
     Orignating requirement
@@ -486,7 +497,10 @@
         <ref name="software"/>
       </zeroOrMore>
       <zeroOrMore>
-        <ref name="satisfies"/>
+        <choice>
+          <ref name="satisfies"/>
+          <ref name="implements"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>
