@@ -11,6 +11,7 @@ function changeCopyright(config, document) {
  */
 function removeW3CWatermark(config, document) {
     $('body').css('background', 'white');
+    $('.secno').css('color', '#ccc');
 }
 
 function renderPlantUML(config, document) {

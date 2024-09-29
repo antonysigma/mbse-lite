@@ -289,13 +289,14 @@ which in turn is verified by the Verification plans</figcaption>
     <xsl:choose>
       <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
       <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
+      <xsl:when test="name(..) = 'orig'">./originating_requirements.html#</xsl:when>
       <xsl:otherwise>#</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
     <li><b>
 <xsl:choose>
-  <xsl:when test="../reference">
+  <xsl:when test="name(..) = 'document'">
     <!-- External document reference -->
     [[<xsl:value-of select="translate(../@id, '-', '')"/>]]
   </xsl:when>
