@@ -3,6 +3,8 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:include href="common.xsl"/>
+
 <xsl:output method="html" indent="yes" />
 <xsl:key name="group_id" match="//categories" use="@group"/>
 
@@ -11,22 +13,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <head>
   <title>Product requirements specification</title>
   <link rel="stylesheet" href="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.css"/>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-  <script src="https://code.jquery.com/jquery.min.js"></script>
-  <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
-  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.js"></script>
-  <script src="../static/main.js"></script>
-  <script class="remove">
-const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
-const idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
-
-const localBiblio = {
-<xsl:apply-templates select="//document/reference"/>
-};
-
-const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', localBiblio);
-    </script>
+  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>
   <section id="abstract">
@@ -182,7 +171,10 @@ which in turn is verified by the Verification plans</figcaption>
 
     <figure id="{ @id }-uml">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-    <xsl:apply-templates select="uml|idef0"/>
+    <xsl:apply-templates select="uml">
+      <xsl:with-param name="diagram_type">Activity</xsl:with-param>
+    </xsl:apply-templates>
+    <xsl:apply-templates select="idef0"/>
     </figure>
 
     <xsl:apply-templates select="function"/>
@@ -231,24 +223,11 @@ which in turn is verified by the Verification plans</figcaption>
     </section>
 </xsl:template>
 
-<xsl:template match="aside">
-  <aside class="{ @class }"><xsl:value-of select="."/></aside>
-</xsl:template>
-
 <xsl:template match="figure">
   <figure>
     <img src="{ @src }"/>
     <figcaption><xsl:value-of select="."/></figcaption>
   </figure>
-</xsl:template>
-
-<xsl:template match="uml">
-    <xsl:variable name="title"><xsl:value-of select="../@id"/>: <xsl:value-of select="../description/@brief"/></xsl:variable>
-    <pre class="uml">
-    <xsl:apply-templates/>
-    </pre>
-
-    <figcaption>Activity diagram "<xsl:value-of select="$title"/>"</figcaption>
 </xsl:template>
 
 <xsl:template match="idef0">
@@ -274,15 +253,6 @@ which in turn is verified by the Verification plans</figcaption>
 <xsl:template match="satisfies|test">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
     <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
-</xsl:template>
-
-<xsl:template match="reference">
-  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/></xsl:variable>
-<xsl:value-of select="$idref"/>: {
-  title: "<xsl:value-of select="../description/@brief"/>",
-  href: "<xsl:value-of select="@href"/>",
-  publisher: "<xsl:value-of select="@publisher"/>",
-},
 </xsl:template>
 
 <xsl:template match="description" mode="link">

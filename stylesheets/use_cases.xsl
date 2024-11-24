@@ -3,21 +3,14 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:include href="common.xsl"/>
 <xsl:output method="html" indent="yes" />
 
 <xsl:template match="/">
   <html>
   <head>
   <title>Use cases</title>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-<script src="https://code.jquery.com/jquery.min.js"></script>
-<script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
-<script src="../static/main.js"></script>
-  <script class="remove">
-const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
-
-const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>');
-    </script>
+  <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>
   <section id="abstract">
@@ -71,14 +64,9 @@ Use cases helps capture missing high-level requirements.</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
     <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
-    <figure id="{ @id-uml }">
-
-    <pre class="uml">
-    <xsl:apply-templates select="uml"/>
-    </pre>
-
-    <figcaption>Use case "<xsl:value-of select="$title"/>"</figcaption>
-    </figure>
+    <xsl:apply-templates select="uml">
+      <xsl:with-param name="diagram_type">Use case</xsl:with-param>
+    </xsl:apply-templates>
 
     <section>
     <h2 id="{ @id }-pre-conditions">Pre-conditions</h2>
@@ -153,12 +141,6 @@ Use cases helps capture missing high-level requirements.</figcaption>
     <figcaption><xsl:value-of select="."/></figcaption>
   </figure>
 </xsl:template>
-
-<xsl:template match="aside">
-  <aside class="{ @class }"><xsl:value-of select="."/></aside>
-</xsl:template>
-
-<xsl:template match="uml"><xsl:apply-templates/></xsl:template>
 
 <xsl:template match="this">(<xsl:value-of select="../../@id"/>: <xsl:value-of select="../../description/@brief"/>)</xsl:template>
 

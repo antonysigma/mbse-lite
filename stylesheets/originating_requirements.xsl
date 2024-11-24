@@ -3,6 +3,7 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:include href="common.xsl"/>
 <xsl:output method="html" indent="yes" />
 
 <xsl:key name="group_id" match="reference" use="@stakeholder" />
@@ -13,10 +14,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <title>Originating requirements</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
-  <script src="../static/main.js"></script>
-  <script class="remove">
-const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>');
-    </script>
+  <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>
   <section id="abstract">
@@ -125,31 +123,6 @@ updated to ensure that they are coherent and traceable.</p>
 <xsl:template match="trace">
     <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
     <xsl:apply-templates select="//description[../@id=$idref]" mode="link"/>
-</xsl:template>
-
-<xsl:template match="description" mode="link">
-    <li>
-<b>[<a>
-<xsl:attribute name="href">
-  <xsl:choose>
-    <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
-    <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
-    <xsl:otherwise>./product_requirements_specifications.html#</xsl:otherwise>
-  </xsl:choose>
-  <xsl:value-of select="../@id"/>
-</xsl:attribute>
-<xsl:value-of select="../@id"/></a>] <xsl:value-of select="@brief"/>:</b>
-<xsl:value-of select="text()"/>
-    </li>
-</xsl:template>
-
-<xsl:template match="reference">
-  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/>_external</xsl:variable>
-<xsl:value-of select="$idref"/>: {
-  title: "<xsl:value-of select="../description/@brief"/>",
-  href: "<xsl:value-of select="@href"/>",
-  publisher: "<xsl:value-of select="@stakeholder"/>",
-},
 </xsl:template>
 
 </xsl:stylesheet>

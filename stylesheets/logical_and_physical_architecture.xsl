@@ -3,25 +3,14 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:include href="common.xsl" />
 <xsl:output method="html" indent="yes" />
 
 <xsl:template match="/">
   <html>
   <head>
   <title>Logical and physical architecture</title>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-<script src="https://code.jquery.com/jquery.min.js"></script>
-<script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
-<script src="../static/main.js"></script>
-  <script class="remove">
-const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
-
-const local_biblio = {
-<xsl:apply-templates select="//document/reference"/>
-};
-
-const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', local_biblio);
-    </script>
+  <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>
   <section id="abstract">
@@ -119,14 +108,9 @@ internal components of the system.</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
     <div data-format="markdown"><xsl:value-of select="description"/></div>
 
-    <figure id="{ @id }-uml">
-
-    <pre class="uml">
-    <xsl:apply-templates select="uml"/>
-    </pre>
-
-    <figcaption>Component diagram "<xsl:value-of select="$title"/>"</figcaption>
-    </figure>
+    <xsl:apply-templates select="uml">
+      <xsl:with-param name="diagram_type">Component</xsl:with-param>
+    </xsl:apply-templates>
 
     <xsl:apply-templates select="interface"/>
 
@@ -210,8 +194,6 @@ internal components of the system.</figcaption>
 <li><xsl:value-of select="text()"/></li>
 </xsl:template>
 
-<xsl:template match="uml"><xsl:apply-templates/></xsl:template>
-
 <xsl:template match="this">
 <xsl:variable name="idref"><xsl:value-of select="@ref"/></xsl:variable>
 <xsl:variable name="label">"[<xsl:value-of select="@ref"/>] <xsl:value-of select="//*[@id=$idref]/description/@brief"/>"</xsl:variable>
@@ -219,15 +201,6 @@ internal components of the system.</figcaption>
   <xsl:when test="not(@type)">() <xsl:value-of select="$label"/></xsl:when>
   <xsl:otherwise><xsl:value-of select="@type"/><xsl:text> </xsl:text><xsl:value-of select="$label"/></xsl:otherwise>
 </xsl:choose>
-</xsl:template>
-
-<xsl:template match="reference">
-  <xsl:variable name="idref"><xsl:value-of select="translate(../@id, '-', '')"/></xsl:variable>
-<xsl:value-of select="$idref"/>: {
-  title: "<xsl:value-of select="../description/@brief"/>",
-  href: "<xsl:value-of select="@href"/>",
-  publisher: "<xsl:value-of select="@publisher"/>",
-},
 </xsl:template>
 
 <xsl:template match="figure">
