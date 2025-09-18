@@ -139,7 +139,7 @@ internal components of the system.</figcaption>
 
     <section>
     <h2 id="{ $id }"><xsl:value-of select="$title"/></h2>
-    <div data-format="markdown"><xsl:value-of select="description"/></div>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <p>Satisfies:</p>
     <ul>
@@ -206,7 +206,7 @@ internal components of the system.</figcaption>
     </li>
 </xsl:template>
 
-<xsl:template match="mechanical|electrical|software">
+<xsl:template match="mechanical|electrical|software|optical">
 <li><xsl:value-of select="text()"/></li>
 </xsl:template>
 
@@ -228,6 +228,13 @@ internal components of the system.</figcaption>
   href: "<xsl:value-of select="@href"/>",
   publisher: "<xsl:value-of select="@publisher"/>",
 },
+</xsl:template>
+
+<xsl:template match="figure">
+  <figure>
+    <img src="{ @src }"/>
+    <figcaption><xsl:value-of select="."/></figcaption>
+  </figure>
 </xsl:template>
 
 </xsl:stylesheet>

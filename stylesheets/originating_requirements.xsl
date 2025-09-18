@@ -54,8 +54,8 @@ items were selected to capture the behavior (use cases), constraints and perform
 requirements), and interfaces (interfaces) which are typically contained in input documentation.
 Each originating requirement is systematically considered, and then traced to relevant item(s).</p>
 
-<p>Some originating requirements are not traced to anything or are traced to an item that doesn’t
-exactly match – this is part of the requirements analysis process that determines which stakeholder
+<p>Some originating requirements are not traced to anything or are traced to an item that doesn't
+exactly match – this is part of the requirement analysis process that determines which stakeholder
 requirements take precedence, and which will not be included in the current project. During this
 process, the lower level items do not need to be fully defined – that will occur in the next phase – in
 some cases a placeholder for further definition is sufficient.</p>

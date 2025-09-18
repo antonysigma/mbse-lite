@@ -11,6 +11,7 @@ function changeCopyright(config, document) {
  */
 function removeW3CWatermark(config, document) {
     $('body').css('background', 'white');
+    $('.secno').css('color', '#ccc');
 }
 
 function renderPlantUML(config, document) {
@@ -29,16 +30,46 @@ function renderIDEF0(config, document) {
     });
 }
 
-function getRespecConfig(copyright_holder, local_biblio=null) {
+function getLangURL(lang) {
+    return `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/languages/${lang}.min.js`;
+}
+
+async function loadLanguages() {
+    const [hljs_script, ini, python, sql] = await Promise.all([
+        import('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/core.min.js'),
+        import(getLangURL('ini')),
+        import(getLangURL('python')),
+        import(getLangURL('sql')),
+    ]);
+
+    window.hljs = hljs_script.default;
+    hljs.registerLanguage('ini', ini.default);
+    hljs.registerLanguage('python', python.default);
+    hljs.registerLanguage('sql', sql.default);
+}
+
+function applyCustomLanguages() {
+    for (const e of document.querySelectorAll('.ini, .python, .sql')) {
+        window.hljs.highlightElement(e);
+    }
+}
+
+function getRespecConfig(copyright_holder, local_biblio = null) {
     let config = {
-            specStatus: 'unofficial',
-            additionalCopyrightHolders: copyright_holder,
-            preProcess: [renderPlantUML, renderIDEF0],
-            postProcess: [changeCopyright, removeW3CWatermark],
-            alternateFormats: [
-                {label: 'XML', uri: './main.xml'},
-            ],
-        };
+        specStatus: 'unofficial',
+        additionalCopyrightHolders: copyright_holder,
+        preProcess: [
+            renderPlantUML, renderIDEF0,
+            // loadLanguages
+        ],
+        postProcess: [
+            changeCopyright, removeW3CWatermark,
+            // applyCustomLanguages,
+        ],
+        alternateFormats: [
+            {label: 'XML', uri: './main.xml'},
+        ],
+    };
 
     if (local_biblio) {
         config.localBiblio = local_biblio;

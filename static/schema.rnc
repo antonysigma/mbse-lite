@@ -232,7 +232,9 @@ optical = element optical { text }
 # Software or firmware properties of the interface
 software = element software { text }
 document = element document { attlist.document, description, reference }
-attlist.document &= attribute id { ID }
+
+citation_id = xsd:ID { pattern = "\w+\d{4}" }
+attlist.document &= attribute id { citation_id }
 
 ########################################
 # Entry point

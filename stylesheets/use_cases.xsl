@@ -127,7 +127,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
 </xsl:template>
 
 <xsl:template match="description" mode="link">
-<b>[<a>
+<li><b>[<a>
 <xsl:attribute name="href">
   <xsl:choose>
     <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
@@ -138,7 +138,7 @@ Use cases helps capture missing high-level requirements.</figcaption>
   <xsl:value-of select="../@id"/>
 </xsl:attribute>
 <xsl:value-of select="../@id"/></a>] <xsl:value-of select="@brief"/>:</b>
-<xsl:value-of select="text()"/>
+<xsl:value-of select="text()"/></li>
 </xsl:template>
 
 <xsl:template match="pre-condition|main-event|post-condition|alternate-event">
@@ -146,6 +146,13 @@ Use cases helps capture missing high-level requirements.</figcaption>
 </xsl:template>
 
 <xsl:template match="description"><xsl:apply-templates/></xsl:template>
+
+<xsl:template match="figure">
+  <figure>
+    <img src="{ @src }"/>
+    <figcaption><xsl:value-of select="."/></figcaption>
+  </figure>
+</xsl:template>
 
 <xsl:template match="aside">
   <aside class="{ @class }"><xsl:value-of select="."/></aside>

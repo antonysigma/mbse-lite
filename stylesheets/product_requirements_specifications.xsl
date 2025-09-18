@@ -14,7 +14,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.js"></script>
   <script src="../static/main.js"></script>
@@ -144,7 +143,7 @@ which in turn is verified by the Verification plans</figcaption>
 
 <xsl:template match="constraint|performance">
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-    <section data-format="markdown">
+    <section>
     <h2 id="{ $id }"><xsl:value-of select="$id"/>: <xsl:value-of select="description/@brief"/></h2>
 
     <ul>
@@ -152,10 +151,10 @@ which in turn is verified by the Verification plans</figcaption>
     <li><b>Discipline: </b> <xsl:value-of select="categories/@discipline"/></li>
     </ul>
 
-    <div><xsl:apply-templates select="description"/></div>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <xsl:if test="rationale/text() != ''">
-    <p><b>Rationale:</b> <xsl:value-of select="rationale"/></p>
+    <p><b>Rationale: </b><xsl:value-of select="rationale"/></p>
     </xsl:if>
 
     <p>Satisfies:</p>
@@ -205,6 +204,8 @@ which in turn is verified by the Verification plans</figcaption>
       <xsl:variable name="id_descendent"><xsl:value-of select="@ref"/></xsl:variable>
       <xsl:apply-templates select="//behavior[@id=$id_descendent]/function/satisfies"/>
     </xsl:for-each>
+    <xsl:variable name="this_id"><xsl:value-of select="@id"/></xsl:variable>
+    <xsl:apply-templates select="//*[satisfies/@ref=$this_id]/description" mode="link"/>
     </ul>
     </section>
 </xsl:template>
@@ -213,7 +214,7 @@ which in turn is verified by the Verification plans</figcaption>
     <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <xsl:variable name="title"><xsl:value-of select="@id"/>: <xsl:value-of select="description/@brief"/></xsl:variable>
 
-    <section data-format="markdown">
+    <section>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
 
     <ul>
@@ -221,7 +222,7 @@ which in turn is verified by the Verification plans</figcaption>
     <li><b>Discipline: </b> <xsl:value-of select="categories/@discipline"/></li>
     </ul>
 
-    <div><xsl:apply-templates select="description"/></div>
+    <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
     <p>Linked requirements:</p>
     <ul>
@@ -289,13 +290,14 @@ which in turn is verified by the Verification plans</figcaption>
     <xsl:choose>
       <xsl:when test="name(..) = 'interface'">./logical_and_physical_architecture.html#</xsl:when>
       <xsl:when test="name(..) = 'usecase'">./use_cases.html#</xsl:when>
+      <xsl:when test="name(..) = 'orig'">./originating_requirements.html#</xsl:when>
       <xsl:otherwise>#</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
     <li><b>
 <xsl:choose>
-  <xsl:when test="../reference">
+  <xsl:when test="name(..) != 'orig' and ../reference">
     <!-- External document reference -->
     [[<xsl:value-of select="translate(../@id, '-', '')"/>]]
   </xsl:when>
@@ -304,8 +306,8 @@ which in turn is verified by the Verification plans</figcaption>
     [<a href="{ concat($hash, ../@id) }"><xsl:value-of select="../@id"/></a>]
   </xsl:otherwise>
 </xsl:choose>
-<xsl:value-of select="@brief"/>:</b>
-<xsl:value-of select="text()"/>
+<xsl:value-of select="@brief"/>: </b>
+<xsl:value-of select="substring(translate(text(), '&#xA;', ' '), 1, 250)"/>...
     </li>
 </xsl:template>
 
