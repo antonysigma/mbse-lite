@@ -6,19 +6,29 @@ function changeCopyright(config, document) {
     $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
 }
 
-/**
- * Remove the W3C working draft watermark. Use the default white background.
- */
-function removeW3CWatermark(config, document) {
-    $('body').css('background', 'white');
-    $('.secno').css('color', '#ccc');
-}
-
 function renderPlantUML(config, document) {
     $('.uml').each(function() {
         const alt = 'skin rose\n' + $(this).text();
         const src = plantuml_host + window.plantumlEncoder.encode(alt);
         $(this).replaceWith($('<img>').attr('src', src).attr('alt', alt));
+    });
+}
+
+/** Replace all section numbering with the Requirement IDs. */
+function labelSections(config, document) {
+    document.querySelectorAll('.secno').forEach(el => {
+        const next_node = el.nextSibling;
+        if (!next_node) {
+            return;
+        }
+
+        const match = next_node.textContent.match(/^(\w+-[\d\.]+):\s*(.*)$/);
+        if (!match) {
+            return;
+        }
+        el.textContent = match[1] + ' ';
+        next_node.textContent = match[2];
+        el.classList.add('secno-highlight');
     });
 }
 
@@ -63,7 +73,7 @@ function getRespecConfig(copyright_holder, local_biblio = null) {
             // loadLanguages
         ],
         postProcess: [
-            changeCopyright, removeW3CWatermark,
+            changeCopyright, labelSections,
             // applyCustomLanguages,
         ],
         alternateFormats: [

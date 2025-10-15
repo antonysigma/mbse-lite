@@ -12,6 +12,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template match="/" mode="scripts">
+  <style>
+ <!-- Section number use pale color by default. -->
+.secno {
+  color: #ccc;
+}
+.secno-highlight {
+  color: black;
+}
+ <!-- Remove the W3C working draft watermark. Use the default white background. -->
+body {
+  background: white;
+}
+  </style>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
