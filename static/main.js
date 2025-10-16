@@ -3,14 +3,21 @@
  * copyright message.
  */
 function changeCopyright(config, document) {
-    $('.copyright').text('Copyright © ' + config.additionalCopyrightHolders + '.');
+    document.querySelectorAll('.copyright').forEach(el => {
+        el.textContent = `Copyright © ${config.additionalCopyrightHolders}.`;
+    });
 }
 
 function renderPlantUML(config, document) {
-    $('.uml').each(function() {
-        const alt = 'skin rose\n' + $(this).text();
-        const src = plantuml_host + window.plantumlEncoder.encode(alt);
-        $(this).replaceWith($('<img>').attr('src', src).attr('alt', alt));
+    document.querySelectorAll('.uml').forEach(el => {
+        const alt = `skin rose\n${el.textContent}`;
+        const src = window.plantuml_host + window.plantumlEncoder.encode(alt);
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = alt;
+
+        el.replaceWith(img);
     });
 }
 
@@ -33,10 +40,15 @@ function labelSections(config, document) {
 }
 
 function renderIDEF0(config, document) {
-    $('.idef0').each(function() {
-        const alt = $(this).text();
-        const src = idef0svg_host + window.plantumlEncoder.encode(alt);
-        $(this).replaceWith($('<img>').attr('src', src).attr('alt', alt));
+    document.querySelectorAll('.uml').forEach(el => {
+        const alt = `skin rose\n${el.textContent}`;
+        const src = window.idef0svg_host + window.plantumlEncoder.encode(alt);
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = alt;
+
+        el.replaceWith(img);
     });
 }
 

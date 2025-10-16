@@ -26,18 +26,17 @@ body {
 }
   </style>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-  <script src="https://code.jquery.com/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/jmnote/plantuml-encoder/d133f316/dist/plantuml-encoder.min.js"></script>
   <script src="../static/main.js"></script>
   <script class="remove">
-const plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
-const idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
+window.plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
+window.idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
 
 const localBiblio = {
 <xsl:apply-templates select="//document/reference"/>
 };
 
-const respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', localBiblio);
+window.respecConfig = getRespecConfig('<xsl:value-of select="mbse/@copyright"/>', localBiblio);
     </script>
 </xsl:template>
 
