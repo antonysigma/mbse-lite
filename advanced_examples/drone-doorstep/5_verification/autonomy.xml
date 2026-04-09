@@ -1,0 +1,29 @@
+<verification id="ver-1" status="initial">
+<categories method="test" owner="SQA" allocation="autonomy" discipline="sw"/>
+<description brief="Verify valid pose computation">
+1. Operate the localization system with representative sensor inputs.
+1. Confirm that the system outputs a pose estimate usable by downstream planning and control interfaces.
+1. Record the conditions under which the pose is considered valid.
+</description>
+<satisfies ref="sys-1"/>
+</verification>
+
+<verification id="ver-2" status="initial">
+<categories method="test" owner="SQA" allocation="autonomy" discipline="sw"/>
+<description brief="Verify pose publication rate">
+1. Operate the localization system while sampling the published pose interface.
+1. Measure the update rate of the most recent pose estimate.
+1. Confirm that the measured update rate meets the allocated x Hz requirement.
+</description>
+<satisfies ref="sys-2"/>
+</verification>
+
+<verification id="ver-3" status="initial">
+<categories method="inspection" owner="systems" allocation="autonomy" discipline="sw"/>
+<description brief="Assess control command accuracy requirement">
+1. Review the control command requirement and identify the missing accuracy metric and operating conditions.
+1. Define measurable acceptance criteria before attempting a formal verification procedure.
+1. Reclassify this item to a test or analysis method once the requirement becomes verifiable.
+</description>
+<satisfies ref="sys-3"/>
+</verification>

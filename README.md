@@ -82,6 +82,9 @@ requirements and high-level architectures. Update the corresponding reports by
 running either `make all` or `make watch`. Explore how your changes in the
 `example_model/` folder is reflected in the generated reports.
 
+## Advanced examples
+
+- `advanced_examples/drone-doorstop/`: System model of a drone design, imported from [ROS 2 Safety-Critical Working Group](https://github.com/ros-safety/requirements-playground). Alternate link: https://space-ros.github.io/docs/rolling/Related-Projects/Doorstop.html
 
 ## Contributing
 

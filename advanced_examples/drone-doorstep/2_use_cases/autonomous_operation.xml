@@ -1,0 +1,21 @@
+<usecase id="ucd-1" status="initial">
+<uml>
+:Vehicle operator: -- <this/>
+:Autonomy stack: -- <this/>
+</uml>
+<description brief="Autonomous operation">The autonomy stack supports continuous automated vehicle motion.</description>
+
+<satisfies ref="org-1"/>
+
+<pre-condition>The vehicle is in autonomous mode and the required sensors are available.</pre-condition>
+
+<main-event>The localization system computes a valid pose estimate.</main-event>
+<main-event>The localization system publishes the most recent pose estimate for downstream consumers.</main-event>
+<main-event>The planning system generates a trajectory from the current pose.</main-event>
+<main-event>The control system computes a control command from the selected trajectory.</main-event>
+<main-event>The vehicle actuators receive the control command.</main-event>
+
+<post-condition>The autonomy stack continues automated motion with current pose and command information.</post-condition>
+
+<alternate-event>If localization data is invalid or stale, the autonomy stack cannot continue nominal automated motion.</alternate-event>
+</usecase>

@@ -1,0 +1,9 @@
+<orig id="org-1" status="firm">
+<description brief="Autonomous motion support">
+The autonomous driving stack shall support automated vehicle motion by providing localization, planning, and control capabilities that exchange usable state and command information.
+</description>
+<reference
+  stakeholder="Imported Doorstop toy example"
+  href="https://github.com/ros-safety/requirements-playground/tree/master/reqs/sys"
+  title="requirements-playground reqs/sys"/>
+</orig>

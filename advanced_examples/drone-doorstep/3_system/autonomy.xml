@@ -1,0 +1,30 @@
+<constraint id="sys-1" status="initial">
+<categories allocation="sw" discipline="sw" group="Localization"/>
+<description brief="Valid pose computation">The localization system shall compute a valid pose.
+<aside class="note">Imported from Doorstop requirement SYS0001. The source rationale states that planning and control require a valid pose.</aside>
+</description>
+<rationale>Planning and control depend on a usable vehicle pose estimate. This requirement captures the stakeholder intent that downstream autonomy functions must not operate without localization output that the system considers valid.</rationale>
+
+<satisfies ref="ucd-1"/>
+<test ref="ver-1"/>
+</constraint>
+
+<performance id="sys-2" status="initial">
+<categories allocation="sw" discipline="sw" group="Localization"/>
+<description brief="Pose publication rate">The localization system shall make the most recent pose estimate available at x Hz.</description>
+<rationale>Downstream consumers need timely localization data rather than stale state information. This requirement reflects the intent that planning and control receive fresh pose updates at a defined interface rate.</rationale>
+
+<satisfies ref="ucd-1"/>
+<test ref="ver-2"/>
+</performance>
+
+<constraint id="sys-3" status="initial">
+<categories allocation="sw" discipline="sw" group="Control"/>
+<description brief="Control computation">The control system shall compute an accurate control command.
+<aside class="issue">Imported from Doorstop requirement SYS0003. The source explicitly marks this requirement as non-verifiable because no accuracy metric or operating condition is defined.</aside>
+</description>
+<rationale>The stakeholder intent is that the controller produce commands accurate enough for safe and effective vehicle motion. This captures the expected outcome behind the requirement even though the imported source does not yet define measurable acceptance limits.</rationale>
+
+<satisfies ref="ucd-1"/>
+<test ref="ver-3"/>
+</constraint>

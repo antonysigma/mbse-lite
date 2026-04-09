@@ -1,0 +1,47 @@
+<architecture id="pad-1" status="initial" is_logical="true">
+<uml>
+node "Autonomy stack" {
+[Sensors] -- <this ref="int-4"/>
+[Localization subsystem] -- <this ref="int-4"/>
+[Localization subsystem] -- <this ref="int-1"/>
+[Planner] -- <this ref="int-1"/>
+[Planner] -- <this ref="int-2"/>
+[Controller] -- <this ref="int-2"/>
+[Controller] -- <this ref="int-3"/>
+[Vehicle actuators] -- <this ref="int-3"/>
+}
+
+node "Vehicle operator" as Operator
+Operator ..> [Planner]: supervise
+</uml>
+<description brief="Autonomy stack">A logical autonomy stack linking localization, planning, control, and vehicle actuation.</description>
+
+<interface id="int-1">
+<description brief="Pose estimate interface">The localization subsystem publishes the most recent vehicle pose estimate to the planner.</description>
+<software>The interface shall provide the most recent pose estimate at the allocated publication rate.</software>
+
+<satisfies ref="sys-1"/>
+<satisfies ref="sys-2"/>
+</interface>
+
+<interface id="int-2">
+<description brief="Trajectory interface">The planner provides a selected trajectory to the controller.</description>
+<software>The interface shall communicate the current trajectory selected for autonomous motion.</software>
+
+<implements ref="fnc-1.3"/>
+</interface>
+
+<interface id="int-3">
+<description brief="Control command interface">The controller provides control commands to the vehicle actuators.</description>
+<software>The interface shall communicate steering, throttle, and braking commands to the actuation layer.</software>
+
+<satisfies ref="sys-3"/>
+</interface>
+
+<interface id="int-4" external="true">
+<description brief="Sensor observation interface">Vehicle sensors provide observations to the localization subsystem.</description>
+<software>The interface shall provide the sensor observations required for localization.</software>
+
+<implements ref="fnc-1.1"/>
+</interface>
+</architecture>
