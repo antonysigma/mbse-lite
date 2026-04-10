@@ -1,0 +1,9 @@
+<verification id="ver-1" status="initial">
+<categories method="test" owner="SQA" allocation="clock_radio" discipline="sw ee"/>
+<description brief="Verify timestamp representation">
+1. Review the maintained timestamp data structure in the implementation.
+1. Confirm the timestamp contains hour and minute fields.
+1. Confirm hour is constrained to 0 through 23 and minute is constrained to 0 through 59.
+</description>
+<satisfies ref="sys-1"/>
+</verification>

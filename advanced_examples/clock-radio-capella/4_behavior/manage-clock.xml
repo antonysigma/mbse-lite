@@ -1,0 +1,48 @@
+<behavior id="fnc-2" status="initial">
+<idef0>
+<this ref="fnc-2.1"/>
+    ctrl User
+    out CurrentTime
+
+<this ref="fnc-2.2"/>
+    in CurrentTime
+    ctrl ClockRadioHMI
+    out NewCurrentTime
+
+<this ref="fnc-2.3"/>
+    in NewCurrentTime
+    ctrl Clock
+    out Timestamp
+
+<this ref="fnc-2.4"/>
+    in Timestamp
+    ctrl ClockRadioHMI
+    out TimestampDisplay
+</idef0>
+<description brief="Manage clock">Provide current time settings, maintain the current timestamp, and display the current time to the user.</description>
+
+<function id="fnc-2.1" status="initial">
+<description brief="Set current time">The user-facing clock setting function provides the current time input.</description>
+
+<satisfies ref="sys-2"/>
+</function>
+
+<function id="fnc-2.2" status="initial">
+<description brief="Provide current time settings">The HMI propagates current time settings to the clock logic.</description>
+
+<satisfies ref="sys-2"/>
+</function>
+
+<function id="fnc-2.3" status="initial">
+<description brief="Clock timestamp">The clock maintains the internal timestamp.</description>
+
+<satisfies ref="sys-1"/>
+<satisfies ref="sys-2"/>
+</function>
+
+<function id="fnc-2.4" status="initial">
+<description brief="Display time">The display path converts the maintained timestamp into user-visible output.</description>
+
+<satisfies ref="sys-2"/>
+</function>
+</behavior>

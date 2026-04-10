@@ -1,0 +1,31 @@
+<architecture id="pad-3" status="initial" is_logical="false">
+<uml>
+left to right direction
+actor User
+node "Alarm Buttons"
+node "Real-Time Clock"
+node "Alarm Controller"
+
+User -- <this ref="phy-1"/>
+"Alarm Buttons" -- <this ref="phy-1"/>
+
+"Real-Time Clock" -- <this ref="phy-3"/>
+"Alarm Controller" -- <this ref="phy-3"/>
+</uml>
+<description brief="Timing physical view">Physical timing path showing alarm entry and time comparison hardware.</description>
+
+<interface id="phy-1" external="true">
+<description brief="Alarm buttons">The user presses physical buttons to set or enable the alarm.</description>
+<mechanical>The alarm buttons SHALL be accessible from the front panel.</mechanical>
+<electrical>The button contacts SHALL convey alarm-setting input into the control electronics.</electrical>
+
+<implements ref="int-1"/>
+</interface>
+
+<interface id="phy-3">
+<description brief="Clock wire">A wire carries timing data from the real-time clock to the alarm controller.</description>
+<electrical>The timing wire SHALL carry current time data from the clock circuit to the alarm controller.</electrical>
+
+<implements ref="int-4"/>
+</interface>
+</architecture>

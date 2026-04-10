@@ -1,0 +1,39 @@
+<architecture id="lad-1" status="initial" is_logical="true">
+<uml>
+left to right direction
+actor User
+node "Clock Radio"
+actor "Radio Transmitter" as TX
+
+User -- <this ref="int-1"/>
+"Clock Radio" -- <this ref="int-1"/>
+
+User -- <this ref="int-2"/>
+"Clock Radio" -- <this ref="int-2"/>
+
+TX -- <this ref="int-3"/>
+"Clock Radio" -- <this ref="int-3"/>
+</uml>
+<description brief="Clock radio logical context">Top-level logical context for a radio receiver alarm clock.</description>
+
+<interface id="int-1" external="true">
+<description brief="Alarm time input">The user enters the alarm time and enables or disables the alarm.</description>
+<software>The interface SHALL accept alarm time and alarm enable input from the user.</software>
+
+<satisfies ref="sys-3"/>
+</interface>
+
+<interface id="int-2" external="true">
+<description brief="Audio output">The clock radio provides audible output to the user.</description>
+<software>The interface SHALL provide audible radio or alarm output perceived by the user.</software>
+
+<satisfies ref="sys-8"/>
+</interface>
+
+<interface id="int-3" external="true">
+<description brief="Radio channel input">The external transmitter provides a radio channel to the clock radio receiver.</description>
+<software>The interface SHALL convey received radio-frequency signal from the external transmitter into the receiver path.</software>
+
+<satisfies ref="sys-7"/>
+</interface>
+</architecture>

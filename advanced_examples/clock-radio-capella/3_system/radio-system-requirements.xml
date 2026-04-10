@@ -1,0 +1,49 @@
+<constraint id="sys-4" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Radio"/>
+<description brief="Trigger alarm in automatic mode">The clock radio SHALL trigger an alarm when the current time equals the configured alarm time while the system is in `Radio AUTO` mode.</description>
+<rationale>The automatic mode exists so the device can remain quiet until the scheduled wake-up condition occurs.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="org-4"/>
+<test ref="ver-3"/>
+</constraint>
+
+<constraint id="sys-5" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Radio"/>
+<description brief="Limit automatic ringing duration">In `Radio AUTO` mode, the ringing state SHALL return to silent after an alarm timeout of 59 minutes.</description>
+<rationale>The wake-up function should not leave the device ringing indefinitely after the alarm has been triggered.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="org-4"/>
+<test ref="ver-3"/>
+</constraint>
+
+<constraint id="sys-7" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Radio"/>
+<description brief="Decode radio waves">The clock radio SHALL receive radio waves from the external transmitter and decode them into radio signals using the current frequency setting.</description>
+<rationale>The user expects the device to transform incoming radio transmission into an internal signal usable for playback.</rationale>
+
+<satisfies ref="ucd-3"/>
+<test ref="ver-4"/>
+</constraint>
+
+<constraint id="sys-8" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Radio"/>
+<description brief="Broadcast radio sound">The clock radio SHALL broadcast radio sound to the user from radio signals, alarm input, activation, and volume level.</description>
+<rationale>The radio path and the alarm path both exist to produce audible output that the user can hear.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="ucd-3"/>
+<test ref="ver-4"/>
+</constraint>
+
+<constraint id="sys-9" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Radio"/>
+<description brief="Support radio operating modes">The clock radio SHALL support the operating modes `Radio OFF`, `Radio ON`, and `Radio AUTO`, with transitions triggered by the `radio off`, `radio on`, and `radio auto` events.</description>
+<rationale>The owner wants explicit user-selectable radio behavior rather than a single fixed playback mode.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="ucd-3"/>
+<satisfies ref="org-4"/>
+<test ref="ver-5"/>
+</constraint>

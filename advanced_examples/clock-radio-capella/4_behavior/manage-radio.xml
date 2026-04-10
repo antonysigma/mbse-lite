@@ -1,0 +1,69 @@
+<behavior id="fnc-4" status="initial">
+<idef0>
+<this ref="fnc-4.1"/>
+    ctrl User
+    out Frequency
+    out Volume
+
+<this ref="fnc-4.2"/>
+    ctrl User
+    out RadioOnOff
+
+<this ref="fnc-4.3"/>
+    in Frequency
+    in Volume
+    in RadioOnOff
+    ctrl RadioHMI
+    out CurrentFrequency
+    out VolumeLevel
+    out Activation
+
+<this ref="fnc-4.4"/>
+    in RadioWaves
+    in CurrentFrequency
+    ctrl RadioMMI
+    res RadioTransmitter
+    out RadioSignals
+
+<this ref="fnc-4.5"/>
+    in Alarm
+    in RadioSignals
+    in Activation
+    in VolumeLevel
+    ctrl Radio
+    out RadioSound
+</idef0>
+<description brief="Manage radio">Capture radio settings, decode radio waves, manage radio modes, and broadcast radio sound to the user.</description>
+
+<function id="fnc-4.1" status="initial">
+<description brief="Set radio">The user-facing radio setting function provides tuning and volume input.</description>
+
+<satisfies ref="sys-6"/>
+</function>
+
+<function id="fnc-4.2" status="initial">
+<description brief="Listen to radio">The user consumes radio sound and controls radio mode selection.</description>
+
+<satisfies ref="sys-6"/>
+<satisfies ref="sys-9"/>
+</function>
+
+<function id="fnc-4.3" status="initial">
+<description brief="Provide radio settings">The HMI derives activation, current frequency, and volume level for the radio path.</description>
+
+<satisfies ref="sys-6"/>
+<satisfies ref="sys-9"/>
+</function>
+
+<function id="fnc-4.4" status="initial">
+<description brief="Decode radio waves">The radio MMI decodes incoming radio waves into radio signals.</description>
+
+<satisfies ref="sys-7"/>
+</function>
+
+<function id="fnc-4.5" status="initial">
+<description brief="Broadcast radio">The radio component combines alarm, activation, radio signal, and volume inputs into radio sound.</description>
+
+<satisfies ref="sys-8"/>
+</function>
+</behavior>

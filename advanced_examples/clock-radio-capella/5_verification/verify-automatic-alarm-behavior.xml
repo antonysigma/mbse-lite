@@ -1,0 +1,12 @@
+<verification id="ver-3" status="initial">
+<categories method="test" owner="SQA" allocation="clock_radio" discipline="sw ee"/>
+<description brief="Verify automatic alarm behavior">
+1. Enable the alarm, set an alarm time, and place the radio in `Radio AUTO` mode.
+1. Operate the clock until current time equals alarm time.
+1. Confirm the alarm is triggered at that moment.
+1. Continue operating the device and confirm the ringing state returns to silent after 59 minutes.
+</description>
+<satisfies ref="sys-5"/>
+<satisfies ref="sys-3"/>
+<satisfies ref="sys-4"/>
+</verification>

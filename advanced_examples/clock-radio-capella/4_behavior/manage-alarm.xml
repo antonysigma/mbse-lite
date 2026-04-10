@@ -1,0 +1,43 @@
+<behavior id="fnc-3" status="initial">
+<idef0>
+<this ref="fnc-3.1"/>
+    ctrl User
+    out AlarmTime
+    out AlarmOnOff
+
+<this ref="fnc-3.2"/>
+    in AlarmTime
+    in AlarmOnOff
+    ctrl ClockRadioHMI
+    out CurrentAlarmTime
+    out AlarmActivation
+
+<this ref="fnc-3.3"/>
+    in Timestamp
+    in CurrentAlarmTime
+    in AlarmActivation
+    ctrl AlarmManager
+    ctrl RadioAuto
+    out Alarm
+</idef0>
+<description brief="Manage alarm">Capture alarm settings, derive current alarm data, and trigger the alarm when the current timestamp reaches the configured alarm time in automatic mode.</description>
+
+<function id="fnc-3.1" status="initial">
+<description brief="Set alarm time">The user-facing alarm setting function provides alarm time and alarm activation selection.</description>
+
+<satisfies ref="sys-3"/>
+</function>
+
+<function id="fnc-3.2" status="initial">
+<description brief="Provide alarm settings">The HMI derives current alarm time and alarm activation data for the alarm manager.</description>
+
+<satisfies ref="sys-3"/>
+</function>
+
+<function id="fnc-3.3" status="initial">
+<description brief="Trigger alarm">The alarm manager triggers the alarm when timestamp and alarm conditions are satisfied.</description>
+
+<satisfies ref="sys-4"/>
+<satisfies ref="sys-5"/>
+</function>
+</behavior>

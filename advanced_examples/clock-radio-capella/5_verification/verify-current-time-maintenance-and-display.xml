@@ -1,0 +1,9 @@
+<verification id="ver-2" status="initial">
+<categories method="test" owner="SQA" allocation="clock_radio" discipline="sw ee"/>
+<description brief="Verify current time maintenance and display">
+1. Set the current time through the user interface.
+1. Confirm the maintained timestamp updates to the requested time.
+1. Confirm the displayed timestamp presented to the user matches the maintained timestamp.
+</description>
+<satisfies ref="sys-2"/>
+</verification>

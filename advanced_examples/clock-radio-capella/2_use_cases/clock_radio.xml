@@ -1,0 +1,64 @@
+<usecase id="ucd-1" status="initial">
+<uml>
+:User: -- <this/>
+:Clock Radio: -- <this/>
+</uml>
+<description brief="Trigger an alarm">The clock radio wakes the user at the configured alarm time.</description>
+
+<satisfies ref="org-1"/>
+<satisfies ref="org-4"/>
+
+<pre-condition>The current time is available, alarm settings are configured, and the clock radio is powered.</pre-condition>
+
+<main-event>The user enables the alarm and sets an alarm time.</main-event>
+<main-event>The user selects the radio operating mode and optionally sets radio frequency and volume.</main-event>
+<main-event>The clock maintains the current timestamp.</main-event>
+<main-event>When the current time matches the configured alarm time in automatic mode, the alarm manager triggers the alarm.</main-event>
+<main-event>The radio broadcasts audio output to the user.</main-event>
+
+<post-condition>The user is alerted by the clock radio at the requested time.</post-condition>
+
+<alternate-event>If the alarm is disabled, the radio mode is not automatic, the alarm time is not reached, or radio audio is unavailable, the user is not woken by radio playback.</alternate-event>
+</usecase>
+
+<usecase id="ucd-2" status="initial">
+<uml>
+:User: -- <this/>
+:Clock Radio: -- <this/>
+</uml>
+<description brief="Get time">The user sets or reads the current time from the clock radio.</description>
+
+<satisfies ref="org-2"/>
+
+<pre-condition>The clock radio is powered and the display function is available.</pre-condition>
+
+<main-event>The user sets the current time.</main-event>
+<main-event>The clock function updates the internal timestamp.</main-event>
+<main-event>The display function presents the timestamp to the user.</main-event>
+
+<post-condition>The clock radio shows the current time to the user.</post-condition>
+
+<alternate-event>If the current time is not set, the displayed time may be incorrect.</alternate-event>
+</usecase>
+
+<usecase id="ucd-3" status="initial">
+<uml>
+:User: -- <this/>
+:Clock Radio: -- <this/>
+:Radio Transmitter: -- <this/>
+</uml>
+<description brief="Get news">The user configures the radio and listens to received radio audio.</description>
+
+<satisfies ref="org-3"/>
+<satisfies ref="org-4"/>
+
+<pre-condition>The radio transmitter emits radio waves and the clock radio is powered.</pre-condition>
+
+<main-event>The user sets radio mode, frequency, and volume.</main-event>
+<main-event>The radio subsystem receives and decodes radio waves.</main-event>
+<main-event>The radio subsystem broadcasts radio sound to the user.</main-event>
+
+<post-condition>The user hears radio audio at the configured settings.</post-condition>
+
+<alternate-event>If no usable radio signal is received, radio sound is unavailable to the user.</alternate-event>
+</usecase>

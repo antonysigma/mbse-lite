@@ -1,0 +1,10 @@
+<constraint id="sys-6" status="initial">
+<categories allocation="sw" discipline="sw ee" group="UserInterface"/>
+<description brief="Accept radio settings">The clock radio SHALL accept radio on or off mode selection, frequency, and volume settings from the user and derive activation, current frequency, and volume level data for radio playback.</description>
+<rationale>The user needs direct control over whether radio playback is active and how it should be tuned and heard.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="ucd-3"/>
+<satisfies ref="org-4"/>
+<test ref="ver-4"/>
+</constraint>

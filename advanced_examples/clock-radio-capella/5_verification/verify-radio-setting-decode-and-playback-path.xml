@@ -1,0 +1,12 @@
+<verification id="ver-4" status="initial">
+<categories method="test" owner="SQA" allocation="clock_radio" discipline="sw ee"/>
+<description brief="Verify radio setting, decode, and playback path">
+1. Set radio frequency, volume, and radio on or off selection through the user interface.
+1. Provide a usable radio transmission to the device.
+1. Confirm the device derives current frequency, activation, and volume level from the user settings.
+1. Confirm the radio subsystem decodes radio waves into radio signals and broadcasts radio sound to the user.
+</description>
+<satisfies ref="sys-6"/>
+<satisfies ref="sys-7"/>
+<satisfies ref="sys-8"/>
+</verification>

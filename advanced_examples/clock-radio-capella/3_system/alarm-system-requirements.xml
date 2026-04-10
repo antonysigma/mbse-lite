@@ -1,0 +1,17 @@
+<constraint id="sys-2" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Alarm"/>
+<description brief="Maintain current time and display">The clock radio SHALL accept current time input, maintain the current timestamp, and provide a timestamp display to the user.</description>
+<rationale>The user needs to set the correct time and later read it back from the device display.</rationale>
+
+<satisfies ref="ucd-2"/>
+<test ref="ver-2"/>
+</constraint>
+
+<constraint id="sys-3" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Alarm"/>
+<description brief="Accept alarm settings">The clock radio SHALL accept alarm time and alarm on or off settings from the user and derive current alarm time and alarm activation data for alarm management.</description>
+<rationale>The user needs to decide whether wake-up is enabled and when it should occur.</rationale>
+
+<satisfies ref="ucd-1"/>
+<test ref="ver-3"/>
+</constraint>

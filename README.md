@@ -86,6 +86,9 @@ running either `make all` or `make watch`. Explore how your changes in the
 
 - `advanced_examples/drone-doorstop/`: System model of a drone design, imported from [ROS 2 Safety-Critical Working Group](https://github.com/ros-safety/requirements-playground). Alternate link: https://space-ros.github.io/docs/rolling/Related-Projects/Doorstop.html
 
+- `advanced_examples/clock-radio-capella/`: System model of the clock radio with alarm function, used in hotel rooms.
+Original MBSE system model imported from [Arcadia/Capella getting started tutorial](https://mbse-capella.org/getstarted.html).
+
 ## Contributing
 
 I accept reasonable feature enhancement requests at
@@ -93,19 +96,19 @@ https://github.com/antonysigma/mbse-lite/issues , as well as pull requests.
 
 **Nice to have features**
 
-[ ] Self-documention: create a new folder `design_criteria_model/*.xml` to
+- [ ] Self-documention: create a new folder `design_criteria_model/*.xml` to
 clarify MBSE-lite's own design criteria (e.g. why the absence of editor apps),
 as well as 
 
-[ ] Instructions to decouple the proprietary `model/` folder with the BSD
+- [ ] Instructions to decouple the proprietary `model/` folder with the BSD
 licensed `mbse-lite` folder via the "Copyright" feature.
 
-[ ] Instructions to host the PlantUML and the IDEF-0 diagrams services within
+- [ ] Instructions to host the PlantUML and the IDEF-0 diagram rendering services within
 the company's private network.
 
-[ ] Explore how to transcode the HTML pages to PDFs.
+- [ ] Explore how to transcode the HTML pages to PDFs.
 
-[ ] Visualize the requirement traceability graphs as hierarchy trees, not as a
+- [ ] Visualize the requirement traceability graphs as hierarchy trees, not as a
 mesh.
 
 [ ] Implement other MBSE document templates for auditing purposes.

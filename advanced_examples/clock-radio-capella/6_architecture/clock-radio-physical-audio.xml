@@ -1,0 +1,41 @@
+<architecture id="pad-1" status="initial" is_logical="false">
+<uml>
+left to right direction
+node "Alarm Controller"
+node "Radio Demodulator"
+node "Audio Amplifier"
+node Speaker
+
+"Alarm Controller" -- <this ref="phy-4"/>
+"Audio Amplifier" -- <this ref="phy-4"/>
+
+"Radio Demodulator" -- <this ref="phy-6"/>
+"Audio Amplifier" -- <this ref="phy-6"/>
+
+"Audio Amplifier" -- <this ref="phy-7"/>
+Speaker -- <this ref="phy-7"/>
+</uml>
+<description brief="Audio physical view">Physical audio path showing how alarm and radio audio drive the speaker.</description>
+
+<interface id="phy-4">
+<description brief="Alarm wire">A wire carries alarm trigger output from the alarm controller to the audio path.</description>
+<electrical>The alarm wire SHALL enable the audio path when alarm conditions are met.</electrical>
+
+<implements ref="int-5"/>
+</interface>
+
+<interface id="phy-6">
+<description brief="Audio wire">A wire carries decoded audio signal from the radio demodulator to the audio amplifier.</description>
+<electrical>The analog audio wire SHALL carry demodulated audio from the receiver stage to the amplifier stage.</electrical>
+
+<implements ref="int-6"/>
+</interface>
+
+<interface id="phy-7">
+<description brief="Speaker wire">A wire carries amplified audio from the audio amplifier to the speaker.</description>
+<mechanical>The speaker SHALL be mounted to radiate audible sound from the enclosure.</mechanical>
+<electrical>The speaker wire SHALL carry amplified audio current from the amplifier to the speaker.</electrical>
+
+<implements ref="int-2"/>
+</interface>
+</architecture>

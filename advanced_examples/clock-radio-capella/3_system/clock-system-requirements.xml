@@ -1,0 +1,9 @@
+<constraint id="sys-1" status="initial">
+<categories allocation="sw" discipline="sw ee" group="Clock"/>
+<description brief="Timestamp data type">The clock radio SHALL represent time as a timestamp containing an hour in the range 0 to 23 and a minute in the range 0 to 59.</description>
+<rationale>The user expects the device to store current time and alarm time in a normal daily clock format that is unambiguous for display and alarm triggering.</rationale>
+
+<satisfies ref="ucd-1"/>
+<satisfies ref="ucd-2"/>
+<test ref="ver-1"/>
+</constraint>

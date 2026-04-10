@@ -1,0 +1,27 @@
+<orig id="org-1" status="initial">
+<description brief="Wake up with alarm">
+The user SHALL be able to configure the clock radio to wake them up at the intended alarm time.
+</description>
+<reference stakeholder="Arcadia Clock Radio Example" title="ClockRadio101 Capella source model"/>
+</orig>
+
+<orig id="org-2" status="initial">
+<description brief="Read current time">
+The user SHALL be able to set the current time and read the displayed time from the clock radio.
+</description>
+<reference stakeholder="Arcadia Clock Radio Example" title="ClockRadio101 Capella source model"/>
+</orig>
+
+<orig id="org-3" status="initial">
+<description brief="Get news by radio">
+The user SHALL be able to configure radio playback and listen to radio audio from an external transmitter.
+</description>
+<reference stakeholder="Arcadia Clock Radio Example" title="ClockRadio101 Capella source model"/>
+</orig>
+
+<orig id="org-4" status="initial">
+<description brief="Support radio modes">
+The clock radio SHALL support explicit radio operating modes so the user can keep radio playback on, off, or automatically driven by the alarm.
+</description>
+<reference stakeholder="Arcadia Clock Radio Example" title="ClockRadio101 Capella source model"/>
+</orig>

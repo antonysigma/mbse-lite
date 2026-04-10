@@ -1,0 +1,10 @@
+<verification id="ver-5" status="initial">
+<categories method="test" owner="SQA" allocation="clock_radio" discipline="sw ee"/>
+<description brief="Verify radio operating modes">
+1. Initialize the device and confirm the default radio mode is `Radio OFF`.
+1. Trigger `radio on` and confirm the system enters `Radio ON`.
+1. Trigger `radio auto` and confirm the system enters `Radio AUTO`.
+1. Trigger `radio off` from `Radio ON` and `Radio AUTO` and confirm the system returns to `Radio OFF`.
+</description>
+<satisfies ref="sys-9"/>
+</verification>

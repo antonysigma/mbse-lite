@@ -1,0 +1,43 @@
+<architecture id="lad-2" status="initial" is_logical="true">
+<uml>
+left to right direction
+node Clock
+node "Alarm Controller"
+node "Radio Demodulator"
+node Speaker
+
+Clock -- <this ref="int-4"/>
+"Alarm Controller" -- <this ref="int-4"/>
+
+"Alarm Controller" -- <this ref="int-5"/>
+Speaker -- <this ref="int-5"/>
+
+"Radio Demodulator" -- <this ref="int-6"/>
+Speaker -- <this ref="int-6"/>
+</uml>
+<description brief="Clock radio logical internals">Simplified logical architecture for the receiver alarm clock.</description>
+
+<interface id="int-4">
+<description brief="Clock signal">The clock provides timing information to the alarm controller.</description>
+<software>The interface SHALL communicate current time needed to compare against the configured alarm time.</software>
+
+<satisfies ref="sys-4"/>
+</interface>
+
+<interface id="int-5">
+<description brief="Alarm signal">The alarm controller provides an alarm trigger to the speaker path.</description>
+<software>The interface SHALL communicate alarm activation to the audio output path when alarm conditions are met.</software>
+
+<satisfies ref="sys-4"/>
+<satisfies ref="sys-5"/>
+<satisfies ref="sys-8"/>
+</interface>
+
+<interface id="int-6">
+<description brief="Audio signal">The radio demodulator provides decoded audio to the speaker path.</description>
+<software>The interface SHALL communicate decoded radio audio from the radio demodulator to the speaker path.</software>
+
+<satisfies ref="sys-7"/>
+<satisfies ref="sys-8"/>
+</interface>
+</architecture>

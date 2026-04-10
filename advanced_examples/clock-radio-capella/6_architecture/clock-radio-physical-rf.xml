@@ -1,0 +1,29 @@
+<architecture id="pad-2" status="initial" is_logical="false">
+<uml>
+left to right direction
+actor "Radio Transmitter" as TX
+node Antenna
+node "Radio Demodulator"
+
+TX -- <this ref="phy-2"/>
+Antenna -- <this ref="phy-2"/>
+
+Antenna -- <this ref="phy-5"/>
+"Radio Demodulator" -- <this ref="phy-5"/>
+</uml>
+<description brief="RF physical view">Physical RF path showing broadcast reception from the external transmitter into the receiver hardware.</description>
+
+<interface id="phy-2" external="true">
+<description brief="Antenna">The antenna receives the external radio broadcast.</description>
+<electrical>The RF path SHALL convey received broadcast energy from the antenna into the receiver circuit.</electrical>
+
+<implements ref="int-3"/>
+</interface>
+
+<interface id="phy-5">
+<description brief="RF wire">The antenna feeds RF signal into the radio demodulator.</description>
+<electrical>The RF path SHALL couple the received broadcast signal from the antenna into the demodulator circuitry.</electrical>
+
+<implements ref="int-3"/>
+</interface>
+</architecture>
