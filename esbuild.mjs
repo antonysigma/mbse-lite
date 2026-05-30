@@ -1,9 +1,11 @@
 import esbuild from 'esbuild';
 //import fs from 'node:fs'
 
+const is_network_analysis_app = process.argv.includes('--network-app');
+
 const result = await esbuild.build({
     logLevel: "info",
-    entryPoints: ["src/network-main.ts"],
+    entryPoints: [is_network_analysis_app ? "src/network-main.ts" : "src/respec-main.ts"],
     bundle: true,
     sourcemap: true,
     minify: true,

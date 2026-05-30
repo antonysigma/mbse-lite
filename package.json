@@ -9,8 +9,11 @@
     "url": ""
   },
   "scripts": {
-    "build": "node esbuild.mjs",
-    "watch": "esbuild src/mnetwork-ain.ts --bundle --bundle --watch --outdir=static"
+    "build": "pnpm run build:respec_app && pnpm run build:network_app",
+    "build:network_app": "node esbuild.mjs --network-app",
+    "build:respec_app": "node esbuild.mjs",
+    "watch": "esbuild src/network-main.ts --bundle --watch --outdir=static",
+    "lint": "oxlint src"
   },
   "dependencies": {
     "cytoscape": "^3.30.2",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.25.0",
-    "nodejs": "^0.0.0"
+    "nodejs": "^0.0.0",
+    "oxlint": "^1.67.0"
   }
 }
