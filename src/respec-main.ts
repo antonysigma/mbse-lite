@@ -1,8 +1,8 @@
-import plantumlEncoder from 'plantuml-encoder';
 import hljs from 'highlight.js/lib/core';
-import python_language from 'highlight.js/lib/languages/python';
 import ini_language from 'highlight.js/lib/languages/ini';
+import python_language from 'highlight.js/lib/languages/python';
 import sql_language from 'highlight.js/lib/languages/sql';
+import plantumlEncoder from 'plantuml-encoder';
 
 /**
  * Remove the CC-SA public domain declaration. Replace the line with an explicit
