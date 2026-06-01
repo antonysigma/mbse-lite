@@ -1,4 +1,8 @@
 import plantumlEncoder from 'plantuml-encoder';
+import hljs from 'highlight.js/lib/core';
+import python_language from 'highlight.js/lib/languages/python';
+import ini_language from 'highlight.js/lib/languages/ini';
+import sql_language from 'highlight.js/lib/languages/sql';
 
 /**
  * Remove the CC-SA public domain declaration. Replace the line with an explicit
@@ -48,17 +52,9 @@ function labelSections(_config, _document) {
 };
 
 window.loadLanguages = async () => {
-    const [hljs_script, ini, python, sql] = await Promise.all([
-        import('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/core.min.js'),
-        import(getLangURL('ini')),
-        import(getLangURL('python')),
-        import(getLangURL('sql')),
-    ]);
-
-    window.hljs = hljs_script.default;
-    hljs.registerLanguage('ini', ini.default);
-    hljs.registerLanguage('python', python.default);
-    hljs.registerLanguage('sql', sql.default);
+    hljs.registerLanguage('ini', ini_language);
+    hljs.registerLanguage('python', python_language);
+    hljs.registerLanguage('sql', sql_language);
 };
 
 window.applyCustomLanguages =
