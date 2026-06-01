@@ -1,6 +1,8 @@
 <orig id="org-1" status="firm">
-<description brief="Charging">
-A user should be able to quickly charge the device with a cell phone charger.
-</description>
-<reference stakeholder=""/>
+  <description brief="Charging">
+    A user should be able to quickly charge the device with a cell phone charger.
+  </description>
+  <reference
+    stakeholder=""
+   />
 </orig>

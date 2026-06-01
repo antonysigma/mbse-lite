@@ -1,20 +1,18 @@
 <behavior id="fnc-1" status="initial">
-<idef0>
-<this ref="fnc-2"/>
+  <idef0>
+    <this ref="fnc-2" />
     in CurrentTime
     ctrl User
     out Timestamp
     out TimestampDisplay
-
-<this ref="fnc-3"/>
+    <this ref="fnc-3" />
     in AlarmTime
     in AlarmOnOff
     in Timestamp
     ctrl User
     ctrl RadioAuto
     out Alarm
-
-<this ref="fnc-4"/>
+    <this ref="fnc-4" />
     in Frequency
     in Volume
     in RadioOnOff
@@ -23,10 +21,9 @@
     ctrl User
     ctrl RadioTransmitter
     out RadioSound
-</idef0>
-<description brief="Operate clock radio">Operate the clock, alarm, and radio functions needed by the clock radio, using the logical functions identified in the Capella source model.</description>
-
-<function id="fnc-1.0" status="initial">
-<description brief="Clock radio functional flow">Coordinate the clock, alarm, and radio sub-behaviors for end-to-end clock radio operation.</description>
-</function>
+  </idef0>
+  <description brief="Operate clock radio">Operate the clock, alarm, and radio functions needed by the clock radio, using the logical functions identified in the Capella source model.</description>
+  <function id="fnc-1.0" status="initial">
+    <description brief="Clock radio functional flow">Coordinate the clock, alarm, and radio sub-behaviors for end-to-end clock radio operation.</description>
+  </function>
 </behavior>

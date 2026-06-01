@@ -1,5 +1,5 @@
 <behavior id="fnc-1" status="initial">
-<uml>
+  <uml>
 start
 :Connect device to charger;
 fork
@@ -9,7 +9,7 @@ fork
 fork again
     repeat
     split
-        <this ref="fnc-1.1" />
+    <this ref="fnc-1.1" />
     split again
         :Blink charge indicator yellow;
     end split
@@ -18,13 +18,11 @@ fork again
     :Charge indicator green;
 end fork
 end
-</uml>
-<description brief="Charge device">Charge device</description>
-
-<function id="fnc-1.1" status="initial">
-<description brief="Charge device">The device battery shall charge.</description>
-
-<satisfies ref="sys-1"/>
-<satisfies ref="sys-2"/>
-</function>
+  </uml>
+  <description brief="Charge device">Charge device</description>
+  <function id="fnc-1.1" status="initial">
+    <description brief="Charge device">The device battery shall charge.</description>
+    <satisfies ref="sys-1" />
+    <satisfies ref="sys-2" />
+  </function>
 </behavior>
