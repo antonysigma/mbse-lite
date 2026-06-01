@@ -13,7 +13,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <head>
   <title>Originating requirements</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-  <script src="https://code.jquery.com/jquery.min.js"></script>
   <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>

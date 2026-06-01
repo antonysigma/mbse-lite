@@ -1,7 +1,6 @@
 import './network-main.css';
 
 import cytoscape from 'cytoscape';
-import $ from 'jquery';
 import {marked} from 'marked';
 import {encode as plantumlEncode} from 'plantuml-encoder';
 import Split from 'split-grid';
@@ -32,6 +31,39 @@ type network_t =
         nodes: node_t[],
         edges: edge_t[],
     }
+
+function setLink(targetId: string, href: string, text: string) {
+    const link = document.getElementById(targetId);
+    if (!link) {
+        return;
+    }
+
+    link.href = href;
+    link.textContent = text;
+}
+
+function setPanelSource(panelId: string, src: string) {
+    const panel = document.querySelector<HTMLIFrameElement>(panelId);
+    if (!panel) {
+        return;
+    }
+
+    panel.src = src;
+}
+
+function showRequirement(nodeId: string) {
+    const requirementPanel = document.getElementById('requirement');
+    if (!requirementPanel) {
+        return;
+    }
+
+    for (const child of requirementPanel.querySelectorAll('div')) {
+        child.classList.add('hidden');
+    }
+
+    const requirement = document.getElementById(nodeId);
+    requirement?.classList.remove('hidden');
+}
 
 function filterNodes(cy: cytoscape, id: string) {
     const selected = cy.$(id);
@@ -246,7 +278,7 @@ function setupNetwork(data: network_t, plantuml_host: string, idef0svg_host: str
         if (params.nodes.length === 1) {
             const node_id = filtered_nodes.get(params.nodes[0]).id;
             const url = `${findReferenceDoc(node_id)}#${node_id}`;
-            $('#source_doc').attr('href', './' + url).text(url);
+            setLink('source_doc', './' + url, url);
 
             var panel_id = '';
             switch (node_id.slice(0, 3)) {
@@ -263,35 +295,34 @@ function setupNetwork(data: network_t, plantuml_host: string, idef0svg_host: str
             }
 
             if (panel_id === '#requirement') {
-                $('#requirement div').addClass('hidden');
-                $('#' + node_id).removeClass('hidden');
+                showRequirement(node_id);
                 return;
             }
 
-            const plantuml_node = $('#' + node_id);
-            if (plantuml_node.length == 0) {
+            const plantuml_node = document.getElementById<HTMLElement>(node_id);
+            if (!plantuml_node) {
                 return;
             }
-            const is_plantuml = plantuml_node.parent('#uml').length;
+            const is_plantuml = plantuml_node.parentElement?.id === 'uml';
 
             if (is_plantuml) {
                 const plantuml_url =
-                    plantuml_host + plantumlEncode('skin rose\n' + plantuml_node.text());
-                $(panel_id).attr('src', plantuml_url);
+                    plantuml_host + plantumlEncode('skin rose\n' + plantuml_node.textContent);
+                setPanelSource(panel_id, plantuml_url);
                 return;
             }
 
             // else idef0
             const idef02svg_url =
-                idef0svg_host + plantumlEncode('skin rose\n' + plantuml_node.text());
-            $(panel_id).attr('src', idef02svg_url);
+                idef0svg_host + plantumlEncode('skin rose\n' + plantuml_node.textContent);
+            setPanelSource(panel_id, idef02svg_url);
         }
     });
 }
 
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
     // Render markdown text
-    for (let el of document.getElementsByClassName('markdown')) {
+    for (const el of document.getElementsByClassName('markdown')) {
         const markdown_text = el.innerText;
         el.innerHTML = marked.parse(markdown_text);
     }
