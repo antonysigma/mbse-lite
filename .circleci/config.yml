@@ -22,3 +22,11 @@ jobs:
       - run:
           name: Validate MBSE model
           command: make validate
+
+      - run:
+          name: Validate MBSE model (clock-radio)
+          command: make validate model_path=advanced_examples/clock-radio-capella/ -Bj
+
+      - run:
+          name: Validate MBSE model (drone)
+          command: make validate model_path=advanced_examples/drone-doorstep/ -Bj
