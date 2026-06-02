@@ -1,18 +1,20 @@
 <behavior id="fnc-1" status="initial">
   <idef0>
-    <this ref="fnc-2" />
+<this ref="fnc-2" />
     in CurrentTime
     ctrl User
     out Timestamp
     out TimestampDisplay
-    <this ref="fnc-3" />
+
+<this ref="fnc-3" />
     in AlarmTime
     in AlarmOnOff
     in Timestamp
     ctrl User
     ctrl RadioAuto
     out Alarm
-    <this ref="fnc-4" />
+
+<this ref="fnc-4" />
     in Frequency
     in Volume
     in RadioOnOff

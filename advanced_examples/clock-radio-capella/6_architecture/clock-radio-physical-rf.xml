@@ -5,15 +5,11 @@ actor "Radio Transmitter" as TX
 node Antenna
 node "Radio Demodulator"
 
-TX --
-    <this ref="phy-2" />
-Antenna --
-    <this ref="phy-2" />
+TX -- <this ref="phy-2" />
+Antenna -- <this ref="phy-2" />
 
-Antenna --
-    <this ref="phy-5" />
-"Radio Demodulator" --
-    <this ref="phy-5" />
+Antenna -- <this ref="phy-5" />
+"Radio Demodulator" -- <this ref="phy-5" />
   </uml>
   <description brief="RF physical view">Physical RF path showing broadcast reception from the external transmitter into the receiver hardware.</description>
   <interface id="phy-2" external="true">

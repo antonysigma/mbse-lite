@@ -6,15 +6,11 @@ node "Alarm Buttons"
 node "Real-Time Clock"
 node "Alarm Controller"
 
-User --
-    <this ref="phy-1" />
-"Alarm Buttons" --
-    <this ref="phy-1" />
+User -- <this ref="phy-1" />
+"Alarm Buttons" -- <this ref="phy-1" />
 
-"Real-Time Clock" --
-    <this ref="phy-3" />
-"Alarm Controller" --
-    <this ref="phy-3" />
+"Real-Time Clock" -- <this ref="phy-3" />
+"Alarm Controller" -- <this ref="phy-3" />
   </uml>
   <description brief="Timing physical view">Physical timing path showing alarm entry and time comparison hardware.</description>
   <interface id="phy-1" external="true">

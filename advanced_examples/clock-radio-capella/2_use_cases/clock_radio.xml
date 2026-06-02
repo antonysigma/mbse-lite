@@ -1,9 +1,7 @@
 <usecase id="ucd-1" status="initial">
   <uml>
-:User: --
-    <this />
-:Clock Radio: --
-    <this />
+:User: -- <this />
+:Clock Radio: -- <this />
   </uml>
   <description brief="Trigger an alarm">The clock radio wakes the user at the configured alarm time.</description>
   <satisfies ref="org-1" />
@@ -19,10 +17,8 @@
 </usecase>
 <usecase id="ucd-2" status="initial">
   <uml>
-:User: --
-    <this />
-:Clock Radio: --
-    <this />
+:User: -- <this />
+:Clock Radio: -- <this />
   </uml>
   <description brief="Get time">The user sets or reads the current time from the clock radio.</description>
   <satisfies ref="org-2" />
@@ -35,12 +31,9 @@
 </usecase>
 <usecase id="ucd-3" status="initial">
   <uml>
-:User: --
-    <this />
-:Clock Radio: --
-    <this />
-:Radio Transmitter: --
-    <this />
+:User: -- <this />
+:Clock Radio: -- <this />
+:Radio Transmitter: -- <this />
   </uml>
   <description brief="Get news">The user configures the radio and listens to received radio audio.</description>
   <satisfies ref="org-3" />

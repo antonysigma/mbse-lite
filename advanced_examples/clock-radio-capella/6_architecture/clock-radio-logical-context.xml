@@ -5,20 +5,14 @@ actor User
 node "Clock Radio"
 actor "Radio Transmitter" as TX
 
-User --
-    <this ref="int-1" />
-"Clock Radio" --
-    <this ref="int-1" />
+User -- <this ref="int-1" />
+"Clock Radio" -- <this ref="int-1" />
 
-User --
-    <this ref="int-2" />
-"Clock Radio" --
-    <this ref="int-2" />
+User -- <this ref="int-2" />
+"Clock Radio" -- <this ref="int-2" />
 
-TX --
-    <this ref="int-3" />
-"Clock Radio" --
-    <this ref="int-3" />
+TX -- <this ref="int-3" />
+"Clock Radio" -- <this ref="int-3" />
   </uml>
   <description brief="Clock radio logical context">Top-level logical context for a radio receiver alarm clock.</description>
   <interface id="int-1" external="true">

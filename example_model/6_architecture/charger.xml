@@ -1,20 +1,15 @@
 <architecture id="pad-1" status="initial">
   <uml>
 node "Charging subsystem" {
-[Data port] --
-    <this ref="int-2" />
+[Data port] -- <this ref="int-2" />
 [Data port] -- (int-3)
 
-[Power port] --
-    <this ref="int-1" />
-[Power port] --
-    <this ref="int-2" />
+[Power port] -- <this ref="int-1" />
+[Power port] -- <this ref="int-2" />
 
-[LEDs] --
-    <this ref="int-2" />
+[LEDs] -- <this ref="int-2" />
 
-[Device housing] --
-    <this ref="int-2" />
+[Device housing] -- <this ref="int-2" />
 
 [PCB] -- [LEDs]
 [PCB] -- [Data port]
@@ -26,10 +21,8 @@ node User
 node "Power supply" as PS
 
 Computer ..> (int-3): use
-User ..>
-    <this ref="int-2" />: use
-PS ..>
-    <this ref="int-1" />: use
+User ..> <this ref="int-2" />: use
+PS ..> <this ref="int-1" />: use
   </uml>
   <description brief="Power">A power port accessible by the user and used to charge the device.</description>
   <interface id="int-1" external="true">

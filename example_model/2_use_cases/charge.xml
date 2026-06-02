@@ -1,9 +1,7 @@
 <usecase id="ucd-1" status="initial">
   <uml>
-:User: --
-    <this />
-:Power Supply: --
-    <this />
+:User: -- <this />
+:Power Supply: -- <this />
   </uml>
   <description brief="Charging">The device battery is re-charged.</description>
   <satisfies ref="org-1" />

@@ -1,9 +1,7 @@
 <usecase id="ucd-1" status="initial">
   <uml>
-:Vehicle operator: --
-    <this />
-:Autonomy stack: --
-    <this />
+:Vehicle operator: -- <this />
+:Autonomy stack: -- <this />
   </uml>
   <description brief="Autonomous operation">The autonomy stack supports continuous automated vehicle motion.</description>
   <satisfies ref="org-1" />

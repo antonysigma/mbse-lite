@@ -1,16 +1,18 @@
 <behavior id="fnc-3" status="initial">
   <idef0>
-    <this ref="fnc-3.1" />
+<this ref="fnc-3.1" />
     ctrl User
     out AlarmTime
     out AlarmOnOff
-    <this ref="fnc-3.2" />
+
+<this ref="fnc-3.2" />
     in AlarmTime
     in AlarmOnOff
     ctrl ClockRadioHMI
     out CurrentAlarmTime
     out AlarmActivation
-    <this ref="fnc-3.3" />
+
+<this ref="fnc-3.3" />
     in Timestamp
     in CurrentAlarmTime
     in AlarmActivation

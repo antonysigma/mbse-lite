@@ -1,17 +1,20 @@
 <behavior id="fnc-2" status="initial">
   <idef0>
-    <this ref="fnc-2.1" />
+<this ref="fnc-2.1" />
     ctrl User
     out CurrentTime
-    <this ref="fnc-2.2" />
+
+<this ref="fnc-2.2" />
     in CurrentTime
     ctrl ClockRadioHMI
     out NewCurrentTime
-    <this ref="fnc-2.3" />
+
+<this ref="fnc-2.3" />
     in NewCurrentTime
     ctrl Clock
     out Timestamp
-    <this ref="fnc-2.4" />
+
+<this ref="fnc-2.4" />
     in Timestamp
     ctrl ClockRadioHMI
     out TimestampDisplay

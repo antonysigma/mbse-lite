@@ -1,13 +1,15 @@
 <behavior id="fnc-4" status="initial">
   <idef0>
-    <this ref="fnc-4.1" />
+<this ref="fnc-4.1" />
     ctrl User
     out Frequency
     out Volume
-    <this ref="fnc-4.2" />
+
+<this ref="fnc-4.2" />
     ctrl User
     out RadioOnOff
-    <this ref="fnc-4.3" />
+
+<this ref="fnc-4.3" />
     in Frequency
     in Volume
     in RadioOnOff
@@ -15,13 +17,15 @@
     out CurrentFrequency
     out VolumeLevel
     out Activation
-    <this ref="fnc-4.4" />
+
+<this ref="fnc-4.4" />
     in RadioWaves
     in CurrentFrequency
     ctrl RadioMMI
     res RadioTransmitter
     out RadioSignals
-    <this ref="fnc-4.5" />
+
+<this ref="fnc-4.5" />
     in Alarm
     in RadioSignals
     in Activation

@@ -6,20 +6,14 @@ node "Alarm Controller"
 node "Radio Demodulator"
 node Speaker
 
-Clock --
-    <this ref="int-4" />
-"Alarm Controller" --
-    <this ref="int-4" />
+Clock -- <this ref="int-4" />
+"Alarm Controller" -- <this ref="int-4" />
 
-"Alarm Controller" --
-    <this ref="int-5" />
-Speaker --
-    <this ref="int-5" />
+"Alarm Controller" -- <this ref="int-5" />
+Speaker -- <this ref="int-5" />
 
-"Radio Demodulator" --
-    <this ref="int-6" />
-Speaker --
-    <this ref="int-6" />
+"Radio Demodulator" -- <this ref="int-6" />
+Speaker -- <this ref="int-6" />
   </uml>
   <description brief="Clock radio logical internals">Simplified logical architecture for the receiver alarm clock.</description>
   <interface id="int-4">

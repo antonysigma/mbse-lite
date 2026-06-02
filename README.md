@@ -2,6 +2,8 @@
 
 System requirement tracking and design synthesis with a simplified schema.
 
+Demo: https://antonysigma.github.io/_static/mbse-lite-demo/clock-radio-capella/product_requirements_specifications.html
+
 A simple platform to organize product design requirements. Text editor only.
 Execute a single command to generate technical document for weekly design review
 meetings. Inspired from [Nichole Kass's online seminar](https://youtu.be/0MjopluRTaw),

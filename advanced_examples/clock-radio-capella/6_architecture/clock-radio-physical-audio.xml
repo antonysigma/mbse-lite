@@ -6,20 +6,14 @@ node "Radio Demodulator"
 node "Audio Amplifier"
 node Speaker
 
-"Alarm Controller" --
-    <this ref="phy-4" />
-"Audio Amplifier" --
-    <this ref="phy-4" />
+"Alarm Controller" -- <this ref="phy-4" />
+"Audio Amplifier" -- <this ref="phy-4" />
 
-"Radio Demodulator" --
-    <this ref="phy-6" />
-"Audio Amplifier" --
-    <this ref="phy-6" />
+"Radio Demodulator" -- <this ref="phy-6" />
+"Audio Amplifier" -- <this ref="phy-6" />
 
-"Audio Amplifier" --
-    <this ref="phy-7" />
-Speaker --
-    <this ref="phy-7" />
+"Audio Amplifier" -- <this ref="phy-7" />
+Speaker -- <this ref="phy-7" />
   </uml>
   <description brief="Audio physical view">Physical audio path showing how alarm and radio audio drive the speaker.</description>
   <interface id="phy-4">

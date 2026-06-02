@@ -1,22 +1,14 @@
 <architecture id="pad-1" status="initial" is_logical="true">
   <uml>
 node "Autonomy stack" {
-[Sensors] --
-    <this ref="int-4" />
-[Localization subsystem] --
-    <this ref="int-4" />
-[Localization subsystem] --
-    <this ref="int-1" />
-[Planner] --
-    <this ref="int-1" />
-[Planner] --
-    <this ref="int-2" />
-[Controller] --
-    <this ref="int-2" />
-[Controller] --
-    <this ref="int-3" />
-[Vehicle actuators] --
-    <this ref="int-3" />
+[Sensors] -- <this ref="int-4" />
+[Localization subsystem] -- <this ref="int-4" />
+[Localization subsystem] -- <this ref="int-1" />
+[Planner] -- <this ref="int-1" />
+[Planner] -- <this ref="int-2" />
+[Controller] -- <this ref="int-2" />
+[Controller] -- <this ref="int-3" />
+[Vehicle actuators] -- <this ref="int-3" />
 }
 
 node "Vehicle operator" as Operator
