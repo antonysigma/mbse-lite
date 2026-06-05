@@ -51,42 +51,42 @@ function labelSections(_config, _document) {
     });
 };
 
-window.loadLanguages = async () => {
+async function loadLanguages() {
     hljs.registerLanguage('ini', ini_language);
     hljs.registerLanguage('python', python_language);
     hljs.registerLanguage('sql', sql_language);
 };
 
-window.applyCustomLanguages =
-    () => {
-        for (const e of document.querySelectorAll('.ini, .python, .sql')) {
-            hljs.highlightElement(e);
-        }
+function applyCustomLanguages() {
+    for (const e of document.querySelectorAll('.ini, .python, .sql')) {
+        hljs.highlightElement(e);
+    }
+};
+
+window.getRespecConfig = (copyright_holder: string, local_biblio: dict|null = null): dict => {
+    let config = {
+        specStatus: 'unofficial',
+        additionalCopyrightHolders: copyright_holder,
+        copyrightStart: 2026,
+        preProcess: [
+            renderPlantUML,
+            renderIDEF0,
+            loadLanguages,
+        ],
+        postProcess: [
+            changeCopyright,
+            labelSections,
+            applyCustomLanguages,
+        ],
+        alternateFormats: [
+            {label: 'XML', uri: './main.xml'},
+        ],
+        localBiblio: {},
     };
 
-          window.getRespecConfig =
-        (copyright_holder: string[], local_biblio: dict|null = null): dict => {
-            let config = {
-                specStatus: 'unofficial',
-                additionalCopyrightHolders: copyright_holder,
-                preProcess: [
-                    renderPlantUML,
-                    renderIDEF0,
-                    // loadLanguages
-                ],
-                postProcess: [
-                    changeCopyright,
-                    labelSections,
-                    // applyCustomLanguages,
-                ],
-                alternateFormats: [
-                    {label: 'XML', uri: './main.xml'},
-                ],
-            };
+    if (local_biblio) {
+        config.localBiblio = local_biblio;
+    }
 
-            if (local_biblio) {
-                config.localBiblio = local_biblio;
-            }
-
-            return config;
-        };
+    return config;
+};
