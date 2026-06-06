@@ -25,8 +25,10 @@ body {
   background: white;
 }
   </style>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"/>
-  <script src="../static/respec-main.js"></script>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer">
+<xsl:comment>Dummy comment to defeat self-closing tags for XML/XHTML output.</xsl:comment></script>
+  <script src="../static/respec-main.js">
+<xsl:comment>Dummy comment to defeat self-closing tags for XML/XHTML output.</xsl:comment></script>
   <script class="remove">
 window.plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 window.idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';

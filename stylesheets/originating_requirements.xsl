@@ -4,7 +4,7 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="common.xsl"/>
-<xsl:output method="html" indent="yes" />
+<xsl:output method="xml" indent="yes" />
 
 <xsl:key name="group_id" match="reference" use="@stakeholder" />
 

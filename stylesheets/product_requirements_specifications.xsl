@@ -5,16 +5,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="common.xsl"/>
 
-<xsl:output method="html" indent="yes" />
+<xsl:output method="xml" indent="yes" />
 <xsl:key name="group_id" match="//categories" use="@group"/>
 
 <xsl:template match="/">
   <html>
   <head>
   <title>Product requirements specification</title>
-  <link rel="stylesheet" href="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.css"/>
-  <script src="https://github.com/tabatkins/railroad-diagrams/raw/gh-pages/railroad.js"></script>
-  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+      <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment></script>
   <xsl:apply-templates select="." mode="scripts"/>
   </head>
   <body>

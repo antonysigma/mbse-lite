@@ -27,7 +27,7 @@ vis:$(prefix)/network.html
 watch: | static/plantuml.jar
 	java -jar static/plantuml.jar -picoweb:8000 & \
 	while true; do \
-		inotifywait -e modify,create,delete -r model/ && \
+		inotifywait -e modify,create,delete -r $(model_path)/ && \
 			sleep 1 && \
 			$(MAKE); \
 	done
