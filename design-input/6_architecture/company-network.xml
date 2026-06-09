@@ -1,0 +1,40 @@
+<architecture id="pad-2" status="initial">
+  <uml>
+cloud "GitHub" {
+  artifact "mbse-lite data backup"
+}
+
+rectangle "Company firewall and gateway" {
+actor "Non-technical authors" as Authors
+actor "Admin"
+
+node "Company laptops" as laptop {
+  artifact "Generated reports"
+}
+<this ref="int-8"/>
+<this ref="int-10"/>
+
+node "Printers"
+node "Company server" as server
+<this ref="int-5"/>
+
+  artifact "Printed reports" as paper
+}
+
+Printers -up- <this ref="int-5"/>
+server -up- <this ref="int-5"/>
+laptop -up- <this ref="int-8"/>
+laptop -- <this ref="int-10"/>
+
+Authors ..> <this ref="int-8" />
+Printers ..> paper: prints
+Admin ..> <this ref="int-5" />
+  </uml>
+  <description brief="Company laptops and rendering servers">Company laptops host proprietary mbse-lite models while shared PlantUML and IDEF0 servers render figures inside the protected company network.</description>
+  <interface id="int-10" external="true">
+    <description brief="Company Ethernet / WiFi">Secure wired / wireless connections to access the company servers.</description>
+    <software>The interface, if wireless, SHALL encrypt incoming and outgoing data.</software>
+    <software>The throughput SHALL be &gt; 1 MB/s, so that the system diagrams can be rendered promptly.</software>
+    <implements ref="int-3"/>
+  </interface>
+</architecture>

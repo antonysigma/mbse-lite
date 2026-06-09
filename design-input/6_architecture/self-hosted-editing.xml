@@ -1,0 +1,76 @@
+<architecture id="lad-1" status="initial" is_logical="true">
+  <uml>
+left to right direction
+actor "Non-technical author" as Author
+actor "Professional author" as Prof
+node "Personal laptop" {
+  artifact "Generated reports" as html_doc
+
+  <this ref="int-7"/>
+  <this ref="int-2" />
+
+  component "Integrated development environment (IDE)" as IDE
+
+  database "Filesystem" {
+    artifact "mbse-lite model" as model
+    <this ref="int-1" />
+  }
+  <this ref="int-9"/>
+}
+cloud "Public PlantUML server" as PublicPlantUML
+
+model - <this ref="int-1"/>
+IDE - <this ref="int-2"/>
+html_doc - <this ref="int-7"/>
+PublicPlantUML - <this ref="int-3" />
+Filesystem -down- <this ref="int-9"/>
+
+Author ...> <this ref="int-1" />: edits
+Prof ...> <this ref="int-2" />
+Author ...> <this ref="int-7"/>: reviews
+html_doc ...> <this ref="int-3"/>: renders
+  </uml>
+  <description brief="Self-hosted editing environment for open-source projects">A personal editing
+  workflow lets a non-technical author maintain MBSE-lite XML models locally and
+  run make occasionally to preview generated reports.
+
+  <aside class="note">Note: Open source projects only.</aside>
+</description>
+  <interface id="int-1" external="true">
+    <description brief="Plain text editor">The author edits XML system models
+    with a plain text editor on a personal laptop.</description>
+    <mechanical>Editing is keyboard oriented, not mouse oriented, for source
+    version control (VCS) purposes.</mechanical>
+    <software>The interface SHALL preserve plain XML files without requiring an
+    MBSE-specific editor application.</software>
+  </interface>
+  <interface id="int-2" external="true">
+    <description brief="Code editing interface">(Optional) The author may use an integrated development environment (IDE) for navigation,
+    search, and XML editing without changing the model format.</description>
+    <software>The interface SHALL expose the same repository files used by
+    vanilla text editors.</software>
+    <software>The interface SHALL have a file browser for quick navigation of
+    all nested folders and XML files.</software>
+  </interface>
+  <interface id="int-3" external="true">
+    <description brief="PlantUML service">A web service that converts PlantUML code to images.</description>
+
+    <software>The interface SHALL send PlantUML text over a RESTful web
+    interface and receive rendered figures.</software>
+    <software>The interface SHALL encode / escape the PlantUML code in Base64 encoding [[RFC4648]].</software>
+    <software>The interface SHALL NOT encrypt the incoming or outgoing data. It
+    is the end user's responsibility to edit / review open source designs
+    only on personal laptops.</software>
+  </interface>
+  <interface id="int-7" external="true">
+    <description brief="Web browser">A document viewer that also supports static
+    figure rendering, hyperlinks, and limited forms of dynamic
+    scripts.</description>
+    <software>The interface SHALL support vector drawings, likely [[SVG]].</software>
+  </interface>
+  <interface id="int-9">
+    <description brief="Filesystem events">An interactive interface to invoke
+    product requirement report generation on demand. Likely used by Linux
+    `inotify` daemon to detect file changes.</description>
+  </interface>
+</architecture>

@@ -1,0 +1,35 @@
+<architecture id="pad-1" status="initial">
+  <uml>
+left to right direction
+cloud "Internet"
+<this ref="int-6"/> as WiFi
+<this ref="int-8"/> as keyboard
+
+actor "Author" as Author
+node "Personal laptop" as laptop
+
+<![CDATA[
+
+Author ..> keyboard
+laptop -left- keyboard
+laptop ..> WiFi
+Internet -left- WiFi
+
+]]>
+  </uml>
+  <description brief="Personal laptop on public WiFi">A personal laptop hosts the mbse-lite checkout, XML models, and generated reports while public WiFi provides optional access to remote PlantUML rendering.</description>
+  <interface id="int-6" external="true">
+    <description brief="Public WiFi">Unprotected wired / wireless connection, e.g. hotel room, cafe, or train WiFi.
+      Assume unprotected data transfer (e.g. [[HTTP11]] plain text protocol rather than HTTPS).</description>
+    <software>The interface shall operate on files stored in the local mbse-lite checkout.</software>
+    <implements ref="int-3"/>
+  </interface>
+  <interface id="int-8" external="true">
+    <description brief="Keyboard">A physical `QWERTY` keyboard. MBSE-lite is meant to be written in plain English, but is not strictly a diagramming tool.
+       Mouse access is optional.</description>
+    <mechanical>The keyboard can be either `QWERTY` or `DVORAK`.</mechanical>
+    <software>The keyboard SHALL support international languages, e.g. French or
+    Chinese, in order to interact with international hardware/software
+    vendors.</software>
+  </interface>
+</architecture>

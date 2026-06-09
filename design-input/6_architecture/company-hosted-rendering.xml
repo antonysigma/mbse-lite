@@ -1,0 +1,47 @@
+<architecture id="lad-2" status="initial" is_logical="true">
+  <uml>
+rectangle "Company firewall" {
+  actor "System authors" as Authors
+  actor "Admin"
+
+  node "Company laptops" {
+    rectangle "Company laptop firewall" {
+      artifact "mbse-lite model" as model
+
+      artifact "Generated reports" as report
+      <this ref="int-7"/>
+      <this ref="int-1" />
+      <this ref="int-2" />
+    }
+  }
+
+  node "Company server" as server {
+    [PlantUML rendering service] -up- <this ref="int-3" />
+    [IDEF0 rendering service] -up- <this ref="int-4" />
+  }
+
+  model -up- <this ref="int-1"/>
+  report -up- <this ref="int-7"/>
+  server -- <this ref="int-5" />
+
+  report ..> <this ref="int-3"/>: renders
+  report ..> <this ref="int-4"/>: renders
+  Authors ..> <this ref="int-1" />: edits
+  Authors ..> <this ref="int-2" />: edits
+  Authors ..> <this ref="int-7" />: reviews
+  Admin ..> <this ref="int-5" />
+}
+
+  </uml>
+  <description brief="Company-hosted rendering environment">Company laptops keep proprietary XML models local while shared PlantUML and IDEF0 rendering servers handle diagram generation behind the company firewall.</description>
+  <interface id="int-4" external="true">
+    <description brief="IDEF0 diagram rendering interface">Company laptops request rendered IDEF0 figures from a shared internal rendering service.</description>
+    <software>The interface shall provide RESTful IDEF0 rendering within the company network.</software>
+    <software>The interface SHALL encode / escape the IDEF0 code in Base64 encoding [[RFC4648]].</software>
+    <software>The interface SHALL NOT encrypt the incoming or outgoing data. It is the responsibility of the company network and the firewall.</software>
+  </interface>
+  <interface id="int-5" external="true">
+    <description brief="Power user interface">Root / administrator access to the company server.</description>
+    <software>The interface SHALL be password / SSH key protected.</software>
+  </interface>
+</architecture>
