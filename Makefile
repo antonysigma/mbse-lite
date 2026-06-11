@@ -1,18 +1,23 @@
 SHELL:=/bin/bash
+respec_exe=./node_modules/.bin/respec
+chromium_exe=/usr/bin/google-chrome
 
 prefix=out
 model_path=example_model
 reports=$(prefix)/originating_requirements.html \
 	$(prefix)/use_cases.html \
 	$(prefix)/product_requirements_specifications.html \
-	$(prefix)/logical_and_physical_architecture.html \
-	$(prefix)/network.html
+	$(prefix)/logical_and_physical_architecture.html
+
 main=$(prefix)/main.xml
 copyright=
 plantuml_host=http://www.plantuml.com
 
 ## Generate all system requirement reports in the `out/` folder.
 all:$(reports)
+
+## Print to PDF files
+pdf: $(reports:.html=.pdf)
 
 ## Validate the system model for broken links.
 validate:$(main) static/schema.rng
@@ -38,6 +43,14 @@ graph: $(prefix)/graphml.xml
 ################################################################################
 $(reports):$(prefix)/%.html:stylesheets/%.xsl $(main)
 	xsltproc -o $@ $^
+
+$(reports:.html=.pdf):%.pdf:%.html | $(chromium_exe)
+	$(chromium_exe) \
+		--headless \
+		--disable-gpu \
+		--no-pdf-header-footer \
+		--print-to-pdf=$@ \
+		file://$(abspath $<)
 
 $(prefix)/graphml.xml:stylesheets/graphml.xsl $(main)
 	xsltproc -o $@ $^
