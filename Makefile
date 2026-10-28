@@ -1,6 +1,7 @@
 SHELL:=/bin/bash
 respec_exe=./node_modules/.bin/respec
 chromium_exe=/usr/bin/google-chrome
+jing_jar=static/jing.jar
 
 prefix=out
 model_path=example_model
@@ -21,9 +22,14 @@ pdf: $(reports:.html=.pdf)
 
 ## Validate the system model for broken links.
 validate:$(main) static/schema.rng
-#	java -jar static/jing.jar -c static/schema.rnc $<
-	xmllint --noout --relaxng static/schema.rng $< &&\
-		echo 'Model validates'
+	@if [ -f "$(jing_jar)" ]; then \
+		java -jar "$(jing_jar)" static/schema.rng $<; \
+	elif command -v xmllint >/dev/null 2>&1; then \
+		xmllint --noout --relaxng static/schema.rng $<; \
+	else \
+		echo "No XML validator found. Commit $(jing_jar) or install libxml2-utils for xmllint." >&2; \
+		exit 127; \
+	fi && echo 'Model validates'
 
 ## Visualize the requirement traceability with the network plot.
 vis:$(prefix)/network.html

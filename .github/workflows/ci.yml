@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  validate:
+    name: Validate MBSE models
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate example model
+        run: make validate
+
+      - name: Validate clock radio example
+        run: make validate model_path=advanced_examples/clock-radio-capella -Bj
+
+      - name: Validate drone example
+        run: make validate model_path=advanced_examples/drone-doorstep -Bj
