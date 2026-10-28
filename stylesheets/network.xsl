@@ -25,7 +25,8 @@ window.network_data = [
 <xsl:apply-templates select="//function" mode="link"/>
 ];
 </script>
-<script src="../static/network-main.js"/>
+<script src="../static/network-main.js">
+  <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment></script>
 </head>
 <body>
 <div id="topbar">

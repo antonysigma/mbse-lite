@@ -84,7 +84,9 @@ which in turn is verified by the Verification plans</figcaption>
   </section>
 
 
-<section id="tof"/>
+<section id="tof">
+  <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment>
+</section>
 
 <section>
 <h2 id="constraints">Constraint specifications</h2>
