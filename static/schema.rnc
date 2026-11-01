@@ -34,7 +34,10 @@ status_attr = [ a:defaultValue = "initial" ] attribute status { STATUS }?
 
 # verbose description of an item, written in Markdown language.
 description =
-  element description { attlist.description, (text | aside | figure)* }
+  element description { attlist.description, (text | aside | figure | math)* }
+
+# LaTeX math expression
+math = element math { text }
 
 # side note
 aside = element aside { attlist.aside, text }

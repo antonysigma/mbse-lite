@@ -63,11 +63,27 @@ function applyCustomLanguages() {
     }
 };
 
+async function renderLatexMath() {
+    await window.MathJax.startup.promise;
+    const elements = document.querySelectorAll("code.latex-math");
+
+  for (const element of elements) {
+    const tex = element.textContent.trim();
+
+    const rendered = await window.MathJax.tex2svgPromise(tex, {display: true});
+
+    element.replaceChildren(rendered);
+  }
+}
+
 window.getRespecConfig = (copyright_holder: string, local_biblio: dict|null = null): dict => {
     let config = {
         specStatus: 'unofficial',
         additionalCopyrightHolders: copyright_holder,
         copyrightStart: 2026,
+        editors: [
+            {name: copyright_holder},
+        ],
         preProcess: [
             renderPlantUML,
             renderIDEF0,
@@ -77,6 +93,7 @@ window.getRespecConfig = (copyright_holder: string, local_biblio: dict|null = nu
             changeCopyright,
             labelSections,
             applyCustomLanguages,
+            renderLatexMath,
         ],
         alternateFormats: [
             {label: 'XML', uri: './main.xml'},
@@ -89,4 +106,9 @@ window.getRespecConfig = (copyright_holder: string, local_biblio: dict|null = nu
     }
 
     return config;
+};
+
+// Disable MathJax's automatic equation rendering
+window.MathJax = {
+    startup: {typeset: false},
 };

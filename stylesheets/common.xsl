@@ -24,6 +24,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 body {
   background: white;
 }
+code.latex-math {
+  all: unset;
+  display: block;
+  margin: 0.5em 0;
+  text-align:center;
+  font-size: 120%;
+}
   </style>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer">
 <xsl:comment>Dummy comment to defeat self-closing tags for XML/XHTML output.</xsl:comment></script>
@@ -32,7 +39,6 @@ body {
   <script class="remove">
 window.plantuml_host = '<xsl:value-of select="mbse/@plantuml_host"/>/plantuml/svg/';
 window.idef0svg_host = '<xsl:value-of select="mbse/@idef0svg_host"/>/svg/';
-
 const localBiblio = {
 <xsl:apply-templates select="//document/reference"/>
 };

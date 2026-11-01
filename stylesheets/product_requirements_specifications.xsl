@@ -12,9 +12,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <html>
   <head>
   <title>Product requirements specification</title>
-  <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-      <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment></script>
   <xsl:apply-templates select="." mode="scripts"/>
+  <script id="MathJax-script" defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js">
+      <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment></script>
   </head>
   <body>
   <section id="abstract">
@@ -286,6 +286,10 @@ which in turn is verified by the Verification plans</figcaption>
   <script>
     <xsl:value-of select="."/>
   </script>
+</xsl:template>
+
+<xsl:template match="math">
+<code class="latex-math"><xsl:value-of select="."/></code>
 </xsl:template>
 
 </xsl:stylesheet>
