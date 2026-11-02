@@ -76,8 +76,15 @@
           <text/>
           <ref name="aside"/>
           <ref name="figure"/>
+          <ref name="math"/>
         </choice>
       </zeroOrMore>
+    </element>
+  </define>
+  <!-- LaTeX math expression -->
+  <define name="math">
+    <element name="math">
+      <text/>
     </element>
   </define>
   <!-- side note -->
@@ -550,9 +557,14 @@
       <ref name="reference"/>
     </element>
   </define>
+  <define name="citation_id">
+    <data type="ID">
+      <param name="pattern">\w+\d{4}</param>
+    </data>
+  </define>
   <define name="attlist.document" combine="interleave">
     <attribute name="id">
-      <ref name="ID"/>
+      <ref name="citation_id"/>
     </attribute>
   </define>
   <!-- Entry point -->

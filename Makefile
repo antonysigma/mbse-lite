@@ -21,9 +21,9 @@ all:$(reports)
 pdf: $(reports:.html=.pdf)
 
 ## Validate the system model for broken links.
-validate:$(main) static/schema.rng
+validate:$(main) static/schema.rnc
 	@if [ -f "$(jing_jar)" ]; then \
-		java -jar "$(jing_jar)" static/schema.rng $<; \
+		java -jar "$(jing_jar)" -c static/schema.rnc $<; \
 	elif command -v xmllint >/dev/null 2>&1; then \
 		xmllint --noout --relaxng static/schema.rng $<; \
 	else \
