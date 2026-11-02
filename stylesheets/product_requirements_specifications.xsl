@@ -115,6 +115,10 @@ which in turn is verified by the Verification plans</figcaption>
   </xsl:for-each>
 </section>
 
+<section id="conformance">
+  <xsl:comment>Dummy comment to defeat XML/XHTML self-pairing tags.</xsl:comment>
+</section>
+
   </body>
   </html>
 </xsl:template>
