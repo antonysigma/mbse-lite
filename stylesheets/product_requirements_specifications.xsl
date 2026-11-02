@@ -174,13 +174,10 @@ which in turn is verified by the Verification plans</figcaption>
     <h2 id="{ @id }"><xsl:value-of select="$title"/></h2>
     <div data-format="markdown"><xsl:apply-templates select="description"/></div>
 
-    <figure id="{ @id }-uml">
-    <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
     <xsl:apply-templates select="uml">
       <xsl:with-param name="diagram_type">Activity</xsl:with-param>
     </xsl:apply-templates>
     <xsl:apply-templates select="idef0"/>
-    </figure>
 
     <xsl:apply-templates select="function"/>
   </section>
@@ -236,12 +233,14 @@ which in turn is verified by the Verification plans</figcaption>
 </xsl:template>
 
 <xsl:template match="idef0">
+  <figure id="{ ../@id }-idef0">
     <xsl:variable name="title"><xsl:value-of select="../@id"/>: <xsl:value-of select="../description/@brief"/></xsl:variable>
     <pre class="idef0">
     <xsl:apply-templates/>
     </pre>
 
     <figcaption>Flow diagram "<xsl:value-of select="$title"/>"</figcaption>
+  </figure>
 </xsl:template>
 
 <xsl:template match="this">
